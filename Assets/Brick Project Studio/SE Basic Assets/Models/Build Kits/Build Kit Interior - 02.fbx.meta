@@ -1,69 +1,11 @@
 fileFormatVersion: 2
-guid: 89af11f9873cf924ca7ef2e59fdb00d6
+guid: a9e9f99803e12424eaa0fcdec266f31e
 ModelImporter:
-  serializedVersion: 23
-  fileIDToRecycleName:
-    100000: //RootNode
-    100002: Int_FloorCeilingFiller_Corner_01
-    100004: Int_FloorCeilingFiller_Corner_02
-    100006: Int_FloorCeilingFiller_Corner_03
-    100008: Int_FloorCeilingFiller_Corner_04
-    100010: Int_FloorCeilingFiller_Wall_01
-    100012: Int_FloorCeilingFiller_Wall_02
-    100014: Int_FloorCeilingFiller_Wall_03
-    100016: Int_Pillar_1x1
-    100018: Int_Pillar_2x2
-    100020: Int_Pillar_3x3
-    100022: Int_Pillar_4x4
-    400000: //RootNode
-    400002: Int_FloorCeilingFiller_Corner_01
-    400004: Int_FloorCeilingFiller_Corner_02
-    400006: Int_FloorCeilingFiller_Corner_03
-    400008: Int_FloorCeilingFiller_Corner_04
-    400010: Int_FloorCeilingFiller_Wall_01
-    400012: Int_FloorCeilingFiller_Wall_02
-    400014: Int_FloorCeilingFiller_Wall_03
-    400016: Int_Pillar_1x1
-    400018: Int_Pillar_2x2
-    400020: Int_Pillar_3x3
-    400022: Int_Pillar_4x4
-    2100000: No Name
-    2300000: Int_FloorCeilingFiller_Corner_01
-    2300002: Int_FloorCeilingFiller_Corner_02
-    2300004: Int_FloorCeilingFiller_Corner_03
-    2300006: Int_FloorCeilingFiller_Corner_04
-    2300008: Int_FloorCeilingFiller_Wall_01
-    2300010: Int_FloorCeilingFiller_Wall_02
-    2300012: Int_FloorCeilingFiller_Wall_03
-    2300014: Int_Pillar_1x1
-    2300016: Int_Pillar_2x2
-    2300018: Int_Pillar_3x3
-    2300020: Int_Pillar_4x4
-    3300000: Int_FloorCeilingFiller_Corner_01
-    3300002: Int_FloorCeilingFiller_Corner_02
-    3300004: Int_FloorCeilingFiller_Corner_03
-    3300006: Int_FloorCeilingFiller_Corner_04
-    3300008: Int_FloorCeilingFiller_Wall_01
-    3300010: Int_FloorCeilingFiller_Wall_02
-    3300012: Int_FloorCeilingFiller_Wall_03
-    3300014: Int_Pillar_1x1
-    3300016: Int_Pillar_2x2
-    3300018: Int_Pillar_3x3
-    3300020: Int_Pillar_4x4
-    4300000: Int_FloorCeilingFiller_Corner_03
-    4300002: Int_FloorCeilingFiller_Corner_02
-    4300004: Int_FloorCeilingFiller_Wall_03
-    4300006: Int_FloorCeilingFiller_Wall_02
-    4300008: Int_FloorCeilingFiller_Corner_01
-    4300010: Int_FloorCeilingFiller_Corner_04
-    4300012: Int_FloorCeilingFiller_Wall_01
-    4300014: Int_Pillar_2x2
-    4300016: Int_Pillar_4x4
-    4300018: Int_Pillar_3x3
-    4300020: Int_Pillar_1x1
+  serializedVersion: 21300
+  internalIDToNameTable: []
   externalObjects: {}
   materials:
-    importMaterials: 1
+    materialImportMode: 2
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -72,6 +14,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 1
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -89,40 +32,53 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
-  copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -132,14 +88,18 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
   humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 
   assetBundleName: 
