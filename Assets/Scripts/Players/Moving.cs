@@ -134,7 +134,7 @@ public class Moving : MonoBehaviour
         //transform.position = pos;
 
         // 防止bouncing
-        //rb.velocity = new Vector3(0, 0, 0);
+        rb.velocity = new Vector3(0, 0, 0);
     }
 
     void OnCollisionEnter(Collision collision)
