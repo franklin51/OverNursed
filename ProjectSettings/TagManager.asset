@@ -10,6 +10,7 @@ TagManager:
   - waypoint
   - task
   - patient
+  - Wall
   layers:
   - Default
   - TransparentFX

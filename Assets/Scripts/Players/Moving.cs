@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Moving : MonoBehaviour
 {
-    public float speed = 0.1f;
+    public float speed = 50f;
     public GameObject patient;
     public GeneratePoint GP;
     public Rigidbody rb;
+    Vector3 m_Input = new Vector3(0, 0, 0);
 
     private bool allow_attached = false; // 可以拿病人嗎
 
@@ -27,25 +28,41 @@ public class Moving : MonoBehaviour
         string name = gameObject.name;
         if (name == "1P")
         {
+            m_Input = new Vector3(0, 0, 0);
             if (Input.GetKey("w"))
             {
                 transform.eulerAngles = new Vector3(0, 0, 0);
-                pos.z += speed;
+                //pos.z += speed;
+                m_Input += new Vector3(0, 0, 1);
+                m_Input.Normalize();
+                //rb.MovePosition(transform.position + m_Input * Time.deltaTime * speed);
             }
             if (Input.GetKey("s"))
             {
                 transform.eulerAngles = new Vector3(0, 180, 0);
-                pos.z -= speed;
+                //pos.z -= speed;
+                m_Input += new Vector3(0, 0, -1);
+                m_Input.Normalize();
+                //rb.MovePosition(transform.position + m_Input * Time.deltaTime * speed);
             }
             if (Input.GetKey("d"))
             {
                 transform.eulerAngles = new Vector3(0, 90, 0);
-                pos.x += speed;
+                //pos.x += speed;
+                m_Input += new Vector3(1, 0, 0);
+                m_Input.Normalize();
+                //rb.MovePosition(transform.position + m_Input * Time.deltaTime * speed);
             }
             if (Input.GetKey("a"))
             {
                 transform.eulerAngles = new Vector3(0, 270, 0);
-                pos.x -= speed;
+                //pos.x -= speed;
+                m_Input += new Vector3(-1, 0, 0);
+                m_Input.Normalize();
+                //rb.MovePosition(transform.position + m_Input * Time.deltaTime * speed);
+            }
+            if(Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s")|| Input.GetKey("d")){
+                rb.MovePosition(transform.position + m_Input * Time.deltaTime * speed);
             }
             if (Input.GetKeyDown("t"))
             {
@@ -62,25 +79,41 @@ public class Moving : MonoBehaviour
         }
         else if (name == "2P")
         {
+            m_Input = new Vector3(0, 0, 0);
             if (Input.GetKey(KeyCode.UpArrow))
             {
                 transform.eulerAngles = new Vector3(0, 0, 0);
-                pos.z += speed;
+                //pos.z += speed;
+                m_Input += new Vector3(0, 0, 1);
+                m_Input.Normalize();
+                //rb.MovePosition(transform.position + m_Input * Time.deltaTime * speed);
             }
             if (Input.GetKey(KeyCode.DownArrow))
             {
                 transform.eulerAngles = new Vector3(0, 180, 0);
-                pos.z -= speed;
+                //pos.z -= speed;
+                m_Input += new Vector3(0, 0, -1);
+                m_Input.Normalize();
+                //rb.MovePosition(transform.position + m_Input * Time.deltaTime * speed);
             }
             if (Input.GetKey(KeyCode.RightArrow))
             {
                 transform.eulerAngles = new Vector3(0, 90, 0);
-                pos.x += speed;
+                //pos.x += speed;
+                m_Input += new Vector3(1, 0, 0);
+                m_Input.Normalize();
+                //rb.MovePosition(transform.position + m_Input * Time.deltaTime * speed);
             }
             if (Input.GetKey(KeyCode.LeftArrow))
             {
                 transform.eulerAngles = new Vector3(0, 270, 0);
-                pos.x -= speed;
+                //pos.x -= speed;
+                m_Input += new Vector3(-1, 0, 0);
+                m_Input.Normalize();
+                //rb.MovePosition(transform.position + m_Input * Time.deltaTime * speed);
+            }
+            if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.UpArrow)){
+                rb.MovePosition(transform.position + m_Input * Time.deltaTime * speed);
             }
             if (Input.GetKeyDown("m"))
             {
@@ -98,10 +131,10 @@ public class Moving : MonoBehaviour
         // 暫時邊界
         // pos.x = (pos.x>30)? 30:((pos.x<0)? 0:pos.x);
         // pos.z = (pos.z > 20) ? 20 : ((pos.z < 0) ? 0 : pos.z);
-        transform.position = pos;
+        //transform.position = pos;
 
         // 防止bouncing
-        rb.velocity = new Vector3(0, 0, 0);
+        //rb.velocity = new Vector3(0, 0, 0);
     }
 
     void OnCollisionEnter(Collision collision)
@@ -110,6 +143,7 @@ public class Moving : MonoBehaviour
         {
             allow_attached = false;
         }
+        
     }
 
     void OnCollisionStay(Collision collision)
@@ -131,6 +165,17 @@ public class Moving : MonoBehaviour
                 patient.GetComponent<Patient>().is_picked = true;
                 patient.transform.SetParent(transform);
             }
+        }
+        if (collision.transform.tag == "Wall")
+        {
+            speed = 50f;
+        }
+    }
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.transform.tag == "Wall")
+        {
+            speed = 100f;
         }
     }
 }
