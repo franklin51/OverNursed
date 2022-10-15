@@ -11,6 +11,8 @@ TagManager:
   - task
   - patient
   - Wall
+  - exit
+  - task2
   layers:
   - Default
   - TransparentFX
