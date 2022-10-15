@@ -16,7 +16,7 @@ public class GeneratePoint : MonoBehaviour
         patient = GameObject.Find("病人");
         myPatients = patient.GetComponent<Patient>();
 
-        GeneratePatient();
+        //GeneratePatient();
     }
 
     // Update is called once per frame

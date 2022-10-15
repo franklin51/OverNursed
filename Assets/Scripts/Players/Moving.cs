@@ -71,6 +71,7 @@ public class Moving : MonoBehaviour
                 {
                     if (patient) {
 						patient.GetComponent<Patient>().is_picked = false;
+                        patient.GetComponent<Patient>().lastPlayer = 1;
                         patient.transform.parent = null;
 					}
                     patient = null;
@@ -121,6 +122,7 @@ public class Moving : MonoBehaviour
                 if (allow_attached == false)
                 {
                     patient.GetComponent<Patient>().is_picked = false;
+                    patient.GetComponent<Patient>().lastPlayer = 2;
                     if (patient)
                         patient.transform.parent = null;
                     patient = null;
