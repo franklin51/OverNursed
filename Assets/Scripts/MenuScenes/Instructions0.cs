@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class OP : MonoBehaviour
+public class Instructions0 : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -14,11 +14,8 @@ public class OP : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.T)){
-			SceneManager.LoadScene("Map_Scene", LoadSceneMode.Single);
-		}
         if(Input.GetKeyDown(KeyCode.M)){
-			SceneManager.LoadScene("Instructions1", LoadSceneMode.Single);
+			SceneManager.LoadScene("OP", LoadSceneMode.Single);
 		}
     }
 }
