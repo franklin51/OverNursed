@@ -5,6 +5,7 @@ using UnityEngine;
 public class Moving : MonoBehaviour
 {
     public float speed = 50f;
+    public float velocity = 50f;
     public GameObject patient;
     public GeneratePoint GP;
     public Rigidbody rb;
@@ -33,37 +34,43 @@ public class Moving : MonoBehaviour
             {
                 transform.eulerAngles = new Vector3(0, 0, 0);
                 //pos.z += speed;
-                m_Input += new Vector3(0, 0, 1);
-                m_Input.Normalize();
+                //m_Input += new Vector3(0, 0, 1);
+                //m_Input.Normalize();
                 //rb.MovePosition(transform.position + m_Input * Time.deltaTime * speed);
+				rb.velocity = new Vector3(0, 0, velocity);
             }
-            if (Input.GetKey("s"))
+            else if (Input.GetKey("s"))
             {
                 transform.eulerAngles = new Vector3(0, 180, 0);
                 //pos.z -= speed;
-                m_Input += new Vector3(0, 0, -1);
-                m_Input.Normalize();
+                //m_Input += new Vector3(0, 0, -1);
+                //m_Input.Normalize();
                 //rb.MovePosition(transform.position + m_Input * Time.deltaTime * speed);
+				rb.velocity = new Vector3(0, 0, -velocity);
             }
-            if (Input.GetKey("d"))
+            else if (Input.GetKey("d"))
             {
                 transform.eulerAngles = new Vector3(0, 90, 0);
                 //pos.x += speed;
-                m_Input += new Vector3(1, 0, 0);
-                m_Input.Normalize();
+                //m_Input += new Vector3(1, 0, 0);
+                //m_Input.Normalize();
                 //rb.MovePosition(transform.position + m_Input * Time.deltaTime * speed);
+				rb.velocity = new Vector3(velocity, 0, 0);
             }
-            if (Input.GetKey("a"))
+            else if (Input.GetKey("a"))
             {
                 transform.eulerAngles = new Vector3(0, 270, 0);
                 //pos.x -= speed;
-                m_Input += new Vector3(-1, 0, 0);
-                m_Input.Normalize();
+                //m_Input += new Vector3(-1, 0, 0);
+                //m_Input.Normalize();
                 //rb.MovePosition(transform.position + m_Input * Time.deltaTime * speed);
+				rb.velocity = new Vector3(-velocity, 0, 0);
             }
-            if(Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s")|| Input.GetKey("d")){
-                rb.MovePosition(transform.position + m_Input * Time.deltaTime * speed);
-            }
+			else
+				rb.velocity = new Vector3(0, 0, 0);
+            //if(Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s")|| Input.GetKey("d")){
+            //    rb.MovePosition(transform.position + m_Input * Time.deltaTime * speed);
+            //}
             if (Input.GetKeyDown("t"))
             {
                 allow_attached = !allow_attached;
@@ -85,37 +92,43 @@ public class Moving : MonoBehaviour
             {
                 transform.eulerAngles = new Vector3(0, 0, 0);
                 //pos.z += speed;
-                m_Input += new Vector3(0, 0, 1);
-                m_Input.Normalize();
+                //m_Input += new Vector3(0, 0, 1);
+                //m_Input.Normalize();
                 //rb.MovePosition(transform.position + m_Input * Time.deltaTime * speed);
+				rb.velocity = new Vector3(0, 0, velocity);
             }
-            if (Input.GetKey(KeyCode.DownArrow))
+            else if (Input.GetKey(KeyCode.DownArrow))
             {
                 transform.eulerAngles = new Vector3(0, 180, 0);
                 //pos.z -= speed;
-                m_Input += new Vector3(0, 0, -1);
-                m_Input.Normalize();
+                //m_Input += new Vector3(0, 0, -1);
+                //m_Input.Normalize();
                 //rb.MovePosition(transform.position + m_Input * Time.deltaTime * speed);
+				rb.velocity = new Vector3(0, 0, -velocity);
             }
-            if (Input.GetKey(KeyCode.RightArrow))
+            else if (Input.GetKey(KeyCode.RightArrow))
             {
                 transform.eulerAngles = new Vector3(0, 90, 0);
                 //pos.x += speed;
-                m_Input += new Vector3(1, 0, 0);
-                m_Input.Normalize();
+                //m_Input += new Vector3(1, 0, 0);
+                //m_Input.Normalize();
                 //rb.MovePosition(transform.position + m_Input * Time.deltaTime * speed);
+				rb.velocity = new Vector3(velocity, 0, 0);
             }
-            if (Input.GetKey(KeyCode.LeftArrow))
+            else if (Input.GetKey(KeyCode.LeftArrow))
             {
                 transform.eulerAngles = new Vector3(0, 270, 0);
                 //pos.x -= speed;
-                m_Input += new Vector3(-1, 0, 0);
-                m_Input.Normalize();
+                //m_Input += new Vector3(-1, 0, 0);
+                //m_Input.Normalize();
                 //rb.MovePosition(transform.position + m_Input * Time.deltaTime * speed);
+				rb.velocity = new Vector3(-velocity, 0, 0);
             }
-            if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.UpArrow)){
-                rb.MovePosition(transform.position + m_Input * Time.deltaTime * speed);
-            }
+			else
+				rb.velocity = new Vector3(0, 0, 0);
+            //if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.UpArrow)){
+            //    rb.MovePosition(transform.position + m_Input * Time.deltaTime * speed);
+            //}
             if (Input.GetKeyDown("m"))
             {
                 allow_attached = !allow_attached;
@@ -136,7 +149,7 @@ public class Moving : MonoBehaviour
         //transform.position = pos;
 
         // 防止bouncing
-        rb.velocity = new Vector3(0, 0, 0);
+        // rb.velocity = new Vector3(0, 0, 0);
     }
 
     void OnCollisionEnter(Collision collision)

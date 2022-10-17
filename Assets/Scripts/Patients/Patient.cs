@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Patient : MonoBehaviour
 {
@@ -9,16 +10,60 @@ public class Patient : MonoBehaviour
     public GeneratePoint GP;
     public int point = 100;
 
+    public string[] mission;
+    public bool[] isComplete;
     public int lastPlayer=0;
     public int ID=0;
     public MissionManager MM;
+    [SerializeField] GameObject DialogText;
 
     // Start is called before the first frame update
     void Start()
     {
         GP = GameObject.Find("生兵點").GetComponent<GeneratePoint>();
         MM = GameObject.Find("MissionManager").GetComponent<MissionManager>();
+        updateDialogString();
 
+    }
+    void updateDialogString(){
+        DialogText.transform.GetComponent<Text>().text = getDialogString();
+    }
+
+    string getDialogString(){
+        string s="";
+        for (int i=0; i<mission.Length; i++){
+            if(isComplete[i]==true){
+                s = s + mission[i] + "√\n";
+            }
+            else{
+                s = s + mission[i] + "\n";
+            }
+        }
+
+        return s;
+    }
+
+    void completeMission(string whatMission){
+        for(int i =0; i<mission.Length; i++){
+            if(mission[i]==whatMission){
+                isComplete[i]=true;
+            }
+        }
+        updateDialogString();
+
+    }
+
+    bool checkAllMissionComplete(){
+        bool check=true;
+        
+        for(int i=0; i<isComplete.Length; i++){
+            if(isComplete[i]==false){
+                check=false;
+                break;
+            }
+        }
+
+        return check;
     }
 
     // Update is called once per frame
@@ -38,13 +83,13 @@ public class Patient : MonoBehaviour
 
     void OnCollisionStay(Collision collision)
     {
-        // 生兵，到時候用結束點代替；消滅
         if (collision.transform.tag == "task" && is_picked == false && !end_task)
         {
             // GP.GeneratePatient();
             // end_task = true;
             // Destroy(gameObject);
             string s="抽血";
+            completeMission(s);
             MM.completeMission(ID,s);
         
         }
@@ -52,6 +97,7 @@ public class Patient : MonoBehaviour
         if (collision.transform.tag == "task2" && is_picked == false && !end_task)
         {
             string s="量身高";
+            completeMission(s);
             MM.completeMission(ID,s);
         
         }

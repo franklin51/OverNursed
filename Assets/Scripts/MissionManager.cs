@@ -33,13 +33,10 @@ public class MissionManager : MonoBehaviour
     // 隨機創任務
     public void createMission(){
         
-        //隨機取一種人
+        
         Random random = new Random();
-        int patientRandom = random.Next(0, patientPrefabs.Length);
-        createPatient(patientRandom, ID);
 
-
-        //每個人隨機取兩個任務
+        //隨機取兩個任務
         List<int> indices = new List<int>();
         while (indices.Count < 2)
         {
@@ -63,6 +60,10 @@ public class MissionManager : MonoBehaviour
 
         Mission newMission = new Mission(ID,missionsRandom);
         missionList.Add(newMission);
+
+        //創patient,隨機取一種人
+        int patientRandom = random.Next(0, patientPrefabs.Length);
+        createPatient(patientRandom, ID, missionsRandom);
 
 
         missionCount+=1;
@@ -124,13 +125,15 @@ public class MissionManager : MonoBehaviour
     }
 
     // 創病人，input病人種類
-    void createPatient(int patientType, int ID){
+    void createPatient(int patientType, int ID, string[] mission){
 
         GameObject generatePoint = GameObject.Find("生兵點");
         var distance = new Vector3(0f, 0f, missionCount*3f);
 
         GameObject patient =Instantiate(patientPrefabs[patientType], generatePoint.transform.position+distance, generatePoint.transform.rotation);
         patient.GetComponent<Patient>().ID=ID;
+        patient.GetComponent<Patient>().mission=mission;
+        patient.GetComponent<Patient>().isComplete = new bool[]{false,false};
 
     }
 
@@ -196,26 +199,6 @@ public class MissionManager : MonoBehaviour
             }
            
         }
-        // if(Input.GetKeyDown(KeyCode.Mouse0)){
-        //     if(missionCount>0){
-        //         int n=2;
-        //         deleteMission(n);
-        //     }
-        //     else{
-        //         Debug.Log("empty");
-        //     }
-           
-        // }
-        // if(Input.GetKeyDown(KeyCode.Mouse0)){
-        //     if(missionCount>0){
-        //         int n=2;
-        //         string s = "抽血";
-        //         completeMission(n,s);
-        //     }
-        //     else{
-        //         Debug.Log("empty");
-        //     }
-           
-        // }
+
     }
 }
