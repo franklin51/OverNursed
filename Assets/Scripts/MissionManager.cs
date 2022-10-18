@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Random = System.Random;
 
 public class MissionManager : MonoBehaviour
@@ -9,10 +10,11 @@ public class MissionManager : MonoBehaviour
     [SerializeField] GameObject[] patientPrefabs;
     [SerializeField] GameObject taskbar;
     [SerializeField] GameObject ScoreBoard;
+    int[] scoreArray = new int[]{0,0};
     int missionCount=0; //存在的任務數
     int ID=0;    //任務編號
     //string[] missionType = new string[]{"抽血","量身高","心電圖","驗尿","量視力","X光"};
-    string[] missionType = new string[]{"抽血","量身高"};
+    string[] missionType = new string[]{"抽血","量身高","心電圖","驗尿","量視力"};
     
     public class Mission
     {
@@ -27,7 +29,7 @@ public class MissionManager : MonoBehaviour
         }
     }
     List<Mission> missionList = new List<Mission>();
-    int[] scoreArray = new int[]{0,0};
+    
     
 
     // 隨機創任務
@@ -200,5 +202,10 @@ public class MissionManager : MonoBehaviour
            
         }
 
+        for(int i=0; i<scoreArray.Length; i++){
+            if(scoreArray[i]>=500){
+                SceneManager.LoadScene("ED", LoadSceneMode.Single);
+            }
+        }
     }
 }

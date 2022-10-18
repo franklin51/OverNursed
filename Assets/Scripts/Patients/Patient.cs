@@ -15,8 +15,11 @@ public class Patient : MonoBehaviour
     public int lastPlayer=0;
     public int ID=0;
     public MissionManager MM;
-    //[SerializeField] GameObject DialogText;
     [SerializeField] GameObject Dialog;
+    [SerializeField] GameObject timerPrefabs;
+
+    //float timer=0;
+
 
     // Start is called before the first frame update
     void Start()
@@ -24,10 +27,13 @@ public class Patient : MonoBehaviour
         GP = GameObject.Find("生兵點").GetComponent<GeneratePoint>();
         MM = GameObject.Find("MissionManager").GetComponent<MissionManager>();
         updateDialogString();
+        Dialog.SetActive(true);
+
+
+
 
     }
     void updateDialogString(){
-        //DialogText.transform.GetComponent<Text>().text = getDialogString();
         Dialog.transform.GetComponentInChildren<Text>().text=getDialogString();
     }
 
@@ -45,10 +51,14 @@ public class Patient : MonoBehaviour
         return s;
     }
 
-    void showDialog(){
-
+    
+    void createTimer(){
+        GameObject timer = Instantiate(timerPrefabs, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+        timer.transform.SetParent (transform.GetChild(1), false);
+        timer.GetComponent<Timer>().lookAt=transform;
     }
 
+  
     void completeMission(string whatMission){
         for(int i =0; i<mission.Length; i++){
             if(mission[i]==whatMission){
@@ -76,9 +86,13 @@ public class Patient : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        // timer +=Time.deltaTime;
+        // if(timer>3){
+        //     Dialog.SetActive(false);
+        // }
     }
 
+    
     void OnCollisionEnter(Collision collision)
     {
         // 碰到任務點，把病人對齊中心
@@ -86,14 +100,34 @@ public class Patient : MonoBehaviour
         {
             transform.position = collision.transform.position;
         }
+
+       
+
+    }
+
+    private bool hasEntered1,hasEntered2,hasEntered3,hasEntered4,hasEntered5;
+
+    void OnCollisionExit(Collision collision)
+    {
+        
     }
 
     void OnCollisionStay(Collision collision)
     {   
+        if (collision.transform.tag == "Player" && is_picked == false)
+        {
+           Dialog.SetActive(true);
+           
+        
+        }
+
 
         if (collision.transform.tag == "task" && is_picked == false && !end_task)
         {
-           
+           if(!hasEntered1){
+            createTimer();
+           }
+           hasEntered1=true;
             string s="抽血";
             completeMission(s);
             MM.completeMission(ID,s);
@@ -102,7 +136,51 @@ public class Patient : MonoBehaviour
 
         if (collision.transform.tag == "task2" && is_picked == false && !end_task)
         {
+
+            if(!hasEntered2){
+            createTimer();
+           }
+           hasEntered2=true;
             string s="量身高";
+            completeMission(s);
+            MM.completeMission(ID,s);
+        
+        }
+
+        if (collision.transform.tag == "task3" && is_picked == false && !end_task)
+        {
+
+            if(!hasEntered3){
+            createTimer();
+           }
+           hasEntered3=true;
+            string s="心電圖";
+            completeMission(s);
+            MM.completeMission(ID,s);
+        
+        }
+
+        if (collision.transform.tag == "task4" && is_picked == false && !end_task)
+        {
+
+            if(!hasEntered4){
+            createTimer();
+           }
+           hasEntered4=true;
+            string s="驗尿";
+            completeMission(s);
+            MM.completeMission(ID,s);
+        
+        }
+
+        if (collision.transform.tag == "task5" && is_picked == false && !end_task)
+        {
+
+            if(!hasEntered5){
+            createTimer();
+           }
+           hasEntered5=true;
+            string s="量視力";
             completeMission(s);
             MM.completeMission(ID,s);
         
