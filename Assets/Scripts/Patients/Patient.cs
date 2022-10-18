@@ -15,7 +15,8 @@ public class Patient : MonoBehaviour
     public int lastPlayer=0;
     public int ID=0;
     public MissionManager MM;
-    [SerializeField] GameObject DialogText;
+    //[SerializeField] GameObject DialogText;
+    [SerializeField] GameObject Dialog;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +27,8 @@ public class Patient : MonoBehaviour
 
     }
     void updateDialogString(){
-        DialogText.transform.GetComponent<Text>().text = getDialogString();
+        //DialogText.transform.GetComponent<Text>().text = getDialogString();
+        Dialog.transform.GetComponentInChildren<Text>().text=getDialogString();
     }
 
     string getDialogString(){
@@ -41,6 +43,10 @@ public class Patient : MonoBehaviour
         }
 
         return s;
+    }
+
+    void showDialog(){
+
     }
 
     void completeMission(string whatMission){
@@ -65,6 +71,7 @@ public class Patient : MonoBehaviour
 
         return check;
     }
+    
 
     // Update is called once per frame
     void Update()
@@ -82,12 +89,11 @@ public class Patient : MonoBehaviour
     }
 
     void OnCollisionStay(Collision collision)
-    {
+    {   
+
         if (collision.transform.tag == "task" && is_picked == false && !end_task)
         {
-            // GP.GeneratePatient();
-            // end_task = true;
-            // Destroy(gameObject);
+           
             string s="抽血";
             completeMission(s);
             MM.completeMission(ID,s);

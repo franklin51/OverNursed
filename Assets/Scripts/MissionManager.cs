@@ -148,7 +148,8 @@ public class MissionManager : MonoBehaviour
             int playerNum=i+1;
             scoreBoardString = "Player"+playerNum.ToString()+": "+scoreArray[i].ToString();
 
-            ScoreBoard.transform.GetChild(i).GetComponent<Text>().text=scoreBoardString;
+            //ScoreBoard.transform.GetChild(i).GetComponent<Text>().text=scoreBoardString;
+            ScoreBoard.transform.GetChild(i).gameObject.transform.GetComponentInChildren<Text>().text=scoreBoardString;
         }
     }
 
