@@ -145,8 +145,7 @@ public class MissionManager : MonoBehaviour
     void updateScoreBoard(){
         for(int i=0; i<ScoreBoard.transform.childCount; i++){
             string scoreBoardString = "";
-            int playerNum=i+1;
-            scoreBoardString = "Player"+playerNum.ToString()+": "+scoreArray[i].ToString();
+            scoreBoardString =scoreArray[i].ToString();
 
             //ScoreBoard.transform.GetChild(i).GetComponent<Text>().text=scoreBoardString;
             ScoreBoard.transform.GetChild(i).gameObject.transform.GetComponentInChildren<Text>().text=scoreBoardString;
