@@ -4470,22 +4470,22 @@ PrefabInstance:
     - target: {fileID: 8364212775065304326, guid: d9294dd7034be0543bf30bcd32cd5133,
         type: 3}
       propertyPath: m_Color.a
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8364212775065304326, guid: d9294dd7034be0543bf30bcd32cd5133,
         type: 3}
       propertyPath: m_Color.b
-      value: 0.21960786
+      value: 0.66665184
       objectReference: {fileID: 0}
     - target: {fileID: 8364212775065304326, guid: d9294dd7034be0543bf30bcd32cd5133,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.21960786
+      value: 0.66665184
       objectReference: {fileID: 0}
     - target: {fileID: 8364212775065304326, guid: d9294dd7034be0543bf30bcd32cd5133,
         type: 3}
       propertyPath: m_Color.r
-      value: 0.21960786
+      value: 0.6698113
       objectReference: {fileID: 0}
     - target: {fileID: 8364212775185265008, guid: d9294dd7034be0543bf30bcd32cd5133,
         type: 3}
