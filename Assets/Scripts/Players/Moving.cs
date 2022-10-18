@@ -12,6 +12,7 @@ public class Moving : MonoBehaviour
     Vector3 m_Input = new Vector3(0, 0, 0);
 
     private bool allow_attached = false; // 可以拿病人嗎
+    private bool already_pick=false;
 
     // Start is called before the first frame update
     void Start()
@@ -77,6 +78,7 @@ public class Moving : MonoBehaviour
                 if (allow_attached == false)
                 {
                     if (patient) {
+                        already_pick=false;
 						patient.GetComponent<Patient>().is_picked = false;
                         patient.GetComponent<Patient>().lastPlayer = 1;
                         patient.transform.parent = null;
@@ -134,6 +136,7 @@ public class Moving : MonoBehaviour
                 allow_attached = !allow_attached;
                 if (allow_attached == false)
                 {
+                    already_pick=false;
                     patient.GetComponent<Patient>().is_picked = false;
                     patient.GetComponent<Patient>().lastPlayer = 2;
                     if (patient)
@@ -165,8 +168,9 @@ public class Moving : MonoBehaviour
     {
         if (collision.transform.tag == "patient")
         {
-            if (allow_attached)
+            if (allow_attached&& !already_pick)
             {
+                already_pick=true;
                 patient = collision.gameObject;
 
                 // 拿起病人時對齊中線
