@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Instructions0 : MonoBehaviour
+public class Instructions1 : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -15,7 +15,7 @@ public class Instructions0 : MonoBehaviour
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.M)){
-			SceneManager.LoadScene("Instructions1", LoadSceneMode.Single);
+			SceneManager.LoadScene("OP", LoadSceneMode.Single);
 		}
     }
 }
