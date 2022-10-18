@@ -149,7 +149,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 111565460}
-  m_Text: "\u6309\u4E92\u52D5\u9375\u5C07\u75C5\u4EBA\u8209\u8D77/\u653E\u4E0B"
+  m_Text: Interact button for lifting and dropping patients
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -509,7 +509,11 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u91CF\u8840\u58D3#"
+  m_Text: '9527
+
+    XXX
+
+    <3'
 --- !u!222 &539383073
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -653,7 +657,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3, y: 0}
+  m_AnchoredPosition: {x: 5, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &707380002
@@ -848,7 +852,7 @@ PrefabInstance:
     - target: {fileID: 7880970886039044016, guid: d36c43225f9391e4c8810c98eb7ef85e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2
+      value: 6.5
       objectReference: {fileID: 0}
     - target: {fileID: 7880970886039044016, guid: d36c43225f9391e4c8810c98eb7ef85e,
         type: 3}
@@ -933,7 +937,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 834068738}
-  m_Text: "\u4EFB\u4E00\u73A9\u5BB6\u5F97\u5230\u6307\u5B9A\u91CF\u91D1\u9322\uFF0C\u904A\u6232\u7D50\u7B97"
+  m_Text: The game will end if any player reaches 500 dollars.
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -1030,7 +1034,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 860340090}
-  m_Text: "\u75C5\u4EBA\u5B8C\u6210\u4EFB\u52D9\u5F8C\uFF0C\u653E\u5230\u51FA\u53E3\u9001\u4ED6\u8D70"
+  m_Text: After completing all tasks, place him on exit plane
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -1416,7 +1420,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1284749372}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.25, y: 0.1, z: -1.5}
+  m_LocalPosition: {x: 7, y: 0.1, z: -1.5}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1439,7 +1443,7 @@ PrefabInstance:
     - target: {fileID: 177407082141715887, guid: 51e437be22296b340954bf6591a60065,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1
+      value: 5.5
       objectReference: {fileID: 0}
     - target: {fileID: 177407082141715887, guid: 51e437be22296b340954bf6591a60065,
         type: 3}
@@ -1542,7 +1546,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1524186025}
-  m_Text: "\u904A\u6232\u8AAA\u660E"
+  m_Text: Instructions
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -1702,7 +1706,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1905231377}
   m_LocalRotation: {x: 0.5735764, y: 0, z: 0, w: 0.8191521}
-  m_LocalPosition: {x: 0, y: 8, z: -5}
+  m_LocalPosition: {x: 0, y: 9, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1735,7 +1739,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1943116998}
-  m_Text: "\u5C07\u75C5\u4EBA\u653E\u5230\u4EFB\u52D9\u683C\u4E0A\u5B8C\u6210\u4EFB\u52D9"
+  m_Text: Place patient on specific plane to complete task
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -1914,7 +1918,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1951462994}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5, y: 0.1, z: -3}
+  m_LocalPosition: {x: 7.5, y: 0.1, z: -3}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2042,7 +2046,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2049231962}
-  m_Text: "\u4F9D\u7167\u5404\u500B\u75C5\u4EBA\u7684\u63D0\u793A\u63D0\u793A\u9032\u884C\u4EFB\u52D9"
+  m_Text: There is a task list above patient's head
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
