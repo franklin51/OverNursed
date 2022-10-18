@@ -33,10 +33,11 @@ public class Timer : MonoBehaviour
     }
 
     IEnumerator timer(){
-        while(i<100){
+        while(i<400){
             i+=1;
-            persentTxt.text = i.ToString();
-            persentShow.fillAmount = i/100f;
+            int j=i/4;
+            persentTxt.text = j.ToString();
+            persentShow.fillAmount = i/400f;
             yield return new WaitForFixedUpdate();
         }
         Destroy(gameObject);

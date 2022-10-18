@@ -14,7 +14,7 @@ public class MissionManager : MonoBehaviour
     int missionCount=0; //存在的任務數
     int ID=0;    //任務編號
     //string[] missionType = new string[]{"抽血","量身高","心電圖","驗尿","量視力","X光"};
-    string[] missionType = new string[]{"抽血","量身高","心電圖","驗尿","量視力"};
+    string[] missionType = new string[]{"blood","height","ECG","urine","visual"};
     
     public class Mission
     {
@@ -162,7 +162,7 @@ public class MissionManager : MonoBehaviour
                 string taskBarString="";
                 for(int j=0;j<missionList[i].type.Length;j++){
                     if(missionList[i].isComplete[j]==true){
-                        taskBarString+=missionList[i].type[j]+"√\n";
+                        taskBarString+=missionList[i].type[j]+" (ok)\n";
                     }
                     else{
                         taskBarString+=missionList[i].type[j]+"\n";

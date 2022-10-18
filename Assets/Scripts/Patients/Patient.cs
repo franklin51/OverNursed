@@ -40,8 +40,10 @@ public class Patient : MonoBehaviour
     string getDialogString(){
         string s="";
         for (int i=0; i<mission.Length; i++){
+
+
             if(isComplete[i]==true){
-                s = s + mission[i] + "√\n";
+                s = s + mission[i] + " (ok)\n";
             }
             else{
                 s = s + mission[i] + "\n";
@@ -128,7 +130,7 @@ public class Patient : MonoBehaviour
             createTimer();
            }
            hasEntered1=true;
-            string s="抽血";
+            string s="blood";
             completeMission(s);
             MM.completeMission(ID,s);
         
@@ -141,7 +143,7 @@ public class Patient : MonoBehaviour
             createTimer();
            }
            hasEntered2=true;
-            string s="量身高";
+            string s="height";
             completeMission(s);
             MM.completeMission(ID,s);
         
@@ -154,7 +156,7 @@ public class Patient : MonoBehaviour
             createTimer();
            }
            hasEntered3=true;
-            string s="心電圖";
+            string s="ECG";
             completeMission(s);
             MM.completeMission(ID,s);
         
@@ -167,7 +169,7 @@ public class Patient : MonoBehaviour
             createTimer();
            }
            hasEntered4=true;
-            string s="驗尿";
+            string s="urine";
             completeMission(s);
             MM.completeMission(ID,s);
         
@@ -180,7 +182,7 @@ public class Patient : MonoBehaviour
             createTimer();
            }
            hasEntered5=true;
-            string s="量視力";
+            string s="visual";
             completeMission(s);
             MM.completeMission(ID,s);
         

@@ -136,11 +136,15 @@ public class Moving : MonoBehaviour
                 allow_attached = !allow_attached;
                 if (allow_attached == false)
                 {
-                    already_pick=false;
-                    patient.GetComponent<Patient>().is_picked = false;
-                    patient.GetComponent<Patient>().lastPlayer = 2;
+                    
                     if (patient)
+                    {
+                        already_pick=false;
+                        patient.GetComponent<Patient>().is_picked = false;
+                        patient.GetComponent<Patient>().lastPlayer = 2;
                         patient.transform.parent = null;
+                    }
+                        
                     patient = null;
                 }
             }
