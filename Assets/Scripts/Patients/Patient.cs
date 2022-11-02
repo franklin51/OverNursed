@@ -19,6 +19,7 @@ public class Patient : MonoBehaviour
     [SerializeField] GameObject timerPrefabs;
 
     //float timer=0;
+	GeneralPatient a;
 
 
     // Start is called before the first frame update
@@ -30,7 +31,7 @@ public class Patient : MonoBehaviour
         Dialog.SetActive(true);
 
 
-
+		
 
     }
     void updateDialogString(){
