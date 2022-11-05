@@ -21,11 +21,19 @@ public class MissionManager : MonoBehaviour
         public int ID;
         public string[] type;
         public bool[] isComplete;
+        public int[] whoComplete;
         public  Mission(int ID, string[] type)
         {
             this.ID = ID;
             this.type = type;
-            isComplete= new bool[]{false,false};
+            this.isComplete= new bool[this.type.Length];
+            for(int i=0;i<this.isComplete.Length;i++){
+                this.isComplete[i]=false;
+            }
+            this.whoComplete = new int[this.type.Length];
+            for(int i=0;i<this.whoComplete.Length;i++){
+                this.whoComplete[i]=0;
+            }
         }
     }
     List<Mission> missionList = new List<Mission>();
@@ -74,7 +82,7 @@ public class MissionManager : MonoBehaviour
         
     }
 
-    public void completeMission(int ID, string whatMission){
+    public void completeMission(int ID, string whatMission,int whoComplete){
         int index=0;
         for(int i=0 ; i<missionList.Count ; i++ ){
             if(missionList[i].ID==ID){
@@ -86,14 +94,14 @@ public class MissionManager : MonoBehaviour
         for(int i =0; i<missionList[index].type.Length; i++){
             if(missionList[index].type[i]==whatMission){
                 missionList[index].isComplete[i]=true;
+                missionList[index].whoComplete[i]=whoComplete;
             }
         }
-
         updateTaskBar();
 
     }
     // 任務完成
-    public void deleteMission(int ID){
+    void deleteMission(int ID){
         int index=0;
         for(int i=0 ; i<missionList.Count ; i++ ){
             if(missionList[i].ID==ID){
@@ -125,6 +133,26 @@ public class MissionManager : MonoBehaviour
         return check;
 
     }
+    public void score(int ID, int player,int point){
+        //scoreArray[0]紀錄1p,scoreArray[1]紀錄2p
+        scoreArray[player-1]+=100; //送出院+100分
+        
+        int index=0;
+        for(int i=0 ; i<missionList.Count ; i++ ){
+            if(missionList[i].ID==ID){
+                index=i;
+                break;
+            }
+        }
+
+        
+        for(int i =0; i<missionList[index].whoComplete.Length; i++){
+            scoreArray[missionList[index].whoComplete[i]-1]+=point;
+        }
+
+        deleteMission(ID);
+        updateScoreBoard();
+    }
 
     // 創病人，input病人種類
     void createPatient(int patientType, int ID, string[] mission){
@@ -139,10 +167,7 @@ public class MissionManager : MonoBehaviour
 
     }
 
-    public void score(int player,int point){
-        scoreArray[player-1]+=point;
-        updateScoreBoard();
-    }
+    
 
     void updateScoreBoard(){
         for(int i=0; i<ScoreBoard.transform.childCount; i++){
@@ -162,7 +187,7 @@ public class MissionManager : MonoBehaviour
                 string taskBarString="";
                 for(int j=0;j<missionList[i].type.Length;j++){
                     if(missionList[i].isComplete[j]==true){
-                        taskBarString+=missionList[i].type[j]+" (ok)\n";
+                        taskBarString+=missionList[i].type[j]+" (p"+missionList[i].whoComplete[j].ToString()+")\n";
                     }
                     else{
                         taskBarString+=missionList[i].type[j]+"\n";

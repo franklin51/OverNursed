@@ -8,7 +8,7 @@ public class Patient : MonoBehaviour
     public bool is_picked = false;
     public bool end_task = false; // 還沒用到
     public GeneratePoint GP;
-    public int point = 100;
+    public int point = 50;
 
     public string[] mission;
     public bool[] isComplete;
@@ -27,12 +27,12 @@ public class Patient : MonoBehaviour
         GP = GameObject.Find("生兵點").GetComponent<GeneratePoint>();
         MM = GameObject.Find("MissionManager").GetComponent<MissionManager>();
         updateDialogString();
-        Dialog.SetActive(true);
-
-
-
-
+        Dialog.SetActive(false);
+        //startCall();
     }
+
+    //protected abstract void startCall();
+    
     void updateDialogString(){
         Dialog.transform.GetComponentInChildren<Text>().text=getDialogString();
     }
@@ -111,7 +111,12 @@ public class Patient : MonoBehaviour
 
     void OnCollisionExit(Collision collision)
     {
+        if (collision.transform.tag == "Player")
+        {
+           Dialog.SetActive(false);
+           
         
+        }
     }
 
     void OnCollisionStay(Collision collision)
@@ -132,7 +137,7 @@ public class Patient : MonoBehaviour
            hasEntered1=true;
             string s="blood";
             completeMission(s);
-            MM.completeMission(ID,s);
+            MM.completeMission(ID,s,lastPlayer);
         
         }
 
@@ -145,7 +150,7 @@ public class Patient : MonoBehaviour
            hasEntered2=true;
             string s="height";
             completeMission(s);
-            MM.completeMission(ID,s);
+            MM.completeMission(ID,s,lastPlayer);
         
         }
 
@@ -158,7 +163,7 @@ public class Patient : MonoBehaviour
            hasEntered3=true;
             string s="ECG";
             completeMission(s);
-            MM.completeMission(ID,s);
+            MM.completeMission(ID,s,lastPlayer);
         
         }
 
@@ -171,7 +176,7 @@ public class Patient : MonoBehaviour
            hasEntered4=true;
             string s="urine";
             completeMission(s);
-            MM.completeMission(ID,s);
+            MM.completeMission(ID,s,lastPlayer);
         
         }
 
@@ -184,17 +189,16 @@ public class Patient : MonoBehaviour
            hasEntered5=true;
             string s="visual";
             completeMission(s);
-            MM.completeMission(ID,s);
+            MM.completeMission(ID,s,lastPlayer);
         
         }
 
         if (collision.transform.tag == "exit" && is_picked == false && !end_task)
         {
             if(MM.checkAllMissionComplete(ID)){
-                
-                MM.deleteMission(ID);
+
                 Destroy(gameObject);
-                MM.score(lastPlayer,point);
+                MM.score(ID,lastPlayer,point);
             }
             else{
                 Debug.Log("任務未完成");
