@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Patient : MonoBehaviour
+// 與操作、碰撞偵測有關的
+public class PatientBaseClass : MonoBehaviour
 {
     public bool is_picked = false;
     public bool end_task = false; // 還沒用到

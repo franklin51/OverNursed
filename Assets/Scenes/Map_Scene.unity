@@ -1299,23 +1299,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 709421353}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &319931572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 319931571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acf512b366e91004c826574cf50d3430, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 50
-  velocity: 50
-  patient: {fileID: 0}
-  GP: {fileID: 0}
-  rb: {fileID: 0}
 --- !u!54 &319931573
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1332,6 +1315,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!114 &319931574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 319931571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d679482c350d9946b863b01867b05ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 40
+  velocity: 50
+  patient: {fileID: 0}
+  GP: {fileID: 0}
+  rb: {fileID: 0}
 --- !u!1 &346925673
 GameObject:
   m_ObjectHideFlags: 0
@@ -5121,23 +5121,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 13950966}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1535752363
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1535752362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acf512b366e91004c826574cf50d3430, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 50
-  velocity: 50
-  patient: {fileID: 0}
-  GP: {fileID: 0}
-  rb: {fileID: 0}
 --- !u!54 &1535752364
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5154,6 +5137,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!114 &1535752365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535752362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d679482c350d9946b863b01867b05ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 40
+  velocity: 50
+  patient: {fileID: 0}
+  GP: {fileID: 0}
+  rb: {fileID: 0}
 --- !u!1001 &1537364973
 PrefabInstance:
   m_ObjectHideFlags: 0

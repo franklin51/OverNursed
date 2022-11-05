@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AngryGrandma : Patient
+public class AngryGrandma : PatientBaseClass
 {
     [SerializeField] GameObject Anger;
 

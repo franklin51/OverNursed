@@ -161,9 +161,9 @@ public class MissionManager : MonoBehaviour
         var distance = new Vector3(0f, 0f, missionCount*3f);
 
         GameObject patient =Instantiate(patientPrefabs[patientType], generatePoint.transform.position+distance, generatePoint.transform.rotation);
-        patient.GetComponent<Patient>().ID=ID;
-        patient.GetComponent<Patient>().mission=mission;
-        patient.GetComponent<Patient>().isComplete = new bool[]{false,false};
+        patient.GetComponent<PatientBaseClass>().ID=ID;
+        patient.GetComponent<PatientBaseClass>().mission=mission;
+        patient.GetComponent<PatientBaseClass>().isComplete = new bool[]{false,false};
 
     }
 

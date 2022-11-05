@@ -5,16 +5,16 @@ using UnityEngine;
 public class GeneratePoint : MonoBehaviour
 {
     public GameObject patient;
-    public Patient myPatients;
+    public PatientBaseClass myPatients;
 
-    public List<Patient> patient_list;
+    public List<PatientBaseClass> patient_list;
 
     // Start is called before the first frame update
     void Start()
     {
         // template
-        patient = GameObject.Find("病人");
-        myPatients = patient.GetComponent<Patient>();
+        /*patient = GameObject.Find("病人");
+        myPatients = patient.GetComponent<PatientBaseClass>();*/
 
         //GeneratePatient();
     }
@@ -29,6 +29,6 @@ public class GeneratePoint : MonoBehaviour
     public void GeneratePatient()
     {
         GameObject temp = Instantiate(patient, transform.position, transform.rotation);
-        patient_list.Add(temp.GetComponent<Patient>());
+        patient_list.Add(temp.GetComponent<PatientBaseClass>());
     }
 }
