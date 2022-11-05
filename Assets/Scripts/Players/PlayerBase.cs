@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Moving : MonoBehaviour
+// 跟操作有關的
+public class PlayerBase : MonoBehaviour
 {
-    public float speed = 50f;
+    public float speed = 40f;
     public float velocity = 50f;
     public GameObject patient;
     public GeneratePoint GP;
@@ -12,7 +13,7 @@ public class Moving : MonoBehaviour
     Vector3 m_Input = new Vector3(0, 0, 0);
 
     private bool allow_attached = false; // 可以拿病人嗎
-    private bool already_pick=false;
+    private bool already_pick=false; // 已經撿起病人了嗎
 
     // Start is called before the first frame update
     void Start()
@@ -188,6 +189,7 @@ public class Moving : MonoBehaviour
                 patient.GetComponent<Patient>().is_picked = true;
                 patient.transform.SetParent(transform);
             }
+            speed = 50f;
         }
         if (collision.transform.tag == "Wall")
         {
@@ -196,7 +198,7 @@ public class Moving : MonoBehaviour
     }
     void OnCollisionExit(Collision collision)
     {
-        if (collision.transform.tag == "Wall")
+        if (collision.transform.tag == "Wall" || collision.transform.tag == "patient")
         {
             speed = 100f;
         }
