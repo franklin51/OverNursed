@@ -40,6 +40,8 @@ public class Timer : MonoBehaviour
             persentShow.fillAmount = i/400f;
             yield return new WaitForFixedUpdate();
         }
+        
+        transform.parent.gameObject.transform.parent.gameObject.transform.GetComponent<PatientBaseClass>().timerEnd();
         Destroy(gameObject);
     }
 }

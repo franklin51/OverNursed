@@ -100,8 +100,8 @@ public class MissionManager : MonoBehaviour
         updateTaskBar();
 
     }
-    // 任務完成
-    void deleteMission(int ID){
+    // 任務刪除
+    public void deleteMission(int ID){
         int index=0;
         for(int i=0 ; i<missionList.Count ; i++ ){
             if(missionList[i].ID==ID){
@@ -150,8 +150,31 @@ public class MissionManager : MonoBehaviour
             scoreArray[missionList[index].whoComplete[i]-1]+=point;
         }
 
-        deleteMission(ID);
         updateScoreBoard();
+    }
+    public string getDialogString(int ID){
+        int index=0;
+        for(int i=0 ; i<missionList.Count ; i++ ){
+            if(missionList[i].ID==ID){
+                index=i;
+                break;
+            }
+        }
+        
+        
+        string s="";
+        for (int i=0; i<missionList[index].type.Length; i++){
+
+
+            if(missionList[index].isComplete[i]==true){
+                s = s + missionList[index].type[i] + " (ok)\n";
+            }
+            else{
+                s = s + missionList[index].type[i] + "\n";
+            }
+        }
+
+        return s;
     }
 
     // 創病人，input病人種類

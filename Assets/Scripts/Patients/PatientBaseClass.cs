@@ -15,6 +15,8 @@ public class PatientBaseClass : MonoBehaviour
     public bool[] isComplete;
     public int lastPlayer=0;
     public int ID=0;
+    public bool doingMission=false;
+    public bool timerOK=false;
     public MissionManager MM;
     [SerializeField] GameObject Dialog;
     [SerializeField] GameObject timerPrefabs;
@@ -23,7 +25,7 @@ public class PatientBaseClass : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         GP = GameObject.Find("生兵點").GetComponent<GeneratePoint>();
         MM = GameObject.Find("MissionManager").GetComponent<MissionManager>();
@@ -32,67 +34,28 @@ public class PatientBaseClass : MonoBehaviour
         //startCall();
     }
 
-    //protected abstract void startCall();
+    public void timerEnd(){
+        timerOK=true;
+
+    }
     
     void updateDialogString(){
-        Dialog.transform.GetComponentInChildren<Text>().text=getDialogString();
+        Dialog.transform.GetComponentInChildren<Text>().text=MM.getDialogString(ID);
     }
-
-    string getDialogString(){
-        string s="";
-        for (int i=0; i<mission.Length; i++){
-
-
-            if(isComplete[i]==true){
-                s = s + mission[i] + " (ok)\n";
-            }
-            else{
-                s = s + mission[i] + "\n";
-            }
-        }
-
-        return s;
-    }
-
-    
+   
     void createTimer(){
         GameObject timer = Instantiate(timerPrefabs, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
         timer.transform.SetParent (transform.GetChild(1), false);
         timer.GetComponent<Timer>().lookAt=transform;
     }
 
-  
-    void completeMission(string whatMission){
-        for(int i =0; i<mission.Length; i++){
-            if(mission[i]==whatMission){
-                isComplete[i]=true;
-            }
-        }
-        updateDialogString();
 
-    }
-
-    bool checkAllMissionComplete(){
-        bool check=true;
-        
-        for(int i=0; i<isComplete.Length; i++){
-            if(isComplete[i]==false){
-                check=false;
-                break;
-            }
-        }
-
-        return check;
-    }
     
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
-        // timer +=Time.deltaTime;
-        // if(timer>3){
-        //     Dialog.SetActive(false);
-        // }
+        
     }
 
     
@@ -133,12 +96,20 @@ public class PatientBaseClass : MonoBehaviour
         if (collision.transform.tag == "task" && is_picked == false && !end_task)
         {
            if(!hasEntered1){
+            doingMission=true;
             createTimer();
            }
            hasEntered1=true;
-            string s="blood";
-            completeMission(s);
-            MM.completeMission(ID,s,lastPlayer);
+
+           if(timerOK==true){
+                timerOK=false;
+                doingMission=false;
+                string s="blood";
+                MM.completeMission(ID,s,lastPlayer);
+                updateDialogString();
+                
+           }
+            
         
         }
 
@@ -146,51 +117,72 @@ public class PatientBaseClass : MonoBehaviour
         {
 
             if(!hasEntered2){
-            createTimer();
+                doingMission=true;
+                createTimer();
            }
            hasEntered2=true;
-            string s="height";
-            completeMission(s);
-            MM.completeMission(ID,s,lastPlayer);
-        
+           if(timerOK==true){
+                timerOK=false;
+                doingMission=false;
+                string s="height";
+                MM.completeMission(ID,s,lastPlayer);
+                updateDialogString();
+                
+           }
         }
 
         if (collision.transform.tag == "task3" && is_picked == false && !end_task)
         {
 
             if(!hasEntered3){
-            createTimer();
+                doingMission=true;
+                createTimer();
            }
            hasEntered3=true;
-            string s="ECG";
-            completeMission(s);
-            MM.completeMission(ID,s,lastPlayer);
-        
+           if(timerOK==true){
+                timerOK=false;
+                doingMission=false;
+                string s="ECG";
+                MM.completeMission(ID,s,lastPlayer);
+                updateDialogString();
+                
+           }
         }
 
         if (collision.transform.tag == "task4" && is_picked == false && !end_task)
         {
 
             if(!hasEntered4){
-            createTimer();
+                doingMission=true;
+                createTimer();
            }
            hasEntered4=true;
-            string s="urine";
-            completeMission(s);
-            MM.completeMission(ID,s,lastPlayer);
-        
+           if(timerOK==true){
+                timerOK=false;
+                doingMission=false;
+                string s="urine";
+                MM.completeMission(ID,s,lastPlayer);
+                updateDialogString();
+                
+           }
         }
 
         if (collision.transform.tag == "task5" && is_picked == false && !end_task)
         {
 
             if(!hasEntered5){
-            createTimer();
+                doingMission=true;
+                createTimer();
            }
            hasEntered5=true;
-            string s="visual";
-            completeMission(s);
-            MM.completeMission(ID,s,lastPlayer);
+           if(timerOK==true){
+                timerOK=false;
+                doingMission=false;
+                string s="visual";
+                MM.completeMission(ID,s,lastPlayer);
+                updateDialogString();
+                
+           }
         
         }
 
@@ -198,8 +190,9 @@ public class PatientBaseClass : MonoBehaviour
         {
             if(MM.checkAllMissionComplete(ID)){
 
-                Destroy(gameObject);
                 MM.score(ID,lastPlayer,point);
+                MM.deleteMission(ID);
+                Destroy(gameObject);
             }
             else{
                 Debug.Log("任務未完成");

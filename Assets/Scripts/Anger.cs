@@ -36,12 +36,11 @@ public class Anger : MonoBehaviour
     IEnumerator timer(){
         while(i<1000){
             i+=1;
-            int j=i/4;
+            int j=i/10;
             persentTxt.text = j.ToString();
-            persentShow.fillAmount = i/400f;
+            persentShow.fillAmount = i/1000f;
             yield return new WaitForFixedUpdate();
         }
-
-        Destroy(transform.parent.gameObject);
+        transform.parent.gameObject.transform.parent.gameObject.transform.GetComponent<AngryGrandma>().timeOver();
     }
 }
