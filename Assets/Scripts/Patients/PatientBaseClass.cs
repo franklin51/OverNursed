@@ -34,7 +34,7 @@ public class PatientBaseClass : MonoBehaviour
 
     //protected abstract void startCall();
     
-    void updateDialogString(){
+    protected void updateDialogString(){
         Dialog.transform.GetComponentInChildren<Text>().text=getDialogString();
     }
 
@@ -69,7 +69,6 @@ public class PatientBaseClass : MonoBehaviour
             }
         }
         updateDialogString();
-
     }
 
     bool checkAllMissionComplete(){
@@ -103,9 +102,6 @@ public class PatientBaseClass : MonoBehaviour
         {
             transform.position = collision.transform.position;
         }
-
-       
-
     }
 
     private bool hasEntered1,hasEntered2,hasEntered3,hasEntered4,hasEntered5;
@@ -125,8 +121,6 @@ public class PatientBaseClass : MonoBehaviour
         if (collision.transform.tag == "Player" && is_picked == false)
         {
            Dialog.SetActive(true);
-           
-        
         }
 
 
@@ -170,7 +164,6 @@ public class PatientBaseClass : MonoBehaviour
 
         if (collision.transform.tag == "task4" && is_picked == false && !end_task)
         {
-
             if(!hasEntered4){
             createTimer();
            }
@@ -183,7 +176,6 @@ public class PatientBaseClass : MonoBehaviour
 
         if (collision.transform.tag == "task5" && is_picked == false && !end_task)
         {
-
             if(!hasEntered5){
             createTimer();
            }

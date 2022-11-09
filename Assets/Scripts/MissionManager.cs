@@ -156,7 +156,6 @@ public class MissionManager : MonoBehaviour
 
     // 創病人，input病人種類
     void createPatient(int patientType, int ID, string[] mission){
-
         GameObject generatePoint = GameObject.Find("生兵點");
         var distance = new Vector3(0f, 0f, missionCount*3f);
 

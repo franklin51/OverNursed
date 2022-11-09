@@ -33,131 +33,42 @@ public class PlayerBase : MonoBehaviour
         {
             m_Input = new Vector3(0, 0, 0);
             if (Input.GetKey("w"))
-            {
-                transform.eulerAngles = new Vector3(0, 0, 0);
-                //pos.z += speed;
-                //m_Input += new Vector3(0, 0, 1);
-                //m_Input.Normalize();
-                //rb.MovePosition(transform.position + m_Input * Time.deltaTime * speed);
-				rb.velocity = new Vector3(0, 0, velocity);
-            }
+                MoveUp();
             else if (Input.GetKey("s"))
-            {
-                transform.eulerAngles = new Vector3(0, 180, 0);
-                //pos.z -= speed;
-                //m_Input += new Vector3(0, 0, -1);
-                //m_Input.Normalize();
-                //rb.MovePosition(transform.position + m_Input * Time.deltaTime * speed);
-				rb.velocity = new Vector3(0, 0, -velocity);
-            }
-            else if (Input.GetKey("d"))
-            {
-                transform.eulerAngles = new Vector3(0, 90, 0);
-                //pos.x += speed;
-                //m_Input += new Vector3(1, 0, 0);
-                //m_Input.Normalize();
-                //rb.MovePosition(transform.position + m_Input * Time.deltaTime * speed);
-				rb.velocity = new Vector3(velocity, 0, 0);
-            }
+                MoveDown();
             else if (Input.GetKey("a"))
-            {
-                transform.eulerAngles = new Vector3(0, 270, 0);
-                //pos.x -= speed;
-                //m_Input += new Vector3(-1, 0, 0);
-                //m_Input.Normalize();
-                //rb.MovePosition(transform.position + m_Input * Time.deltaTime * speed);
-				rb.velocity = new Vector3(-velocity, 0, 0);
-            }
-			else
-				rb.velocity = new Vector3(0, 0, 0);
-            //if(Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s")|| Input.GetKey("d")){
-            //    rb.MovePosition(transform.position + m_Input * Time.deltaTime * speed);
-            //}
+                MoveLeft();
+            else if (Input.GetKey("d"))
+                MoveRight();
+            else
+                rb.velocity = new Vector3(0, 0, 0);
             if (Input.GetKeyDown("t"))
             {
                 allow_attached = !allow_attached;
                 if (allow_attached == false)
-                {
-                    if (patient) {
-                        already_pick=false;
-						patient.GetComponent<PatientBaseClass>().is_picked = false;
-                        patient.GetComponent<PatientBaseClass>().lastPlayer = 1;
-                        patient.transform.parent = null;
-					}
-                    patient = null;
-                }
+                    PutDownPatient();
             }
         }
         else if (name == "2P")
         {
             m_Input = new Vector3(0, 0, 0);
             if (Input.GetKey(KeyCode.UpArrow))
-            {
-                transform.eulerAngles = new Vector3(0, 0, 0);
-                //pos.z += speed;
-                //m_Input += new Vector3(0, 0, 1);
-                //m_Input.Normalize();
-                //rb.MovePosition(transform.position + m_Input * Time.deltaTime * speed);
-				rb.velocity = new Vector3(0, 0, velocity);
-            }
+                MoveUp();
             else if (Input.GetKey(KeyCode.DownArrow))
-            {
-                transform.eulerAngles = new Vector3(0, 180, 0);
-                //pos.z -= speed;
-                //m_Input += new Vector3(0, 0, -1);
-                //m_Input.Normalize();
-                //rb.MovePosition(transform.position + m_Input * Time.deltaTime * speed);
-				rb.velocity = new Vector3(0, 0, -velocity);
-            }
-            else if (Input.GetKey(KeyCode.RightArrow))
-            {
-                transform.eulerAngles = new Vector3(0, 90, 0);
-                //pos.x += speed;
-                //m_Input += new Vector3(1, 0, 0);
-                //m_Input.Normalize();
-                //rb.MovePosition(transform.position + m_Input * Time.deltaTime * speed);
-				rb.velocity = new Vector3(velocity, 0, 0);
-            }
+                MoveDown();
             else if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                transform.eulerAngles = new Vector3(0, 270, 0);
-                //pos.x -= speed;
-                //m_Input += new Vector3(-1, 0, 0);
-                //m_Input.Normalize();
-                //rb.MovePosition(transform.position + m_Input * Time.deltaTime * speed);
-				rb.velocity = new Vector3(-velocity, 0, 0);
-            }
-			else
+                MoveLeft();
+            else if (Input.GetKey(KeyCode.RightArrow))
+                MoveRight();
+            else
 				rb.velocity = new Vector3(0, 0, 0);
-            //if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.UpArrow)){
-            //    rb.MovePosition(transform.position + m_Input * Time.deltaTime * speed);
-            //}
             if (Input.GetKeyDown("m"))
             {
                 allow_attached = !allow_attached;
                 if (allow_attached == false)
-                {
-                    
-                    if (patient)
-                    {
-                        already_pick=false;
-                        patient.GetComponent<PatientBaseClass>().is_picked = false;
-                        patient.GetComponent<PatientBaseClass>().lastPlayer = 2;
-                        patient.transform.parent = null;
-                    }
-                        
-                    patient = null;
-                }
+                    PutDownPatient();
             }
         }
-
-        // 暫時邊界
-        // pos.x = (pos.x>30)? 30:((pos.x<0)? 0:pos.x);
-        // pos.z = (pos.z > 20) ? 20 : ((pos.z < 0) ? 0 : pos.z);
-        //transform.position = pos;
-
-        // 防止bouncing
-        // rb.velocity = new Vector3(0, 0, 0);
     }
 
     void OnCollisionEnter(Collision collision)
@@ -177,31 +88,63 @@ public class PlayerBase : MonoBehaviour
             {
                 already_pick=true;
                 patient = collision.gameObject;
-				Debug.Log(patient);
 
                 // 拿起病人時對齊中線
-                Vector3 temp = transform.eulerAngles;
+                /*Vector3 temp = transform.eulerAngles;
                 patient.transform.eulerAngles = new Vector3(0, 0, 0);
                 transform.eulerAngles = new Vector3(0, 90, 0);
-                patient.transform.position = transform.position + transform.forward * 3.0f;
-                patient.transform.eulerAngles = temp;
+                //patient.transform.position = transform.position + transform.forward * 2.5f;
+                patient.transform.eulerAngles = temp;*/
 
                 // 與病人合體
                 patient.GetComponent<PatientBaseClass>().is_picked = true;
-                patient.transform.SetParent(transform);
+                patient.transform.SetParent(transform, false);
+                //patient.transform.localEulerAngles = new Vector3(0, 0, 0);
+                patient.transform.localScale = new Vector3(patient.transform.localScale.x/transform.localScale.x, 2, patient.transform.localScale.z / transform.localScale.z);
+                patient.transform.localPosition = new Vector3(0, 3.5f, 0);
             }
-            speed = 50f;
         }
         if (collision.transform.tag == "Wall")
         {
-            speed = 50f;
+            
         }
     }
     void OnCollisionExit(Collision collision)
     {
-        if (collision.transform.tag == "Wall" || collision.transform.tag == "patient")
+
+    }
+
+
+    private void MoveUp()
+    {
+        transform.eulerAngles = new Vector3(0, 0, 0);
+        rb.velocity = new Vector3(0, 0, velocity);
+    }
+    private void MoveDown()
+    {
+        transform.eulerAngles = new Vector3(0, 180, 0);
+        rb.velocity = new Vector3(0, 0, -velocity);
+    }
+    private void MoveLeft()
+    {
+        transform.eulerAngles = new Vector3(0, 270, 0);
+        rb.velocity = new Vector3(-velocity, 0, 0);
+    }
+    private void MoveRight()
+    {
+        transform.eulerAngles = new Vector3(0, 90, 0);
+        rb.velocity = new Vector3(velocity, 0, 0);
+    }
+    private void PutDownPatient()
+    {
+        if (patient)
         {
-            speed = 100f;
+            already_pick = false;
+            patient.GetComponent<PatientBaseClass>().is_picked = false;
+            patient.GetComponent<PatientBaseClass>().lastPlayer = 1;
+            patient.transform.parent = null;
+            patient.transform.position = new Vector3(patient.transform.position.x, 0.03f, patient.transform.position.z) + transform.forward * 2f;
         }
+        patient = null;
     }
 }
