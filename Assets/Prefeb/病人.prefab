@@ -1744,7 +1744,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6319990755124335908}
   - component: {fileID: 4245710683570186258}
-  - component: {fileID: 4245710683570186732}
+  - component: {fileID: 287602922594812526}
   m_Layer: 0
   m_Name: "\u75C5\u4EBA"
   m_TagString: patient
@@ -1785,7 +1785,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &4245710683570186732
+--- !u!114 &287602922594812526
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1794,7 +1794,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6307861412827732144}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6bbdad199141bc498e5fd611a0bc424, type: 3}
+  m_Script: {fileID: 11500000, guid: d7e8019ad2c6a8d4c96b5e17261297f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   is_picked: 0

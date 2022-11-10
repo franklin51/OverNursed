@@ -63,10 +63,6 @@ public class MissionManager : MonoBehaviour
             int randomIndex = indices[i];
             missionsRandom[i] = missionType[randomIndex];
         }
-        
-        for(int i=0; i<missionsRandom.Length;i++){
-            Debug.Log(missionsRandom[i]);
-        }
 
         Mission newMission = new Mission(ID,missionsRandom);
         missionList.Add(newMission);

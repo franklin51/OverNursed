@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // 與操作、碰撞偵測有關的
-public class PatientBaseClass : MonoBehaviour
+abstract public class PatientBaseClass : MonoBehaviour
 {
     public bool is_picked = false;
     public bool end_task = false; // 還沒用到
@@ -19,6 +19,8 @@ public class PatientBaseClass : MonoBehaviour
     [SerializeField] GameObject Dialog;
     [SerializeField] GameObject timerPrefabs;
 
+    abstract protected void Inpatience();
+
     //float timer=0;
 
 
@@ -30,6 +32,7 @@ public class PatientBaseClass : MonoBehaviour
         updateDialogString();
         Dialog.SetActive(false);
         //startCall();
+        Inpatience();
     }
 
     //protected abstract void startCall();

@@ -8,7 +8,13 @@ public class AngryGrandma : PatientBaseClass
 
     // protected override void startCall()
     // {
-        
+
     //     Debug.Log("hihihi");
     // }
+
+    override protected void Inpatience()
+    {
+        Debug.Log("Angry-Grandma INPATIENT");
+
+    }
 }
