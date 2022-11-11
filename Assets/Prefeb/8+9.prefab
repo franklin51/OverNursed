@@ -21,12 +21,12 @@ PrefabInstance:
     - target: {fileID: 4245710683570186258, guid: c6dfb012285407c4493d1b225e412aff,
         type: 3}
       propertyPath: m_IsKinematic
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4245710683570186258, guid: c6dfb012285407c4493d1b225e412aff,
         type: 3}
       propertyPath: m_CollisionDetection
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6307861412827732144, guid: c6dfb012285407c4493d1b225e412aff,
         type: 3}
@@ -140,6 +140,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   is_picked: 0
   end_task: 0
+  is_waiting4FirstMission: 1
+  is_waiting: 0
   GP: {fileID: 0}
   point: 50
   mission: []
