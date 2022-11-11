@@ -84,7 +84,8 @@ public class PlayerBase : MonoBehaviour
     {
         if (collision.transform.tag == "patient")
         {
-            if (allow_attached&& !already_pick)
+            bool isDoing=collision.transform.GetComponent<PatientBaseClass>().doingMission;
+            if (allow_attached&& !already_pick && !isDoing)
             {
                 already_pick=true;
                 patient = collision.gameObject;

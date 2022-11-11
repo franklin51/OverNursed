@@ -16,6 +16,8 @@ abstract public class PatientBaseClass : MonoBehaviour
     public bool[] isComplete;
     public int lastPlayer=0;
     public int ID=0;
+    public bool doingMission=false;
+    public bool timerOK=false;
     public MissionManager MM;
     [SerializeField] GameObject Dialog;
     [SerializeField] GameObject timerPrefabs;
@@ -31,7 +33,7 @@ abstract public class PatientBaseClass : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         GP = GameObject.Find("生兵點").GetComponent<GeneratePoint>();
         MM = GameObject.Find("MissionManager").GetComponent<MissionManager>();
@@ -40,6 +42,7 @@ abstract public class PatientBaseClass : MonoBehaviour
         //startCall();
     }
 
+<<<<<<< HEAD
     //protected abstract void startCall();
     
     protected void updateDialogString(){
@@ -56,16 +59,24 @@ abstract public class PatientBaseClass : MonoBehaviour
                 s = s + mission[i] + "\n";
             }
         }
+=======
+    public void timerEnd(){
+        timerOK=true;
+>>>>>>> refs/remotes/origin/main
 
-        return s;
     }
     
+    void updateDialogString(){
+        Dialog.transform.GetComponentInChildren<Text>().text=MM.getDialogString(ID);
+    }
+   
     void createTimer(){
         GameObject timer = Instantiate(timerPrefabs, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
         timer.transform.SetParent (transform.GetChild(1), false);
         timer.GetComponent<Timer>().lookAt=transform;
     }
 
+<<<<<<< HEAD
   
     void completeMission(string whatMission){
         for(int i =0; i<mission.Length; i++){
@@ -75,24 +86,15 @@ abstract public class PatientBaseClass : MonoBehaviour
         }
         updateDialogString();
     }
+=======
+>>>>>>> refs/remotes/origin/main
 
-    bool checkAllMissionComplete(){
-        bool check=true;
-        
-        for(int i=0; i<isComplete.Length; i++){
-            if(isComplete[i]==false){
-                check=false;
-                break;
-            }
-        }
-
-        return check;
-    }
     
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
+<<<<<<< HEAD
         if (is_picked == false)
         {
             if (!is_waiting && is_waiting4FirstMission && Waiting4FirstMission())
@@ -105,6 +107,9 @@ abstract public class PatientBaseClass : MonoBehaviour
             else if (is_waiting && Waiting())
                     Inpatience();
         }
+=======
+        
+>>>>>>> refs/remotes/origin/main
     }
 
     void OnCollisionEnter(Collision collision)
@@ -140,6 +145,7 @@ abstract public class PatientBaseClass : MonoBehaviour
 
         if (name == "抽血" && is_picked == false && !end_task)
         {
+<<<<<<< HEAD
            if(!hasEntered1)
            {
             createTimer();
@@ -152,11 +158,30 @@ abstract public class PatientBaseClass : MonoBehaviour
                     is_waiting = true;
                 }
             }
+=======
+           if(!hasEntered1){
+            doingMission=true;
+            createTimer();
+           }
+           hasEntered1=true;
+
+           if(timerOK==true){
+                timerOK=false;
+                doingMission=false;
+                string s="blood";
+                MM.completeMission(ID,s,lastPlayer);
+                updateDialogString();
+                
+           }
+            
+        
+>>>>>>> refs/remotes/origin/main
         }
 
         if (name == "量身高" && is_picked == false && !end_task)
         {
             if(!hasEntered2){
+<<<<<<< HEAD
             createTimer();
                 if (ExecuteMission())
                 {
@@ -167,11 +192,26 @@ abstract public class PatientBaseClass : MonoBehaviour
                     is_waiting = true;
                 }
             }
+=======
+                doingMission=true;
+                createTimer();
+           }
+           hasEntered2=true;
+           if(timerOK==true){
+                timerOK=false;
+                doingMission=false;
+                string s="height";
+                MM.completeMission(ID,s,lastPlayer);
+                updateDialogString();
+                
+           }
+>>>>>>> refs/remotes/origin/main
         }
 
         if (name == "心電圖" && is_picked == false && !end_task)
         {
             if(!hasEntered3){
+<<<<<<< HEAD
             createTimer();
                 if (ExecuteMission())
                 {
@@ -182,11 +222,26 @@ abstract public class PatientBaseClass : MonoBehaviour
                     is_waiting = true;
                 }
             }
+=======
+                doingMission=true;
+                createTimer();
+           }
+           hasEntered3=true;
+           if(timerOK==true){
+                timerOK=false;
+                doingMission=false;
+                string s="ECG";
+                MM.completeMission(ID,s,lastPlayer);
+                updateDialogString();
+                
+           }
+>>>>>>> refs/remotes/origin/main
         }
 
         if (name == "驗尿" && is_picked == false && !end_task)
         {
             if(!hasEntered4){
+<<<<<<< HEAD
             createTimer();
                 if (ExecuteMission())
                 {
@@ -197,11 +252,26 @@ abstract public class PatientBaseClass : MonoBehaviour
                     is_waiting = true;
                 }
             }
+=======
+                doingMission=true;
+                createTimer();
+           }
+           hasEntered4=true;
+           if(timerOK==true){
+                timerOK=false;
+                doingMission=false;
+                string s="urine";
+                MM.completeMission(ID,s,lastPlayer);
+                updateDialogString();
+                
+           }
+>>>>>>> refs/remotes/origin/main
         }
 
         if (name == "量視力" && is_picked == false && !end_task)
         {
             if(!hasEntered5){
+<<<<<<< HEAD
             createTimer();
                 if (ExecuteMission())
                 {
@@ -212,14 +282,30 @@ abstract public class PatientBaseClass : MonoBehaviour
                     is_waiting = true;
                 }
             }
+=======
+                doingMission=true;
+                createTimer();
+           }
+           hasEntered5=true;
+           if(timerOK==true){
+                timerOK=false;
+                doingMission=false;
+                string s="visual";
+                MM.completeMission(ID,s,lastPlayer);
+                updateDialogString();
+                
+           }
+        
+>>>>>>> refs/remotes/origin/main
         }
 
         if (collision.transform.tag == "exit" && is_picked == false && !end_task)
         {
             if(MM.checkAllMissionComplete(ID)){
 
-                Destroy(gameObject);
                 MM.score(ID,lastPlayer,point);
+                MM.deleteMission(ID);
+                Destroy(gameObject);
             }
             else{
                 Debug.Log("任務未完成");
