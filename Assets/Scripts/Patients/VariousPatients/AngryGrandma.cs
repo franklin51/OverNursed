@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,12 +5,7 @@ using UnityEngine;
 public class AngryGrandma : PatientBaseClass
 {
     [SerializeField] GameObject Anger;
-
-	// protected override void startCall()
-	// {
-
-	//     Debug.Log("hihihi");
-	// }
+    public bool isAngry=false;
 
 	override protected bool Waiting4FirstMission() // ¥Í§L«áµ¥«Ý²Ä¤@­Ó¥ô°È¡Areturn trueªí¥Üµ¥¤£¤Î¤F¡A¶i¤JInpatience¨ç¦¡
 	{
@@ -24,42 +18,34 @@ public class AngryGrandma : PatientBaseClass
 	}
 
 	override protected bool Waiting() // ¥ô°È§¹¦¨«áµ¥«Ý¤U¤@­Ó¥ô°È¡Areturn trueªí¥Üµ¥¤£¤Î¤F¡A¶i¤JInpatience¨ç¦¡
-	{
-		return false;
-	}
+    {
+        Invoke("createAnger", 4.0f); //?ºä?è§£race condition?é€™æ¨£å¯«ï??›å¥½ä¹Ÿè »ç¬¦å??…æ?!?
+        Debug.Log(is_picked == true);
+        if (isAngry == true && is_picked == true)
+        {
+            isAngry = false;
+            deleteAnger();
+        }
+        return false;
+    }
 
 	override protected void Inpatience() // µ¥¤£¤Î¶}©l·d¨Æ
-	{
-
-	}
-}
-=======
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class AngryGrandma : PatientBaseClass
-{
-    [SerializeField] GameObject Anger;
-    public bool isAngry=false;
-
-    public override void Start(){
-        base.Start();
+    {
 
     }
-    public override void Update(){
+
+    /*public override void Update(){
         base.Update();
 
-        if(isAngry==false && is_picked==false &&doingMission==false){//doingMissionæœƒæœ‰race condition
-            Invoke("createAnger",4.0f); //ç‚ºäº†è§£race conditionæ‰é€™æ¨£å¯«ï¼Œå‰›å¥½ä¹Ÿè »ç¬¦åˆæƒ…æ³!?
+        if(isAngry==false && is_picked==false &&doingMission==false){//doingMission?ƒæ?race condition
+            Invoke("createAnger",4.0f); //?ºä?è§£race condition?é€™æ¨£å¯«ï??›å¥½ä¹Ÿè »ç¬¦å??…æ?!?
         }
         if(isAngry==true && is_picked==true){
             isAngry=false;
             deleteAnger();
         }
+    }*/
 
-
-    }
     public void timeOver(){
         MM.deleteMission(ID);
         Destroy(gameObject);
@@ -76,9 +62,5 @@ public class AngryGrandma : PatientBaseClass
             anger.transform.SetParent (transform.GetChild(1), false);
             anger.GetComponent<Anger>().lookAt=transform;
         }
-       
     }
-    
-    
 }
->>>>>>> refs/remotes/origin/main
