@@ -1,15 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class AngryGrandma : PatientBaseClass
 {
     [SerializeField] GameObject Anger;
     public bool isAngry=false;
+    public NavMeshAgent agent;
 
-	override protected bool Waiting4FirstMission() // 生兵後等待第一個任務，return true表示等不及了，進入Inpatience函式
-	{
-		return false;
+    override protected bool Waiting4FirstMission() // 生兵後等待第一個任務，return true表示等不及了，進入Inpatience函式
+    {
+        //agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        //agent.SetDestination(GameObject.Find("1P").transform.position);
+        return false;
 	}
 
 	override protected bool ExecuteMission() // 執行任務，return true表示成功執行
@@ -31,7 +35,7 @@ public class AngryGrandma : PatientBaseClass
 
 	override protected void Inpatience() // 等不及開始搞事
     {
-
+        Destroy(gameObject);
     }
 
     /*public override void Update(){
@@ -46,10 +50,6 @@ public class AngryGrandma : PatientBaseClass
         }
     }*/
 
-    public void timeOver(){
-        MM.deleteMission(ID);
-        Destroy(gameObject);
-    }
 
     void deleteAnger(){
         Debug.Log("deleteAnger");

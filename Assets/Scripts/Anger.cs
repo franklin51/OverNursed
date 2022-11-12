@@ -41,6 +41,6 @@ public class Anger : MonoBehaviour
             persentShow.fillAmount = i/1000f;
             yield return new WaitForFixedUpdate();
         }
-        transform.parent.gameObject.transform.parent.gameObject.transform.GetComponent<AngryGrandma>().timeOver();
+        transform.parent.gameObject.transform.parent.gameObject.transform.GetComponent<PatientBaseClass>().timeOver();
     }
 }

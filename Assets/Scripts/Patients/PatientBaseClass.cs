@@ -63,6 +63,11 @@ abstract public class PatientBaseClass : MonoBehaviour
         }
         updateDialogString();
     }
+    public void timeOver()
+    {
+        MM.deleteMission(ID);
+        Inpatience();
+    }
 
     // Update is called once per frame
     public virtual void Update()
@@ -74,8 +79,8 @@ abstract public class PatientBaseClass : MonoBehaviour
         }
         else if (MM.checkAllMissionComplete(ID) && !is_picked)
             Leaving();
-        else if (is_waiting && Waiting())
-            Inpatience();
+        else if (is_waiting)
+            Waiting();
     }
 
     void OnCollisionEnter(Collision collision)
