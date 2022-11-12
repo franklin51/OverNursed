@@ -173,6 +173,25 @@ public class MissionManager : MonoBehaviour
         return s;
     }
 
+    //病人有沒有該任務，有回傳True，沒有或已完成回傳false
+    public bool hasThisMission(int ID, string whatMission){
+        int index=0;
+        for(int i=0 ; i<missionList.Count ; i++ ){
+            if(missionList[i].ID==ID){
+                index=i;
+                break;
+            }
+        }
+
+        for(int i =0; i<missionList[index].type.Length; i++){
+            if(missionList[index].type[i]==whatMission){
+                if(missionList[index].isComplete[i]==false)
+                return true;
+            }
+        }
+        return false;
+    }
+
     // 創病人，input病人種類
     void createPatient(int patientType, int ID, string[] mission){
         GameObject generatePoint = GameObject.Find("生兵點");

@@ -9,21 +9,21 @@ public class AngryGrandma : PatientBaseClass
     public bool isAngry=false;
     public NavMeshAgent agent;
 
-    override protected bool Waiting4FirstMission() // ¥Í§L«áµ¥«İ²Ä¤@­Ó¥ô°È¡Areturn trueªí¥Üµ¥¤£¤Î¤F¡A¶i¤JInpatience¨ç¦¡
+    override protected bool Waiting4FirstMission() // ç”Ÿå…µå¾Œç­‰å¾…ç¬¬ä¸€å€‹ä»»å‹™ï¼Œreturn trueè¡¨ç¤ºç­‰ä¸åŠäº†ï¼Œé€²å…¥Inpatienceå‡½å¼
     {
         //agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         //agent.SetDestination(GameObject.Find("1P").transform.position);
         return false;
 	}
 
-	override protected bool ExecuteMission() // °õ¦æ¥ô°È¡Areturn trueªí¥Ü¦¨¥\°õ¦æ
+	override protected bool ExecuteMission() // åŸ·è¡Œä»»å‹™ï¼Œreturn trueè¡¨ç¤ºæˆåŠŸåŸ·è¡Œ
 	{
 		return true;
 	}
 
-	override protected bool Waiting() // ¥ô°È§¹¦¨«áµ¥«İ¤U¤@­Ó¥ô°È¡Areturn trueªí¥Üµ¥¤£¤Î¤F¡A¶i¤JInpatience¨ç¦¡
+	override protected bool Waiting() // ä»»å‹™å®Œæˆå¾Œç­‰å¾…ä¸‹ä¸€å€‹ä»»å‹™ï¼Œreturn trueè¡¨ç¤ºç­‰ä¸åŠäº†ï¼Œé€²å…¥Inpatienceå‡½å¼
     {
-        Invoke("createAnger", 4.0f); //?ºä?è§£race condition?é€™æ¨£å¯«ï??›å¥½ä¹Ÿè »ç¬¦å??…æ?!?
+        Invoke("createAnger", 4.0f); 
         Debug.Log(is_picked == true);
         if (isAngry == true && is_picked == true)
         {
@@ -33,22 +33,12 @@ public class AngryGrandma : PatientBaseClass
         return false;
     }
 
-	override protected void Inpatience() // µ¥¤£¤Î¶}©l·d¨Æ
+	override protected void Inpatience() // ç­‰ä¸åŠé–‹å§‹æäº‹
     {
         Destroy(gameObject);
     }
 
-    /*public override void Update(){
-        base.Update();
-
-        if(isAngry==false && is_picked==false &&doingMission==false){//doingMission?ƒæ?race condition
-            Invoke("createAnger",4.0f); //?ºä?è§£race condition?é€™æ¨£å¯«ï??›å¥½ä¹Ÿè »ç¬¦å??…æ?!?
-        }
-        if(isAngry==true && is_picked==true){
-            isAngry=false;
-            deleteAnger();
-        }
-    }*/
+   
 
 
     void deleteAnger(){

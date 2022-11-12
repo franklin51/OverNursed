@@ -1773,8 +1773,8 @@ GameObject:
   - component: {fileID: 346925675}
   - component: {fileID: 346925674}
   m_Layer: 0
-  m_Name: "\u91CF\u8996\u529B"
-  m_TagString: task5
+  m_Name: visual
+  m_TagString: task
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3119,8 +3119,8 @@ GameObject:
   - component: {fileID: 759504785}
   - component: {fileID: 759504784}
   m_Layer: 0
-  m_Name: "\u9A57\u5C3F"
-  m_TagString: task4
+  m_Name: urine
+  m_TagString: task
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3520,8 +3520,8 @@ GameObject:
   - component: {fileID: 817175811}
   - component: {fileID: 817175810}
   m_Layer: 0
-  m_Name: "\u91CF\u8EAB\u9AD8"
-  m_TagString: task2
+  m_Name: height
+  m_TagString: task
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3745,8 +3745,8 @@ GameObject:
   - component: {fileID: 825305528}
   - component: {fileID: 825305527}
   m_Layer: 0
-  m_Name: "\u5FC3\u96FB\u5716"
-  m_TagString: task3
+  m_Name: ECG
+  m_TagString: task
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5310,7 +5310,7 @@ PrefabInstance:
     - target: {fileID: 5912582196425686281, guid: 1a5b8ecda5ad6f04e9122b3ab88e5424,
         type: 3}
       propertyPath: patientPrefabs.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5912582196425686281, guid: 1a5b8ecda5ad6f04e9122b3ab88e5424,
         type: 3}
@@ -5323,6 +5323,12 @@ PrefabInstance:
       propertyPath: patientPrefabs.Array.data[1]
       value: 
       objectReference: {fileID: 4749074710860316459, guid: 9a02cecb756e2b94aa5d3e8e657c1965,
+        type: 3}
+    - target: {fileID: 5912582196425686281, guid: 1a5b8ecda5ad6f04e9122b3ab88e5424,
+        type: 3}
+      propertyPath: patientPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 6864544018084812699, guid: 03299e33e5422be478cac89fc9f90dc0,
         type: 3}
     - target: {fileID: 5912582196425686282, guid: 1a5b8ecda5ad6f04e9122b3ab88e5424,
         type: 3}
@@ -6339,7 +6345,7 @@ GameObject:
   - component: {fileID: 1381894175}
   - component: {fileID: 1381894174}
   m_Layer: 0
-  m_Name: "\u62BD\u8840"
+  m_Name: blood
   m_TagString: task
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

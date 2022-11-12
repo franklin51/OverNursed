@@ -19,22 +19,22 @@ public class Kids : PatientBaseClass
     private int Already_repeat = 0;
     private float Probability_Complete = 0.5f;//the probabilty of passing the mission
 
-    override protected bool Waiting4FirstMission() // ¥Í§L«áµ¥«İ²Ä¤@­Ó¥ô°È¡Areturn trueªí¥Üµ¥¤£¤Î¤F¡A¶i¤JInpatience¨ç¦¡
+    override protected bool Waiting4FirstMission() //ç”Ÿå…µå¾Œç­‰å¾…ç¬¬ä¸€å€‹ä»»å‹™ï¼Œreturn trueè¡¨ç¤ºç­‰ä¸åŠäº†ï¼Œé€²å…¥Inpatienceå‡½å¼
     {
         return false;
     }
 
-    override protected bool ExecuteMission() // °õ¦æ¥ô°È¡Areturn trueªí¥Ü¦¨¥\°õ¦æ
+    override protected bool ExecuteMission() // åŸ·è¡Œä»»å‹™ï¼Œreturn trueè¡¨ç¤ºæˆåŠŸåŸ·è¡Œ
     {
-        return true;
+        return Pass_Mission();
     }
 
-    override protected bool Waiting() // ¥ô°È§¹¦¨«áµ¥«İ¤U¤@­Ó¥ô°È¡Areturn trueªí¥Üµ¥¤£¤Î¤F¡A¶i¤JInpatience¨ç¦¡
+    override protected bool Waiting() // ä»»å‹™å®Œæˆå¾Œç­‰å¾…ä¸‹ä¸€å€‹ä»»å‹™ï¼Œreturn trueè¡¨ç¤ºç­‰ä¸åŠäº†ï¼Œé€²å…¥Inpatienceå‡½å¼
     {
         return false;
     }
 
-    override protected void Inpatience() // µ¥¤£¤Î¶}©l·d¨Æ
+    override protected void Inpatience() // ç­‰ä¸åŠé–‹å§‹æäº‹
     {
 
     }

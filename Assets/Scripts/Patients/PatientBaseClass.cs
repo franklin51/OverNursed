@@ -21,6 +21,7 @@ abstract public class PatientBaseClass : MonoBehaviour
     public MissionManager MM;
     [SerializeField] GameObject Dialog;
     [SerializeField] GameObject timerPrefabs;
+    public string missionPoint;
 
     abstract protected bool Waiting4FirstMission(); // 生兵後等待第一個任務，return true表示等不及了，進入Inpatience函式
     abstract protected bool ExecuteMission(); // 執行任務，return true表示成功執行
@@ -55,14 +56,7 @@ abstract public class PatientBaseClass : MonoBehaviour
         timer.GetComponent<Timer>().lookAt=transform;
     }
   
-    void completeMission(string whatMission){
-        for(int i =0; i<mission.Length; i++){
-            if(mission[i]==whatMission){
-                isComplete[i]=true;
-            }
-        }
-        updateDialogString();
-    }
+    
     public void timeOver()
     {
         MM.deleteMission(ID);
@@ -81,15 +75,55 @@ abstract public class PatientBaseClass : MonoBehaviour
             Leaving();
         else if (is_waiting)
             Waiting();
+
+
+        //任務的計時完觸發
+        if(timerOK==true){
+            if(ExecuteMission()){
+                timerOK=false;
+                doingMission=false;
+                MM.completeMission(ID,missionPoint,lastPlayer);
+                updateDialogString();
+                is_waiting = true;
+
+            }
+            else{
+                timerOK=false;
+                doingMission=false;
+                is_waiting = true;
+            }
+        }
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        // 碰到任務點，把病人對齊中心
-        /*if (collision.transform.tag == "task" && is_picked == false)
+
+        if (collision.transform.tag == "task" && is_picked == false){
+            is_waiting4FirstMission = false;
+            missionPoint = collision.collider.gameObject.name;
+        }
+            
+
+        if(MM.hasThisMission(ID, missionPoint)){
+            is_waiting = false;
+            doingMission =true;
+            createTimer();
+        }
+        
+
+        if (collision.transform.tag == "exit"  && !end_task)
         {
-            transform.position = collision.transform.position;
-        }*/
+            if(MM.checkAllMissionComplete(ID)){
+
+                MM.score(ID,lastPlayer,point);
+                MM.deleteMission(ID);
+                Destroy(gameObject);
+            }
+            else{
+                Debug.Log("任務未完成");
+            }
+        
+        }
     }
 
     private bool hasEntered1,hasEntered2,hasEntered3,hasEntered4,hasEntered5;
@@ -104,141 +138,9 @@ abstract public class PatientBaseClass : MonoBehaviour
 
     void OnCollisionStay(Collision collision)
     {
-        string name = collision.collider.gameObject.name;
-
-        if (collision.transform.tag == "task" && is_picked == false)
-            is_waiting4FirstMission = false;
-
-        if (collision.transform.tag == "Player" && is_picked == false)
+         if (collision.transform.tag == "Player" && is_picked == false)
         {
            Dialog.SetActive(true);
-        }
-
-        if (name == "抽血" && is_picked == false && !end_task)
-        {
-            /*if(!hasEntered1)
-            {
-             createTimer();
-                 if (ExecuteMission())
-                 {
-                     hasEntered1 = true;
-                     string s = "blood";
-                     completeMission(s);
-                     MM.completeMission(ID, s, lastPlayer);
-                     is_waiting = true;
-                 }
-             }*/
-           if(!hasEntered1)
-            {
-                is_waiting = false;
-                doingMission =true;
-            createTimer();
-           }
-           hasEntered1=true;
-
-           if (timerOK == true && ExecuteMission())
-            {
-                timerOK=false;
-                doingMission=false;
-                string s="blood";
-                MM.completeMission(ID,s,lastPlayer);
-                updateDialogString();
-                is_waiting = true;
-            }
-        }
-
-        if (name == "量身高" && is_picked == false && !end_task)
-        {
-            if (!hasEntered2)
-            {
-                is_waiting = false;
-                doingMission =true;
-                createTimer();
-           }
-           hasEntered2=true;
-           if(timerOK == true && ExecuteMission())
-            {
-                timerOK=false;
-                doingMission=false;
-                string s="height";
-                MM.completeMission(ID,s,lastPlayer);
-                updateDialogString();
-                is_waiting = true;
-            }
-        }
-
-        if (name == "心電圖" && is_picked == false && !end_task)
-        {
-            if (!hasEntered3)
-            {
-                is_waiting = false;
-                doingMission =true;
-                createTimer();
-           }
-           hasEntered3=true;
-           if (timerOK == true && ExecuteMission())
-            {
-                timerOK=false;
-                doingMission=false;
-                string s="ECG";
-                MM.completeMission(ID,s,lastPlayer);
-                updateDialogString();
-                is_waiting = true;
-            }
-        }
-
-        if (name == "驗尿" && is_picked == false && !end_task)
-        {
-            if (!hasEntered4)
-            {
-                is_waiting = false;
-                doingMission =true;
-                createTimer();
-           }
-           hasEntered4=true;
-           if (timerOK == true && ExecuteMission())
-            {
-                timerOK=false;
-                doingMission=false;
-                string s="urine";
-                MM.completeMission(ID,s,lastPlayer);
-                updateDialogString();
-                is_waiting = true;
-            }
-        }
-
-        if (name == "量視力" && is_picked == false && !end_task)
-        {
-            if (!hasEntered5)
-            {
-                is_waiting = false;
-                doingMission =true;
-                createTimer();
-           }
-           hasEntered5=true;
-           if (timerOK == true && ExecuteMission())
-            {
-                timerOK=false;
-                doingMission=false;
-                string s="visual";
-                MM.completeMission(ID,s,lastPlayer);
-                updateDialogString();
-                is_waiting = true;
-            }
-        }
-
-        if (collision.transform.tag == "exit" && is_picked == false && !end_task)
-        {
-            if(MM.checkAllMissionComplete(ID)){
-
-                MM.score(ID,lastPlayer,point);
-                MM.deleteMission(ID);
-                Destroy(gameObject);
-            }
-            else{
-                Debug.Log("任務未完成");
-            }
-        
         }
     }
 }
