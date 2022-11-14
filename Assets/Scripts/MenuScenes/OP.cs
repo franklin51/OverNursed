@@ -18,7 +18,7 @@ public class OP : MonoBehaviour
 			SceneManager.LoadScene("Map_Scene", LoadSceneMode.Single);
 		}
         if(Input.GetKeyDown(KeyCode.M)){
-			SceneManager.LoadScene("Instructions0", LoadSceneMode.Single);
+			SceneManager.LoadScene("Instructions1", LoadSceneMode.Single);
 		}
     }
 }
