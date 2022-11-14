@@ -23,10 +23,12 @@ public class MissionManager : MonoBehaviour
         public string[] type;
         public bool[] isComplete;
         public int[] whoComplete;
-        public  Mission(int ID, string[] type)
+        public GameObject patient;
+        public  Mission(int ID, string[] type,GameObject patient)
         {
             this.ID = ID;
             this.type = type;
+            this.patient = patient;
             this.isComplete= new bool[this.type.Length];
             for(int i=0;i<this.isComplete.Length;i++){
                 this.isComplete[i]=false;
@@ -65,12 +67,15 @@ public class MissionManager : MonoBehaviour
             missionsRandom[i] = missionType[randomIndex];
         }
 
-        Mission newMission = new Mission(ID,missionsRandom);
-        missionList.Add(newMission);
+       
 
         //創patient,隨機取一種人
         int patientRandom = random.Next(0, patientPrefabs.Length);
-        createPatient(patientRandom, ID, missionsRandom);
+        GameObject patient = createPatient(patientRandom, ID, missionsRandom);
+
+        
+        Mission newMission = new Mission(ID,missionsRandom,patient);
+        missionList.Add(newMission);
 
 
         missionCount+=1;
@@ -201,7 +206,7 @@ public class MissionManager : MonoBehaviour
     }
 
     // 創病人，input病人種類
-    void createPatient(int patientType, int ID, string[] mission){
+    GameObject createPatient(int patientType, int ID, string[] mission){
         GameObject generatePoint = GameObject.Find("生兵點");
         var distance = new Vector3(0f, 0f, missionCount*3f);
 
@@ -209,8 +214,11 @@ public class MissionManager : MonoBehaviour
         patient.GetComponent<PatientBaseClass>().ID=ID;
         patient.GetComponent<PatientBaseClass>().mission=mission;
         patient.GetComponent<PatientBaseClass>().isComplete = new bool[]{false,false};
+        Debug.Log(patient.name.Replace("(Clone)",""));//8+9(clone)
 
+        return patient;
     }
+
 
     int findMissionIndex(int ID){
         int index=0;
@@ -248,6 +256,9 @@ public class MissionManager : MonoBehaviour
                     }
                 }
                 taskbar.transform.GetChild(i).gameObject.transform.GetComponentInChildren<Text>().text=taskBarString;
+                string spriteName = missionList[i].patient.name.Replace("(Clone)","");
+                spriteName = Chinese2Eng(spriteName);
+                taskbar.transform.GetChild(i).gameObject.transform.GetComponent<TaskBar>().changeSprite(spriteName);
                 
             }
             else{
@@ -258,6 +269,23 @@ public class MissionManager : MonoBehaviour
 
         }
 
+    }
+    string Chinese2Eng(string s){
+        if(s=="小孩"){
+            return "Kids";
+        }
+        else if(s=="爆怒阿嬤"){
+            return "AngryGrandma";
+        }
+        else if(s=="病人"){
+            return "Patient";
+        }
+        else if(s=="工程師"){
+            return "EngineerPatient";
+        }
+        else{
+            return s;
+        }
     }
 
 
