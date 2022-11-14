@@ -15,6 +15,7 @@ public class MissionManager : MonoBehaviour
     int ID=0;    //任務編號
     //string[] missionType = new string[]{"抽血","量身高","心電圖","驗尿","量視力","X光"};
     string[] missionType = new string[]{"blood","height","ECG","urine","visual"};
+    public float Timer = 2f;
     
     public class Mission
     {
@@ -253,8 +254,8 @@ public class MissionManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if(Input.GetKeyDown(KeyCode.Mouse1)){
+
+        /*if(Input.GetKeyDown(KeyCode.Mouse1)){
             if(missionCount<5){
                 createMission();
             }
@@ -262,12 +263,23 @@ public class MissionManager : MonoBehaviour
                 Debug.Log("full");
             }
            
-        }
+        */
+        GeneratePatients();
 
-        for(int i=0; i<scoreArray.Length; i++){
+        for (int i=0; i<scoreArray.Length; i++){
             if(scoreArray[i]>=500){
                 SceneManager.LoadScene("ED", LoadSceneMode.Single);
             }
+        }
+    }
+
+    void GeneratePatients()
+    {
+        Timer -= Time.deltaTime;
+        if (missionCount < 5 && Timer <= 0)
+        {
+            createMission();
+            Timer = 2;
         }
     }
 }

@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 // 與操作、碰撞偵測有關的
 abstract public class PatientBaseClass : MonoBehaviour
 {
-    public bool is_picked = false;
+    public bool allow_picked = true;
     public bool end_task = false; // 還沒用到
-    public bool is_waiting4FirstMission = true, is_waiting = false;
+    public bool is_waiting4FirstMission = true, is_waiting = false, is_inpatience = false;
+    public bool is_attacking = false;
     public GeneratePoint GP;
     public int point = 50;
 
@@ -19,6 +21,7 @@ abstract public class PatientBaseClass : MonoBehaviour
     public bool doingMission=false;
     public bool timerOK=false;
     public MissionManager MM;
+    public NavMeshAgent agent;
     [SerializeField] GameObject Dialog;
     [SerializeField] GameObject timerPrefabs;
     public string missionPoint;
@@ -27,8 +30,8 @@ abstract public class PatientBaseClass : MonoBehaviour
     abstract protected bool ExecuteMission(); // 執行任務，return true表示成功執行
     abstract protected bool Waiting(); // 任務完成後等待下一個任務，return true表示等不及了，進入Inpatience函式
     abstract protected void Inpatience(); // 等不及開始搞事
-    protected void Leaving() { Debug.Log("Leaving"); } // 最後一個任務完成
-
+    protected void Leaving() { NavigateTo(GameObject.Find("Sofa_Apt_01")); } // 最後一個任務完成
+    protected void NavigateTo(GameObject des) { agent.enabled = true; agent.SetDestination(des.transform.position); }
 
     //float timer=0;
 
@@ -38,6 +41,9 @@ abstract public class PatientBaseClass : MonoBehaviour
     {
         GP = GameObject.Find("生兵點").GetComponent<GeneratePoint>();
         MM = GameObject.Find("MissionManager").GetComponent<MissionManager>();
+        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+
+        agent.enabled = false;
         updateDialogString();
         Dialog.SetActive(false);
         //startCall();
@@ -60,22 +66,23 @@ abstract public class PatientBaseClass : MonoBehaviour
     public void timeOver()
     {
         MM.deleteMission(ID);
-        Inpatience();
+        is_inpatience = true;
     }
 
     // Update is called once per frame
     public virtual void Update()
     {
-        if (!is_waiting && is_waiting4FirstMission && !is_picked && Waiting4FirstMission())
+        if (is_inpatience)
+            Inpatience();
+        else if (!is_waiting && is_waiting4FirstMission && allow_picked && Waiting4FirstMission())
         {
             is_waiting4FirstMission = false;
             Inpatience();
         }
-        else if (MM.checkAllMissionComplete(ID) && !is_picked)
-            Leaving();
         else if (is_waiting)
             Waiting();
-
+        else if (MM.checkAllMissionComplete(ID) && allow_picked)
+            Leaving();
 
         //任務的計時完觸發
         if(timerOK==true){
@@ -85,7 +92,6 @@ abstract public class PatientBaseClass : MonoBehaviour
                 MM.completeMission(ID,missionPoint,lastPlayer);
                 updateDialogString();
                 is_waiting = true;
-
             }
             else{
                 timerOK=false;
@@ -98,15 +104,25 @@ abstract public class PatientBaseClass : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
 
-        if (collision.transform.tag == "task" && is_picked == false){
+        if (collision.transform.tag == "task" && allow_picked){
             is_waiting4FirstMission = false;
             missionPoint = collision.collider.gameObject.name;
         }
+
+        if (collision.transform.tag == "patient")
+        {
+            if (is_attacking)
+            {
+                Destroy(collision.gameObject);
+                Destroy(gameObject);
+            }
+        }
             
 
-        if(MM.hasThisMission(ID, missionPoint)){
+        if(MM.hasThisMission(ID, missionPoint) && !doingMission)
+        {
             is_waiting = false;
-            doingMission =true;
+            doingMission = true;
             createTimer();
         }
         
@@ -114,7 +130,6 @@ abstract public class PatientBaseClass : MonoBehaviour
         if (collision.transform.tag == "exit"  && !end_task)
         {
             if(MM.checkAllMissionComplete(ID)){
-
                 MM.score(ID,lastPlayer,point);
                 MM.deleteMission(ID);
                 Destroy(gameObject);
@@ -138,7 +153,7 @@ abstract public class PatientBaseClass : MonoBehaviour
 
     void OnCollisionStay(Collision collision)
     {
-         if (collision.transform.tag == "Player" && is_picked == false)
+         if (collision.transform.tag == "Player" && allow_picked)
         {
            Dialog.SetActive(true);
         }

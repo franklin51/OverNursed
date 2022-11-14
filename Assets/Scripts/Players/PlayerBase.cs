@@ -12,8 +12,8 @@ public class PlayerBase : MonoBehaviour
     public Rigidbody rb;
     Vector3 m_Input = new Vector3(0, 0, 0);
 
-    private bool allow_attached = false; // 可以拿病人嗎
     private bool already_pick=false; // 已經撿起病人了嗎
+    private bool to_pick = false;
 
     // Start is called before the first frame update
     void Start()
@@ -44,8 +44,8 @@ public class PlayerBase : MonoBehaviour
                 rb.velocity = new Vector3(0, 0, 0);
             if (Input.GetKeyDown("t"))
             {
-                allow_attached = !allow_attached;
-                if (allow_attached == false)
+                to_pick = !to_pick;
+                if (already_pick && patient && !patient.GetComponent<PatientBaseClass>().allow_picked)
                     PutDownPatient();
             }
         }
@@ -64,8 +64,8 @@ public class PlayerBase : MonoBehaviour
 				rb.velocity = new Vector3(0, 0, 0);
             if (Input.GetKeyDown("m"))
             {
-                allow_attached = !allow_attached;
-                if (allow_attached == false)
+                to_pick = !to_pick;
+                if (already_pick && patient && !patient.GetComponent<PatientBaseClass>().allow_picked)
                     PutDownPatient();
             }
         }
@@ -73,11 +73,7 @@ public class PlayerBase : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag == "patient")
-        {
-            allow_attached = false;
-        }
-        
+
     }
 
     void OnCollisionStay(Collision collision)
@@ -85,24 +81,20 @@ public class PlayerBase : MonoBehaviour
         if (collision.transform.tag == "patient")
         {
             bool isDoing=collision.transform.GetComponent<PatientBaseClass>().doingMission;
-            if (allow_attached&& !already_pick && !isDoing)
+            if (to_pick && !already_pick && !isDoing)
             {
-                already_pick=true;
                 patient = collision.gameObject;
-
-                // 拿起病人時對齊中線
-                /*Vector3 temp = transform.eulerAngles;
-                patient.transform.eulerAngles = new Vector3(0, 0, 0);
-                transform.eulerAngles = new Vector3(0, 90, 0);
-                //patient.transform.position = transform.position + transform.forward * 2.5f;
-                patient.transform.eulerAngles = temp;*/
+                to_pick = true;
 
                 // 與病人合體
-                patient.GetComponent<PatientBaseClass>().is_picked = true;
-                patient.transform.SetParent(transform, false);
-                //patient.transform.localEulerAngles = new Vector3(0, 0, 0);
-                patient.transform.localScale = new Vector3(patient.transform.localScale.x/transform.localScale.x, 2, patient.transform.localScale.z / transform.localScale.z);
-                patient.transform.localPosition = new Vector3(0, 3.5f, 0);
+                if (patient.GetComponent<PatientBaseClass>().allow_picked)
+                {
+                    already_pick = true;
+                    patient.GetComponent<PatientBaseClass>().allow_picked = false;
+                    patient.transform.SetParent(transform, false);
+                    patient.transform.localScale = new Vector3(patient.transform.localScale.x / transform.localScale.x, 2, patient.transform.localScale.z / transform.localScale.z);
+                    patient.transform.localPosition = new Vector3(0, 3.5f, 0);
+                }
             }
         }
         if (collision.transform.tag == "Wall")
@@ -138,14 +130,11 @@ public class PlayerBase : MonoBehaviour
     }
     private void PutDownPatient()
     {
-        if (patient)
-        {
-            already_pick = false;
-            patient.GetComponent<PatientBaseClass>().is_picked = false;
-            patient.GetComponent<PatientBaseClass>().lastPlayer = 1;
-            patient.transform.parent = null;
-            patient.transform.position = new Vector3(patient.transform.position.x, 0.03f, patient.transform.position.z) + transform.forward * 2f;
-        }
+        already_pick = false;
+        patient.GetComponent<PatientBaseClass>().allow_picked = true;
+        patient.GetComponent<PatientBaseClass>().lastPlayer = 1;
+        patient.transform.parent = null;
+        patient.transform.position = new Vector3(patient.transform.position.x, 0.03f, patient.transform.position.z) + transform.forward * 2f;
         patient = null;
     }
 }

@@ -7,25 +7,23 @@ public class AngryGrandma : PatientBaseClass
 {
     [SerializeField] GameObject Anger;
     public bool isAngry=false;
-    public NavMeshAgent agent;
 
-    override protected bool Waiting4FirstMission() // 生兵後等待第一個任務，return true表示等不及了，進入Inpatience函式
+    override protected bool Waiting4FirstMission() // ?�兵後�?待第一?�任?��?return true表示等�??��?，進入Inpatience?��?
     {
         //agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         //agent.SetDestination(GameObject.Find("1P").transform.position);
         return false;
 	}
 
-	override protected bool ExecuteMission() // 執行任務，return true表示成功執行
+	override protected bool ExecuteMission() // ?��?任�?，return true表示?��??��?
 	{
 		return true;
 	}
 
-	override protected bool Waiting() // 任務完成後等待下一個任務，return true表示等不及了，進入Inpatience函式
+	override protected bool Waiting() // 任�?完�?後�?待�?一?�任?��?return true表示等�??��?，進入Inpatience?��?
     {
         Invoke("createAnger", 4.0f); 
-        Debug.Log(is_picked == true);
-        if (isAngry == true && is_picked == true)
+        if (isAngry == true && !allow_picked)
         {
             isAngry = false;
             deleteAnger();
@@ -33,7 +31,7 @@ public class AngryGrandma : PatientBaseClass
         return false;
     }
 
-	override protected void Inpatience() // 等不及開始搞事
+	override protected void Inpatience() // 等�??��?始�?�?
     {
         Destroy(gameObject);
     }
@@ -46,7 +44,7 @@ public class AngryGrandma : PatientBaseClass
         Destroy(gameObject.transform.Find("Canvas").transform.Find("Anger(Clone)").gameObject);
     }
     void createAnger(){
-        if(isAngry==false && is_picked==false &&doingMission==false){
+        if(isAngry==false && allow_picked &&doingMission==false){
             isAngry=true;
             GameObject anger = Instantiate(Anger, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
             anger.transform.SetParent (transform.GetChild(1), false);
