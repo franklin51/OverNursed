@@ -97,21 +97,22 @@ abstract public class PatientBaseClass : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-
+        
         if (collision.transform.tag == "task" && is_picked == false){
             is_waiting4FirstMission = false;
             missionPoint = collision.collider.gameObject.name;
         }
+
             
 
-        if(MM.hasThisMission(ID, missionPoint)){
+        if(MM.hasThisMission(ID, missionPoint)&&doingMission==false){
             is_waiting = false;
             doingMission =true;
             createTimer();
         }
         
 
-        if (collision.transform.tag == "exit"  && !end_task)
+        if (collision.transform.tag == "exit")
         {
             if(MM.checkAllMissionComplete(ID)){
 

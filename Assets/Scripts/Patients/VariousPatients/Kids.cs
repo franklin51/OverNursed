@@ -26,7 +26,10 @@ public class Kids : PatientBaseClass
 
     override protected bool ExecuteMission() // 執行任務，return true表示成功執行
     {
-        return Pass_Mission();
+        bool pass=Pass_Mission();
+        if (!pass)
+            MM.missionFailed(ID);
+        return pass;
     }
 
     override protected bool Waiting() // 任務完成後等待下一個任務，return true表示等不及了，進入Inpatience函式

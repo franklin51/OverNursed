@@ -93,6 +93,7 @@ public class MissionManager : MonoBehaviour
                 missionList[index].whoComplete[i]=whoComplete;
             }
         }
+        taskbar.transform.GetChild(index).gameObject.transform.GetComponent<TaskBar>().completeAnimation();
         updateTaskBar();
 
     }
@@ -173,6 +174,12 @@ public class MissionManager : MonoBehaviour
         return s;
     }
 
+    public void missionFailed(int ID){
+        int index=findMissionIndex(ID);
+
+        taskbar.transform.GetChild(index).gameObject.transform.GetComponent<TaskBar>().failedAnimation();
+    }
+
     //病人有沒有該任務，有回傳True，沒有或已完成回傳false
     public bool hasThisMission(int ID, string whatMission){
         int index=0;
@@ -204,7 +211,16 @@ public class MissionManager : MonoBehaviour
 
     }
 
-    
+    int findMissionIndex(int ID){
+        int index=0;
+        for(int i=0 ; i<missionList.Count ; i++ ){
+            if(missionList[i].ID==ID){
+                index=i;
+                break;
+            }
+        }
+        return index;
+    }
 
     void updateScoreBoard(){
         for(int i=0; i<ScoreBoard.transform.childCount; i++){
