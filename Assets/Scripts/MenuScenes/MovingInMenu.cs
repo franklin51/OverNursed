@@ -59,22 +59,6 @@ public class MovingInMenu : MonoBehaviour
             }
 			else
 				rb.velocity = new Vector3(0, 0, 0);
-            //if(Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s")|| Input.GetKey("d")){
-            //    rb.MovePosition(transform.position + m_Input * Time.deltaTime * speed);
-            //}
-            /*if (Input.GetKeyDown("t"))
-            {
-                allow_attached = !allow_attached;
-                if (allow_attached == false)
-                {
-                    if (patient) {
-						patient.GetComponent<Patient>().is_picked = false;
-                        patient.GetComponent<Patient>().lastPlayer = 1;
-                        patient.transform.parent = null;
-					}
-                    patient = null;
-                }
-            }*/
         }
         else if (name == "2P")
         {
@@ -117,21 +101,6 @@ public class MovingInMenu : MonoBehaviour
             }
 			else
 				rb.velocity = new Vector3(0, 0, 0);
-            //if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.UpArrow)){
-            //    rb.MovePosition(transform.position + m_Input * Time.deltaTime * speed);
-            //}
-            /*if (Input.GetKeyDown("m"))
-            {
-                allow_attached = !allow_attached;
-                if (allow_attached == false)
-                {
-                    patient.GetComponent<Patient>().is_picked = false;
-                    patient.GetComponent<Patient>().lastPlayer = 2;
-                    if (patient)
-                        patient.transform.parent = null;
-                    patient = null;
-                }
-            }*/
         }
     }
 }
