@@ -13,6 +13,10 @@ public class TaskBar : MonoBehaviour
     public Sprite EngineerPatient;
     public Sprite Patient;
 
+    void Start(){
+        oldImage=gameObject.GetComponent<Image>();
+    }
+
     public void completeAnimation(){
             animator = GetComponent<Animator>();
             animator.Play ("missionComplete");

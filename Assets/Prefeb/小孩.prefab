@@ -2334,7 +2334,7 @@ MonoBehaviour:
   is_lineup: 1
   is_attacking: 0
   GP: {fileID: 0}
-  point: 50
+  point: 100
   LineupPosition: 
   mission: []
   isComplete: 
