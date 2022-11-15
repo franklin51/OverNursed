@@ -1110,6 +1110,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Nurse (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2905152382960274876, guid: 51e437be22296b340954bf6591a60065,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 446a06e13466c2e40892bd720fc6a9bb, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 51e437be22296b340954bf6591a60065, type: 3}
 --- !u!1 &1496218031
@@ -1542,7 +1547,7 @@ PrefabInstance:
     - target: {fileID: 177407082141715887, guid: 51e437be22296b340954bf6591a60065,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.14
+      value: -5.62
       objectReference: {fileID: 0}
     - target: {fileID: 177407082141715887, guid: 51e437be22296b340954bf6591a60065,
         type: 3}
@@ -1594,5 +1599,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Nurse
       objectReference: {fileID: 0}
+    - target: {fileID: 2905152382960274876, guid: 51e437be22296b340954bf6591a60065,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9a46a53c350d5a8468c83df4537ef303, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 51e437be22296b340954bf6591a60065, type: 3}
