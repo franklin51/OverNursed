@@ -17,6 +17,7 @@ TagManager:
   - task4
   - task5
   - Canvas
+  - PatientStopSign
   layers:
   - Default
   - TransparentFX

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class DoorSensor : MonoBehaviour
 {
-    private bool isColliding = false;
     private int collisionCount = 0;
     Vector3 close_position;
 
@@ -17,7 +16,6 @@ public class DoorSensor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isColliding = false;
         if (collisionCount > 0)
         {
             transform.parent.transform.Find("Door").transform.position = new Vector3(close_position.x, 5, close_position.z);

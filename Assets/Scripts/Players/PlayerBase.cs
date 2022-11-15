@@ -94,6 +94,12 @@ public class PlayerBase : MonoBehaviour
                     patient.transform.SetParent(transform, false);
                     patient.transform.localScale = new Vector3(patient.transform.localScale.x / transform.localScale.x, 2, patient.transform.localScale.z / transform.localScale.z);
                     patient.transform.localPosition = new Vector3(0, 3.5f, 0);
+
+                    if (patient.GetComponent<PatientBaseClass>().is_waiting4FirstMission && patient.GetComponent<PatientBaseClass>().is_lineup)
+                    {
+                        patient.GetComponent<PatientBaseClass>().is_lineup = false;
+                        patient.GetComponent<PatientBaseClass>().lineup.RemoveAPatient(patient.GetComponent<PatientBaseClass>().ID);
+                    }
                 }
             }
         }

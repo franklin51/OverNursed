@@ -8,19 +8,19 @@ public class AngryGrandma : PatientBaseClass
     [SerializeField] GameObject Anger;
     public bool isAngry=false;
 
-    override protected bool Waiting4FirstMission() // ?Ÿå…µå¾Œç?å¾…ç¬¬ä¸€?‹ä»»?™ï?return trueè¡¨ç¤ºç­‰ä??Šä?ï¼Œé€²å…¥Inpatience?½å?
+    override protected bool Waiting4FirstMission() // ?ï¿½å…µå¾Œï¿½?å¾…ç¬¬ä¸€?ï¿½ä»»?ï¿½ï¿½?return trueè¡¨ç¤ºç­‰ï¿½??ï¿½ï¿½?ï¼Œé€²å…¥Inpatience?ï¿½ï¿½?
     {
         //agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         //agent.SetDestination(GameObject.Find("1P").transform.position);
         return false;
 	}
 
-	override protected bool ExecuteMission() // ?·è?ä»»å?ï¼Œreturn trueè¡¨ç¤º?å??·è?
+	override protected bool ExecuteMission() // ?ï¿½ï¿½?ä»»ï¿½?ï¼Œreturn trueè¡¨ç¤º?ï¿½ï¿½??ï¿½ï¿½?
 	{
 		return true;
 	}
 
-	override protected bool Waiting() // ä»»å?å®Œæ?å¾Œç?å¾…ä?ä¸€?‹ä»»?™ï?return trueè¡¨ç¤ºç­‰ä??Šä?ï¼Œé€²å…¥Inpatience?½å?
+	override protected bool Waiting() // ä»»ï¿½?å®Œï¿½?å¾Œï¿½?å¾…ï¿½?ä¸€?ï¿½ä»»?ï¿½ï¿½?return trueè¡¨ç¤ºç­‰ï¿½??ï¿½ï¿½?ï¼Œé€²å…¥Inpatience?ï¿½ï¿½?
     {
         Invoke("createAnger", 4.0f); 
         if (isAngry == true && !allow_picked)
@@ -31,7 +31,7 @@ public class AngryGrandma : PatientBaseClass
         return false;
     }
 
-	override protected void Inpatience() // ç­‰ä??Šé?å§‹æ?äº?
+	override protected void Inpatience() // ç­‰ï¿½??ï¿½ï¿½?å§‹ï¿½?ï¿½?
     {
         Destroy(gameObject);
     }
@@ -40,7 +40,7 @@ public class AngryGrandma : PatientBaseClass
 
 
     void deleteAnger(){
-        Debug.Log("deleteAnger");
+       
         Destroy(gameObject.transform.Find("Canvas").transform.Find("Anger(Clone)").gameObject);
     }
     void createAnger(){

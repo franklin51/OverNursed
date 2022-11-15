@@ -15,10 +15,10 @@ EditorBuildSettings:
     path: Assets/Scenes/Map_Scene.unity
     guid: 5ea9ac2cdb188442bb99df375b2af9c3
   - enabled: 1
-    path: Assets/Scenes/Instructions0.unity
+    path: Assets/Scenes/Instructions1.unity
     guid: a033c76078033ae4bb86da8a65bff0fa
   - enabled: 1
-    path: Assets/Scenes/Instructions1.unity
+    path: Assets/Scenes/Instructions2.unity
     guid: a8a9dfaf666ccea4eabd62a2a8280bac
   - enabled: 1
     path: Assets/Scenes/ED.unity
