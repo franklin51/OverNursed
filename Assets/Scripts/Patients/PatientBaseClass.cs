@@ -108,12 +108,12 @@ abstract public class PatientBaseClass : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider collision)
     {
 
         if (collision.transform.tag == "task" && allow_picked){
             is_waiting4FirstMission = false;
-            missionPoint = collision.collider.gameObject.name;
+            missionPoint = collision.GetComponent<Collider>().gameObject.name;
             MM.updateTaskBar();
 
             if(MM.hasThisMission(ID, missionPoint) && !doingMission)
@@ -121,23 +121,6 @@ abstract public class PatientBaseClass : MonoBehaviour
                 is_waiting = false;
                 doingMission = true;
                 createTimer();
-            }
-        }
-
-        if (collision.transform.tag == "Player")
-        {
-            if(collision.transform.name=="1P") lastPlayer=1;
-            else if (collision.transform.name=="2P") lastPlayer=2;
-        }
-
-        if (collision.transform.tag == "patient")
-        {
-            if (is_attacking)
-            {
-                MM.deleteMission(collision.gameObject.GetComponent<PatientBaseClass>().ID);
-                //MM.deleteMission(ID);
-                Destroy(collision.gameObject);
-                Destroy(gameObject);
             }
         }
             
@@ -154,15 +137,15 @@ abstract public class PatientBaseClass : MonoBehaviour
             }
         }
 
-        if (collision.transform.name == "離開點" && !is_waiting4FirstMission)
-        {
-            Destroy(gameObject);
-        }
-
         if (collision.transform.name == LineupPosition) // kids
         {
             agent.enabled = false;
             transform.eulerAngles = new Vector3(0, 0, 0);
+        }
+
+        if (collision.transform.name == "離開點" && !is_waiting4FirstMission)
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -181,6 +164,26 @@ abstract public class PatientBaseClass : MonoBehaviour
          if (collision.transform.tag == "Player" && allow_picked)
         {
            Dialog.SetActive(true);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.tag == "Player")
+        {
+            if (collision.transform.name == "1P") lastPlayer = 1;
+            else if (collision.transform.name == "2P") lastPlayer = 2;
+        }
+
+        if (collision.transform.tag == "patient")
+        {
+            if (is_attacking)
+            {
+                MM.deleteMission(collision.gameObject.GetComponent<PatientBaseClass>().ID);
+                //MM.deleteMission(ID);
+                Destroy(collision.gameObject);
+                Destroy(gameObject);
+            }
         }
     }
 }

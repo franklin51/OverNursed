@@ -359,13 +359,19 @@ public class MissionManager : MonoBehaviour
 
     public void pickPatient(int ID){
         int index = findMissionIndex(ID);
-        updateTaskBar();
-        taskbar.transform.GetChild(index).gameObject.transform.GetComponent<TaskBar>().pickAnimation();
+        if (index < 7)
+        {
+            updateTaskBar();
+            taskbar.transform.GetChild(index).gameObject.transform.GetComponent<TaskBar>().pickAnimation();
+        }
     }
     public void putDownPatient(int ID){
         int index = findMissionIndex(ID);
-        updateTaskBar();
-        taskbar.transform.GetChild(index).gameObject.transform.GetComponent<TaskBar>().emptyAnimation();
+        if (index < 7)
+        {
+            updateTaskBar();
+            taskbar.transform.GetChild(index).gameObject.transform.GetComponent<TaskBar>().emptyAnimation();
+        }
     }
     
 
