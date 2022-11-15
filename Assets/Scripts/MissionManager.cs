@@ -338,7 +338,7 @@ public class MissionManager : MonoBehaviour
 
                         }
                     }else{
-                        //任務點
+                        //任務點或空地
                         positionString=missionList[i].patient.GetComponent<PatientBaseClass>().missionPoint;
                     }
 
@@ -355,6 +355,17 @@ public class MissionManager : MonoBehaviour
 
         }
 
+    }
+
+    public void pickPatient(int ID){
+        int index = findMissionIndex(ID);
+        updateTaskBar();
+        taskbar.transform.GetChild(index).gameObject.transform.GetComponent<TaskBar>().pickAnimation();
+    }
+    public void putDownPatient(int ID){
+        int index = findMissionIndex(ID);
+        updateTaskBar();
+        taskbar.transform.GetChild(index).gameObject.transform.GetComponent<TaskBar>().emptyAnimation();
     }
     
 
