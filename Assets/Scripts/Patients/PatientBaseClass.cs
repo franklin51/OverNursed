@@ -102,6 +102,10 @@ abstract public class PatientBaseClass : MonoBehaviour
                 is_waiting = true;
             }
         }
+
+        if(allow_picked==false){
+            missionPoint="";
+        }
     }
 
     void OnCollisionEnter(Collision collision)

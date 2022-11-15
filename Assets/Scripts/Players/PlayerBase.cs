@@ -9,7 +9,9 @@ public class PlayerBase : MonoBehaviour
     public GameObject patient;
     public GeneratePoint GP;
     public Rigidbody rb;
+    public MissionManager MM;
     Vector3 m_Input = new Vector3(0, 0, 0);
+    
 
     private bool already_pick=false; // 已經撿起病人了嗎
     private bool to_pick = false;
@@ -19,6 +21,7 @@ public class PlayerBase : MonoBehaviour
     {
         GP = GameObject.Find("生兵點").GetComponent<GeneratePoint>();
         rb = GetComponent<Rigidbody>();
+        MM = GameObject.Find("MissionManager").GetComponent<MissionManager>();
     }
 
     // Update is called once per frame
@@ -96,6 +99,8 @@ public class PlayerBase : MonoBehaviour
                     
                     patient.transform.localPosition = new Vector3(0, 1f, 0);
 
+                    MM.pickPatient(patient.GetComponent<PatientBaseClass>().ID);//拿起病人時更新病人位子
+
                     // 從隊伍中移除玩家
                     if (patient.GetComponent<PatientBaseClass>().is_waiting4FirstMission && patient.GetComponent<PatientBaseClass>().is_lineup)
                     {
@@ -142,6 +147,8 @@ public class PlayerBase : MonoBehaviour
         patient.GetComponent<PatientBaseClass>().allow_picked = true;
         //patient.GetComponent<PatientBaseClass>().lastPlayer = 1;
         patient.transform.parent = null;
+
+        MM.putDownPatient(patient.GetComponent<PatientBaseClass>().ID);//放下病人時更新病人位子
 
         Vector3 temp = new Vector3(patient.transform.position.x, 0.03f, patient.transform.position.z) + transform.forward * 2f;
         for (float f = 2f; f>=0; f-=0.1f)

@@ -28,6 +28,15 @@ public class TaskBar : MonoBehaviour
             animator.Play ("missionFailed");
     }
 
+    public void pickAnimation(){
+        animator = GetComponent<Animator>();
+            animator.Play ("pick");
+    }
+    public void emptyAnimation(){
+        animator = GetComponent<Animator>();
+            animator.Play ("empty");
+    }
+
     public void changeSprite(string name){
         
 
