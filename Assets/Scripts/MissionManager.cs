@@ -242,9 +242,13 @@ public class MissionManager : MonoBehaviour
     GameObject createPatient(int patientType, int ID, string[] mission)
     {
         GameObject generatePoint = GameObject.Find("生兵點");
-        var distance = new Vector3(0f, 0f, missionCount * 3f);
+        Vector3 pos;
+        if (patientPrefabs[patientType].transform.name == "Kids")
+            pos = new Vector3(generatePoint.transform.position.x, 2f, generatePoint.transform.position.z);
+        else
+            pos = generatePoint.transform.position;
 
-        GameObject patient = Instantiate(patientPrefabs[patientType], generatePoint.transform.position + distance, generatePoint.transform.rotation);
+        GameObject patient = Instantiate(patientPrefabs[patientType], pos, generatePoint.transform.rotation);
         patient.GetComponent<PatientBaseClass>().ID = ID;
         patient.GetComponent<PatientBaseClass>().mission = mission;
         patient.GetComponent<PatientBaseClass>().isComplete = new bool[] { false, false };
@@ -253,8 +257,11 @@ public class MissionManager : MonoBehaviour
         string lineupPoint = "排隊點" + lineup.NewPatientEnter(patient);
         patient.GetComponent<PatientBaseClass>().LineupPosition = lineupPoint;
         patient.GetComponent<PatientBaseClass>().agent = patient.GetComponent<UnityEngine.AI.NavMeshAgent>();
-        patient.GetComponent<PatientBaseClass>().agent.enabled = true;
-        patient.GetComponent<PatientBaseClass>().NavigateTo(GameObject.Find(lineupPoint));
+        if (patient.name.Replace("(Clone)", "") != "Kids")
+        {
+            patient.GetComponent<PatientBaseClass>().agent.enabled = true;
+            patient.GetComponent<PatientBaseClass>().NavigateTo(GameObject.Find(lineupPoint));
+        }
 
         return patient;
     }
@@ -362,16 +369,6 @@ public class MissionManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        /*if(Input.GetKeyDown(KeyCode.Mouse1)){
-            if(missionCount<5){
-                createMission();
-            }
-            else{
-                Debug.Log("full");
-            }
-           
-        */
         GeneratePatients();
 
         for (int i = 0; i < scoreArray.Length; i++)
