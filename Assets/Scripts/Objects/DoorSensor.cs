@@ -24,17 +24,18 @@ public class DoorSensor : MonoBehaviour
             transform.parent.transform.Find("Door").transform.position = close_position;
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider collision)
     {
-        if (collision.transform.tag == "patient")
+        Debug.Log(collision.transform.root.transform.tag);
+        if (collision.transform.root.transform.tag == "patient")
         {
             collisionCount++;
         }
     }
 
-    void OnCollisionExit(Collision collision)
+    void OnTriggerExit(Collider collision)
     {
-        if (collision.transform.tag == "patient")
+        if (collision.transform.root.transform.tag == "patient")
         {
             collisionCount--;
         }
