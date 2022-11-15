@@ -140,7 +140,25 @@ public class PlayerBase : MonoBehaviour
         patient.GetComponent<PatientBaseClass>().allow_picked = true;
         patient.GetComponent<PatientBaseClass>().lastPlayer = 1;
         patient.transform.parent = null;
-        patient.transform.position = new Vector3(patient.transform.position.x, 0.03f, patient.transform.position.z) + transform.forward * 2f;
+
+        Vector3 temp = new Vector3(patient.transform.position.x, 0.03f, patient.transform.position.z) + transform.forward * 2f;
+        for (float f = 2f; f>=0; f-=0.1f)
+        {
+            temp = new Vector3(patient.transform.position.x, 0.03f, patient.transform.position.z) + transform.forward * f;
+            var hitColliders = Physics.OverlapSphere(temp, 0.7f);//2 is purely chosen arbitrarly
+
+            bool flag = true;
+            for (int i=0; i<hitColliders.Length; i++)
+            {
+                if (hitColliders[i].transform.tag == "Wall")
+                {
+                    flag = false;
+                }
+            }
+            if (flag)
+                break;
+        }
+        patient.transform.position = temp;
         patient = null;
     }
 }

@@ -2298,8 +2298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d679482c350d9946b863b01867b05ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 40
-  velocity: 50
+  velocity: 40
   patient: {fileID: 0}
   GP: {fileID: 0}
   rb: {fileID: 0}
@@ -10131,8 +10130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d679482c350d9946b863b01867b05ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 40
-  velocity: 50
+  velocity: 40
   patient: {fileID: 0}
   GP: {fileID: 0}
   rb: {fileID: 0}
