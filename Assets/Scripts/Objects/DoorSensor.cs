@@ -26,7 +26,6 @@ public class DoorSensor : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
-        Debug.Log(collision.transform.root.transform.tag);
         if (collision.transform.root.transform.tag == "patient")
         {
             collisionCount++;
