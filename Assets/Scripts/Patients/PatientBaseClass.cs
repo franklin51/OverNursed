@@ -33,7 +33,7 @@ abstract public class PatientBaseClass : MonoBehaviour
     abstract protected bool ExecuteMission(); // 執行任務，return true表示成功執行
     abstract protected bool Waiting(); // 任務完成後等待下一個任務，return true表示等不及了，進入Inpatience函式
     abstract protected void Inpatience(); // 等不及開始搞事
-    protected void Leaving() { NavigateTo(GameObject.Find("Sofa_Apt_01")); } // 最後一個任務完成
+    protected void Leaving() {  } // 最後一個任務完成
     void Exiting() { agent.enabled = true; NavigateTo(GameObject.Find("離開點")); allow_picked = false; }
     public void NavigateTo(GameObject des) { agent.enabled = true; agent.SetDestination(des.transform.position); }
 
