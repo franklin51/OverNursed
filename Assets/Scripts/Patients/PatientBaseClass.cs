@@ -130,6 +130,8 @@ abstract public class PatientBaseClass : MonoBehaviour
         {
             if (is_attacking)
             {
+                MM.deleteMission(collision.gameObject.GetComponent<PatientBaseClass>().ID);
+                //MM.deleteMission(ID);
                 Destroy(collision.gameObject);
                 Destroy(gameObject);
             }
@@ -153,9 +155,10 @@ abstract public class PatientBaseClass : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (collision.transform.name == LineupPosition)
+        if (collision.transform.name == LineupPosition) // kids
         {
             agent.enabled = false;
+            transform.eulerAngles = new Vector3(0, 0, 0);
         }
     }
 

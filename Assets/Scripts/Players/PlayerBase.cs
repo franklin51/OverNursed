@@ -91,8 +91,10 @@ public class PlayerBase : MonoBehaviour
                     already_pick = true;
                     patient.GetComponent<PatientBaseClass>().allow_picked = false;
                     patient.transform.SetParent(transform, false);
-                    patient.transform.localScale = new Vector3(patient.transform.localScale.x / transform.localScale.x, 2, patient.transform.localScale.z / transform.localScale.z);
-                    patient.transform.localPosition = new Vector3(0, 3.5f, 0);
+                    patient.transform.localRotation = Quaternion.Euler(0, 180, 0);
+                    patient.transform.localScale = new Vector3(patient.transform.localScale.x / transform.localScale.x, patient.transform.localScale.y / transform.localScale.y, patient.transform.localScale.z / transform.localScale.z);
+                    
+                    patient.transform.localPosition = new Vector3(0, 1f, 0);
 
                     // 從隊伍中移除玩家
                     if (patient.GetComponent<PatientBaseClass>().is_waiting4FirstMission && patient.GetComponent<PatientBaseClass>().is_lineup)

@@ -33,8 +33,16 @@ public class TerroristPatient : PatientBaseClass
 
 	override protected void Inpatience() // 等不及開始搞事
 	{
+		deleteAnger();
 		agent.enabled = true;
-		target = GameObject.FindGameObjectsWithTag("patient")[Random.Range(0, GameObject.FindGameObjectsWithTag("patient").Length)];
+		agent.speed = 50f;
+		agent.acceleration = 1000f;
+		if (!is_attacking)
+			do
+			{
+				target = GameObject.FindGameObjectsWithTag("patient")[Random.Range(0, GameObject.FindGameObjectsWithTag("patient").Length)];
+			} while (target.transform.name == "8+9(Clone)");
+
 		NavigateTo(target);
 		is_attacking = true;
 	}
