@@ -2275,7 +2275,7 @@ GameObject:
   - component: {fileID: 373098814281555889}
   - component: {fileID: -2010797733737939027}
   m_Layer: 0
-  m_Name: "\u5C0F\u5B69"
+  m_Name: Kids
   m_TagString: patient
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

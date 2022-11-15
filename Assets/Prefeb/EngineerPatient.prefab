@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 5225967797017210039}
   - component: {fileID: 5219618380728623704}
   m_Layer: 0
-  m_Name: "\u5DE5\u7A0B\u5E2B"
+  m_Name: EngineerPatient
   m_TagString: patient
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

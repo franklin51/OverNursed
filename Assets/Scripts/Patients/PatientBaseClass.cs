@@ -110,6 +110,20 @@ abstract public class PatientBaseClass : MonoBehaviour
         if (collision.transform.tag == "task" && allow_picked){
             is_waiting4FirstMission = false;
             missionPoint = collision.collider.gameObject.name;
+            MM.updateTaskBar();
+
+            if(MM.hasThisMission(ID, missionPoint) && !doingMission)
+            {
+                is_waiting = false;
+                doingMission = true;
+                createTimer();
+            }
+        }
+
+        if (collision.transform.tag == "Player")
+        {
+            if(collision.transform.name=="1P") lastPlayer=1;
+            else if (collision.transform.name=="2P") lastPlayer=2;
         }
 
         if (collision.transform.tag == "patient")
@@ -121,14 +135,6 @@ abstract public class PatientBaseClass : MonoBehaviour
             }
         }
             
-
-        if(MM.hasThisMission(ID, missionPoint) && !doingMission)
-        {
-            is_waiting = false;
-            doingMission = true;
-            createTimer();
-        }
-        
 
         if (collision.transform.tag == "exit")
         {

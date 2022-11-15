@@ -138,7 +138,7 @@ public class PlayerBase : MonoBehaviour
     {
         already_pick = false;
         patient.GetComponent<PatientBaseClass>().allow_picked = true;
-        patient.GetComponent<PatientBaseClass>().lastPlayer = 1;
+        //patient.GetComponent<PatientBaseClass>().lastPlayer = 1;
         patient.transform.parent = null;
 
         Vector3 temp = new Vector3(patient.transform.position.x, 0.03f, patient.transform.position.z) + transform.forward * 2f;

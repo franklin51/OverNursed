@@ -286,7 +286,7 @@ public class MissionManager : MonoBehaviour
         }
     }
 
-    void updateTaskBar()
+    public void updateTaskBar()
     {
 
         for (int i = 0; i < taskbar.transform.childCount; i++)
@@ -308,8 +308,36 @@ public class MissionManager : MonoBehaviour
                 }
                 taskbar.transform.GetChild(i).gameObject.transform.GetComponentInChildren<Text>().text = taskBarString;
                 string spriteName = missionList[i].patient.name.Replace("(Clone)", "");
-                spriteName = Chinese2Eng(spriteName);
                 taskbar.transform.GetChild(i).gameObject.transform.GetComponent<TaskBar>().changeSprite(spriteName);
+
+
+
+                string positionString="";
+                if(missionList[i].patient.GetComponent<PatientBaseClass>().is_lineup){
+                    positionString=missionList[i].patient.GetComponent<PatientBaseClass>().LineupPosition.Replace("排隊點","");
+                    int n = int.Parse(positionString)+1;
+                    positionString=n.ToString();
+                }
+                else{
+                    if(!missionList[i].patient.GetComponent<PatientBaseClass>().allow_picked){
+                        //pick的人
+                        int lastPlayer=missionList[i].patient.GetComponent<PatientBaseClass>().lastPlayer;
+                        if(lastPlayer==1){
+                            positionString="1P";
+                        }
+                        else if(lastPlayer==2){
+                            positionString="2P";
+                        }
+                        else{
+
+                        }
+                    }else{
+                        //任務點
+                        positionString=missionList[i].patient.GetComponent<PatientBaseClass>().missionPoint;
+                    }
+
+                }
+                taskbar.transform.GetChild(i).gameObject.transform.Find("positionText").GetComponent<Text>().text=positionString;
 
             }
             else
@@ -322,29 +350,7 @@ public class MissionManager : MonoBehaviour
         }
 
     }
-    string Chinese2Eng(string s)
-    {
-        if (s == "小孩")
-        {
-            return "Kids";
-        }
-        else if (s == "爆怒阿嬤")
-        {
-            return "AngryGrandma";
-        }
-        else if (s == "病人")
-        {
-            return "Patient";
-        }
-        else if (s == "工程師")
-        {
-            return "EngineerPatient";
-        }
-        else
-        {
-            return s;
-        }
-    }
+    
 
 
     // Start is called before the first frame update

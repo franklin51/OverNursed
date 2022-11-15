@@ -38,8 +38,8 @@ public class Lineup : MonoBehaviour
 
         for (int i = idx; i < line.Count; i++)
         {
-            line[i].GetComponent<PatientBaseClass>().LineupPosition = "±Æ¶¤ÂI" + i.ToString();
-            line[i].GetComponent<PatientBaseClass>().NavigateTo(GameObject.Find("±Æ¶¤ÂI"+i.ToString()));
+            line[i].GetComponent<PatientBaseClass>().LineupPosition = "æŽ’éšŠé»ž" + i.ToString();
+            line[i].GetComponent<PatientBaseClass>().NavigateTo(GameObject.Find("æŽ’éšŠé»ž"+i.ToString()));
         }
     }
 }
