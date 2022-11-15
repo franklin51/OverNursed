@@ -149,9 +149,11 @@ MonoBehaviour:
   is_waiting4FirstMission: 1
   is_waiting: 0
   is_inpatience: 0
+  is_lineup: 1
   is_attacking: 0
   GP: {fileID: 0}
   point: 50
+  LineupPosition: 
   mission: []
   isComplete: 
   lastPlayer: 0
@@ -164,6 +166,7 @@ MonoBehaviour:
   timerPrefabs: {fileID: 8006299836539748264, guid: d6c67fde5d5ea35419f8d518d46dfedd,
     type: 3}
   missionPoint: 
+  lineup: {fileID: 0}
   isAngry: 0
   has_sleep: 0
   SleepTimer: 10
@@ -178,7 +181,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.1
   m_Speed: 30
-  m_Acceleration: 60
+  m_Acceleration: 100
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0

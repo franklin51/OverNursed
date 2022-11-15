@@ -10,13 +10,13 @@ public class MissionManager : MonoBehaviour
     [SerializeField] GameObject[] patientPrefabs;
     [SerializeField] GameObject taskbar;
     [SerializeField] GameObject ScoreBoard;
-    int[] scoreArray = new int[]{0,0};
-    int missionCount=0; //存在的任務數
-    int ID=0;    //任務編號
+    int[] scoreArray = new int[] { 0, 0 };
+    int missionCount = 0; //存在的任務數
+    int ID = 0;    //任務編號
     //string[] missionType = new string[]{"抽血","量身高","心電圖","驗尿","量視力","X光"};
-    string[] missionType = new string[]{"blood","height","ECG","urine","visual"};
+    string[] missionType = new string[] { "blood", "height", "ECG", "urine", "visual" };
     public float Timer = 2f;
-    
+
     public class Mission
     {
         public int ID;
@@ -24,29 +24,32 @@ public class MissionManager : MonoBehaviour
         public bool[] isComplete;
         public int[] whoComplete;
         public GameObject patient;
-        public  Mission(int ID, string[] type,GameObject patient)
+        public Mission(int ID, string[] type, GameObject patient)
         {
             this.ID = ID;
             this.type = type;
             this.patient = patient;
-            this.isComplete= new bool[this.type.Length];
-            for(int i=0;i<this.isComplete.Length;i++){
-                this.isComplete[i]=false;
+            this.isComplete = new bool[this.type.Length];
+            for (int i = 0; i < this.isComplete.Length; i++)
+            {
+                this.isComplete[i] = false;
             }
             this.whoComplete = new int[this.type.Length];
-            for(int i=0;i<this.whoComplete.Length;i++){
-                this.whoComplete[i]=0;
+            for (int i = 0; i < this.whoComplete.Length; i++)
+            {
+                this.whoComplete[i] = 0;
             }
         }
     }
     List<Mission> missionList = new List<Mission>();
-    
-    
+
+
 
     // 隨機創任務
-    public void createMission(){
-        
-        
+    public void createMission()
+    {
+
+
         Random random = new Random();
 
         //隨機取兩個任務
@@ -67,36 +70,41 @@ public class MissionManager : MonoBehaviour
             missionsRandom[i] = missionType[randomIndex];
         }
 
-       
+
 
         //創patient,隨機取一種人
         int patientRandom = random.Next(0, patientPrefabs.Length);
         GameObject patient = createPatient(patientRandom, ID, missionsRandom);
 
-        
-        Mission newMission = new Mission(ID,missionsRandom,patient);
+
+        Mission newMission = new Mission(ID, missionsRandom, patient);
         missionList.Add(newMission);
 
 
-        missionCount+=1;
-        ID+=1;
+        missionCount += 1;
+        ID += 1;
         updateTaskBar();
-        
+
     }
 
-    public void completeMission(int ID, string whatMission,int whoComplete){
-        int index=0;
-        for(int i=0 ; i<missionList.Count ; i++ ){
-            if(missionList[i].ID==ID){
-                index=i;
+    public void completeMission(int ID, string whatMission, int whoComplete)
+    {
+        int index = 0;
+        for (int i = 0; i < missionList.Count; i++)
+        {
+            if (missionList[i].ID == ID)
+            {
+                index = i;
                 break;
             }
         }
 
-        for(int i =0; i<missionList[index].type.Length; i++){
-            if(missionList[index].type[i]==whatMission){
-                missionList[index].isComplete[i]=true;
-                missionList[index].whoComplete[i]=whoComplete;
+        for (int i = 0; i < missionList[index].type.Length; i++)
+        {
+            if (missionList[index].type[i] == whatMission)
+            {
+                missionList[index].isComplete[i] = true;
+                missionList[index].whoComplete[i] = whoComplete;
             }
         }
         taskbar.transform.GetChild(index).gameObject.transform.GetComponent<TaskBar>().completeAnimation();
@@ -104,31 +112,39 @@ public class MissionManager : MonoBehaviour
 
     }
     // 任務刪除
-    public void deleteMission(int ID){
-        int index=0;
-        for(int i=0 ; i<missionList.Count ; i++ ){
-            if(missionList[i].ID==ID){
-                index=i;
+    public void deleteMission(int ID)
+    {
+        int index = 0;
+        for (int i = 0; i < missionList.Count; i++)
+        {
+            if (missionList[i].ID == ID)
+            {
+                index = i;
                 break;
             }
         }
         missionList.RemoveAt(index);
-        missionCount-=1;
+        missionCount -= 1;
         updateTaskBar();
     }
 
-    public bool checkAllMissionComplete(int ID){
-        bool check=true;
-        int index=0;
-        for(int i=0 ; i<missionList.Count ; i++ ){
-            if(missionList[i].ID==ID){
-                index=i;
+    public bool checkAllMissionComplete(int ID)
+    {
+        bool check = true;
+        int index = 0;
+        for (int i = 0; i < missionList.Count; i++)
+        {
+            if (missionList[i].ID == ID)
+            {
+                index = i;
                 break;
             }
         }
-        for(int i=0; i<missionList[index].isComplete.Length; i++){
-            if(missionList[index].isComplete[i]==false){
-                check=false;
+        for (int i = 0; i < missionList[index].isComplete.Length; i++)
+        {
+            if (missionList[index].isComplete[i] == false)
+            {
+                check = false;
                 break;
             }
         }
@@ -136,43 +152,53 @@ public class MissionManager : MonoBehaviour
         return check;
 
     }
-    public void score(int ID, int player,int point){
+    public void score(int ID, int player, int point)
+    {
         //scoreArray[0]紀錄1p,scoreArray[1]紀錄2p
-        scoreArray[player-1]+=100; //送出院+100分
-        
-        int index=0;
-        for(int i=0 ; i<missionList.Count ; i++ ){
-            if(missionList[i].ID==ID){
-                index=i;
+        scoreArray[player - 1] += 100; //送出院+100分
+
+        int index = 0;
+        for (int i = 0; i < missionList.Count; i++)
+        {
+            if (missionList[i].ID == ID)
+            {
+                index = i;
                 break;
             }
         }
 
-        
-        for(int i =0; i<missionList[index].whoComplete.Length; i++){
-            scoreArray[missionList[index].whoComplete[i]-1]+=point;
+
+        for (int i = 0; i < missionList[index].whoComplete.Length; i++)
+        {
+            scoreArray[missionList[index].whoComplete[i] - 1] += point;
         }
 
         updateScoreBoard();
     }
-    public string getDialogString(int ID){
-        int index=0;
-        for(int i=0 ; i<missionList.Count ; i++ ){
-            if(missionList[i].ID==ID){
-                index=i;
+    public string getDialogString(int ID)
+    {
+        int index = 0;
+        for (int i = 0; i < missionList.Count; i++)
+        {
+            if (missionList[i].ID == ID)
+            {
+                index = i;
                 break;
             }
         }
-        
-        
-        string s="";
-        for (int i=0; i<missionList[index].type.Length; i++){
 
 
-            if(missionList[index].isComplete[i]==true){
+        string s = "";
+        for (int i = 0; i < missionList[index].type.Length; i++)
+        {
+
+
+            if (missionList[index].isComplete[i] == true)
+            {
                 s = s + missionList[index].type[i] + " (ok)\n";
             }
-            else{
+            else
+            {
                 s = s + missionList[index].type[i] + "\n";
             }
         }
@@ -180,110 +206,142 @@ public class MissionManager : MonoBehaviour
         return s;
     }
 
-    public void missionFailed(int ID){
-        int index=findMissionIndex(ID);
+    public void missionFailed(int ID)
+    {
+        int index = findMissionIndex(ID);
 
         taskbar.transform.GetChild(index).gameObject.transform.GetComponent<TaskBar>().failedAnimation();
     }
 
     //病人有沒有該任務，有回傳True，沒有或已完成回傳false
-    public bool hasThisMission(int ID, string whatMission){
-        int index=0;
-        for(int i=0 ; i<missionList.Count ; i++ ){
-            if(missionList[i].ID==ID){
-                index=i;
+    public bool hasThisMission(int ID, string whatMission)
+    {
+        int index = 0;
+        for (int i = 0; i < missionList.Count; i++)
+        {
+            if (missionList[i].ID == ID)
+            {
+                index = i;
                 break;
             }
         }
 
-        for(int i =0; i<missionList[index].type.Length; i++){
-            if(missionList[index].type[i]==whatMission){
-                if(missionList[index].isComplete[i]==false)
-                return true;
+        for (int i = 0; i < missionList[index].type.Length; i++)
+        {
+            if (missionList[index].type[i] == whatMission)
+            {
+                if (missionList[index].isComplete[i] == false)
+                    return true;
             }
         }
         return false;
     }
 
     // 創病人，input病人種類
-    GameObject createPatient(int patientType, int ID, string[] mission){
+    public Lineup lineup;
+    GameObject createPatient(int patientType, int ID, string[] mission)
+    {
         GameObject generatePoint = GameObject.Find("生兵點");
-        var distance = new Vector3(0f, 0f, missionCount*3f);
+        var distance = new Vector3(0f, 0f, missionCount * 3f);
 
-        GameObject patient =Instantiate(patientPrefabs[patientType], generatePoint.transform.position+distance, generatePoint.transform.rotation);
-        patient.GetComponent<PatientBaseClass>().ID=ID;
-        patient.GetComponent<PatientBaseClass>().mission=mission;
-        patient.GetComponent<PatientBaseClass>().isComplete = new bool[]{false,false};
-        Debug.Log(patient.name.Replace("(Clone)",""));//8+9(clone)
+        GameObject patient = Instantiate(patientPrefabs[patientType], generatePoint.transform.position + distance, generatePoint.transform.rotation);
+        patient.GetComponent<PatientBaseClass>().ID = ID;
+        patient.GetComponent<PatientBaseClass>().mission = mission;
+        patient.GetComponent<PatientBaseClass>().isComplete = new bool[] { false, false };
+        Debug.Log(patient.name.Replace("(Clone)", ""));//8+9(clone)
+
+        string lineupPoint = "排隊點" + lineup.NewPatientEnter(patient);
+        patient.GetComponent<PatientBaseClass>().LineupPosition = lineupPoint;
+        patient.GetComponent<PatientBaseClass>().agent = patient.GetComponent<UnityEngine.AI.NavMeshAgent>();
+        patient.GetComponent<PatientBaseClass>().agent.enabled = true;
+        patient.GetComponent<PatientBaseClass>().NavigateTo(GameObject.Find(lineupPoint));
 
         return patient;
     }
 
 
-    int findMissionIndex(int ID){
-        int index=0;
-        for(int i=0 ; i<missionList.Count ; i++ ){
-            if(missionList[i].ID==ID){
-                index=i;
+    int findMissionIndex(int ID)
+    {
+        int index = 0;
+        for (int i = 0; i < missionList.Count; i++)
+        {
+            if (missionList[i].ID == ID)
+            {
+                index = i;
                 break;
             }
         }
         return index;
     }
 
-    void updateScoreBoard(){
-        for(int i=0; i<ScoreBoard.transform.childCount; i++){
+    void updateScoreBoard()
+    {
+        for (int i = 0; i < ScoreBoard.transform.childCount; i++)
+        {
             string scoreBoardString = "";
-            scoreBoardString =scoreArray[i].ToString();
+            scoreBoardString = scoreArray[i].ToString();
 
             //ScoreBoard.transform.GetChild(i).GetComponent<Text>().text=scoreBoardString;
-            ScoreBoard.transform.GetChild(i).gameObject.transform.GetComponentInChildren<Text>().text=scoreBoardString;
+            ScoreBoard.transform.GetChild(i).gameObject.transform.GetComponentInChildren<Text>().text = scoreBoardString;
         }
     }
 
-    void updateTaskBar(){
-        
-        for (int i=0; i<taskbar.transform.childCount; i++){
-            if(missionCount>i){
+    void updateTaskBar()
+    {
+
+        for (int i = 0; i < taskbar.transform.childCount; i++)
+        {
+            if (missionCount > i)
+            {
                 taskbar.transform.GetChild(i).gameObject.SetActive(true);
-                string taskBarString="";
-                for(int j=0;j<missionList[i].type.Length;j++){
-                    if(missionList[i].isComplete[j]==true){
-                        taskBarString+=missionList[i].type[j]+" (p"+missionList[i].whoComplete[j].ToString()+")\n";
+                string taskBarString = "";
+                for (int j = 0; j < missionList[i].type.Length; j++)
+                {
+                    if (missionList[i].isComplete[j] == true)
+                    {
+                        taskBarString += missionList[i].type[j] + " (p" + missionList[i].whoComplete[j].ToString() + ")\n";
                     }
-                    else{
-                        taskBarString+=missionList[i].type[j]+"\n";
+                    else
+                    {
+                        taskBarString += missionList[i].type[j] + "\n";
                     }
                 }
-                taskbar.transform.GetChild(i).gameObject.transform.GetComponentInChildren<Text>().text=taskBarString;
-                string spriteName = missionList[i].patient.name.Replace("(Clone)","");
+                taskbar.transform.GetChild(i).gameObject.transform.GetComponentInChildren<Text>().text = taskBarString;
+                string spriteName = missionList[i].patient.name.Replace("(Clone)", "");
                 spriteName = Chinese2Eng(spriteName);
                 taskbar.transform.GetChild(i).gameObject.transform.GetComponent<TaskBar>().changeSprite(spriteName);
-                
+
             }
-            else{
+            else
+            {
                 taskbar.transform.GetChild(i).gameObject.SetActive(false);
-                
+
             }
 
 
         }
 
     }
-    string Chinese2Eng(string s){
-        if(s=="小孩"){
+    string Chinese2Eng(string s)
+    {
+        if (s == "小孩")
+        {
             return "Kids";
         }
-        else if(s=="爆怒阿嬤"){
+        else if (s == "爆怒阿嬤")
+        {
             return "AngryGrandma";
         }
-        else if(s=="病人"){
+        else if (s == "病人")
+        {
             return "Patient";
         }
-        else if(s=="工程師"){
+        else if (s == "工程師")
+        {
             return "EngineerPatient";
         }
-        else{
+        else
+        {
             return s;
         }
     }
@@ -292,7 +350,7 @@ public class MissionManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        lineup = GameObject.Find("生兵點").GetComponent<Lineup>();
     }
 
     // Update is called once per frame
@@ -310,8 +368,10 @@ public class MissionManager : MonoBehaviour
         */
         GeneratePatients();
 
-        for (int i=0; i<scoreArray.Length; i++){
-            if(scoreArray[i]>=500){
+        for (int i = 0; i < scoreArray.Length; i++)
+        {
+            if (scoreArray[i] >= 500)
+            {
                 SceneManager.LoadScene("ED", LoadSceneMode.Single);
             }
         }
@@ -320,7 +380,7 @@ public class MissionManager : MonoBehaviour
     void GeneratePatients()
     {
         Timer -= Time.deltaTime;
-        if (missionCount < 5 && Timer <= 0)
+        if (lineup.count < lineup.length && Timer <= 0)
         {
             createMission();
             Timer = 2;

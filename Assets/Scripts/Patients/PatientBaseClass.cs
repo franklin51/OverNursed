@@ -10,10 +10,12 @@ abstract public class PatientBaseClass : MonoBehaviour
     public bool allow_picked = true;
     public bool end_task = false; // 還沒用到
     public bool is_waiting4FirstMission = true, is_waiting = false, is_inpatience = false;
-    public bool is_attacking = false;
+    public bool is_lineup = true; // 剛進場
+    public bool is_attacking = false; // 8+9
     public GeneratePoint GP;
     public int point = 50;
 
+    public string LineupPosition;
     public string[] mission;
     public bool[] isComplete;
     public int lastPlayer=0;
@@ -25,13 +27,15 @@ abstract public class PatientBaseClass : MonoBehaviour
     [SerializeField] GameObject Dialog;
     [SerializeField] GameObject timerPrefabs;
     public string missionPoint;
+    public Lineup lineup;
 
     abstract protected bool Waiting4FirstMission(); // 生兵後等待第一個任務，return true表示等不及了，進入Inpatience函式
     abstract protected bool ExecuteMission(); // 執行任務，return true表示成功執行
     abstract protected bool Waiting(); // 任務完成後等待下一個任務，return true表示等不及了，進入Inpatience函式
     abstract protected void Inpatience(); // 等不及開始搞事
     protected void Leaving() { NavigateTo(GameObject.Find("Sofa_Apt_01")); } // 最後一個任務完成
-    protected void NavigateTo(GameObject des) { agent.enabled = true; agent.SetDestination(des.transform.position); }
+    void Exiting() { agent.enabled = true; NavigateTo(GameObject.Find("離開點")); allow_picked = false; }
+    public void NavigateTo(GameObject des) { agent.enabled = true; agent.SetDestination(des.transform.position); }
 
     //float timer=0;
 
@@ -39,11 +43,10 @@ abstract public class PatientBaseClass : MonoBehaviour
     // Start is called before the first frame update
     public virtual void Start()
     {
+        lineup = GameObject.Find("生兵點").GetComponent<Lineup>();
         GP = GameObject.Find("生兵點").GetComponent<GeneratePoint>();
         MM = GameObject.Find("MissionManager").GetComponent<MissionManager>();
-        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
 
-        agent.enabled = false;
         updateDialogString();
         Dialog.SetActive(false);
         //startCall();
@@ -132,12 +135,21 @@ abstract public class PatientBaseClass : MonoBehaviour
             if(MM.checkAllMissionComplete(ID)){
                 MM.score(ID,lastPlayer,point);
                 MM.deleteMission(ID);
-                Destroy(gameObject);
+                Exiting();
             }
             else{
                 Debug.Log("任務未完成");
             }
-        
+        }
+
+        if (collision.transform.name == "離開點" && !is_waiting4FirstMission)
+        {
+            Destroy(gameObject);
+        }
+
+        if (collision.transform.name == LineupPosition)
+        {
+            agent.enabled = false;
         }
     }
 
