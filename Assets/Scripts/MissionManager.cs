@@ -10,9 +10,12 @@ public class MissionManager : MonoBehaviour
     [SerializeField] GameObject[] patientPrefabs;
     [SerializeField] GameObject taskbar;
     [SerializeField] GameObject ScoreBoard;
+
     int[] scoreArray = new int[]{0,0};
     int missionCount=0; //存在的任務數
     int ID=0;    //任務編號
+    private Vector3 PatientEntrancePosition;
+
     //string[] missionType = new string[]{"抽血","量身高","心電圖","驗尿","量視力","X光"};
     string[] missionType = new string[]{"blood","height","ECG","urine","visual"};
     public float Timer = 2f;
@@ -42,9 +45,7 @@ public class MissionManager : MonoBehaviour
     
 
     // 隨機創任務
-    public void createMission(){
-        
-        
+    public void createMission(){        
         Random random = new Random();
 
         //隨機取兩個任務
@@ -198,11 +199,12 @@ public class MissionManager : MonoBehaviour
         GameObject generatePoint = GameObject.Find("生兵點");
         var distance = new Vector3(0f, 0f, missionCount*3f);
 
-        GameObject patient =Instantiate(patientPrefabs[patientType], generatePoint.transform.position+distance, generatePoint.transform.rotation);
+        // GameObject patient =Instantiate(patientPrefabs[patientType], generatePoint.transform.position+distance, generatePoint.transform.rotation);
+        GameObject patient = Instantiate(patientPrefabs[patientType], generatePoint.transform.position, generatePoint.transform.rotation);
+
         patient.GetComponent<PatientBaseClass>().ID=ID;
         patient.GetComponent<PatientBaseClass>().mission=mission;
         patient.GetComponent<PatientBaseClass>().isComplete = new bool[]{false,false};
-
     }
 
     
@@ -248,7 +250,7 @@ public class MissionManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        PatientEntrancePosition = new Vector3(GameObject.Find("Cube").transform.position.x, 0, GameObject.Find("Cube").transform.position.z - 7);
     }
 
     // Update is called once per frame
@@ -261,9 +263,8 @@ public class MissionManager : MonoBehaviour
             }
             else{
                 Debug.Log("full");
-            }
+            }*/
            
-        */
         GeneratePatients();
 
         for (int i=0; i<scoreArray.Length; i++){

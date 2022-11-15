@@ -31,7 +31,7 @@ abstract public class PatientBaseClass : MonoBehaviour
     abstract protected bool Waiting(); // 任務完成後等待下一個任務，return true表示等不及了，進入Inpatience函式
     abstract protected void Inpatience(); // 等不及開始搞事
     protected void Leaving() { NavigateTo(GameObject.Find("Sofa_Apt_01")); } // 最後一個任務完成
-    protected void NavigateTo(GameObject des) { agent.enabled = true; agent.SetDestination(des.transform.position); }
+    public void NavigateTo(GameObject des) { agent.enabled = true; agent.SetDestination(des.transform.position); }
 
     //float timer=0;
 
@@ -42,8 +42,8 @@ abstract public class PatientBaseClass : MonoBehaviour
         GP = GameObject.Find("生兵點").GetComponent<GeneratePoint>();
         MM = GameObject.Find("MissionManager").GetComponent<MissionManager>();
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        NavigateTo(GameObject.Find("排隊點"));
 
-        agent.enabled = false;
         updateDialogString();
         Dialog.SetActive(false);
         //startCall();
@@ -137,7 +137,6 @@ abstract public class PatientBaseClass : MonoBehaviour
             else{
                 Debug.Log("任務未完成");
             }
-        
         }
     }
 
