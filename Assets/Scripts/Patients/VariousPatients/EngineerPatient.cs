@@ -7,7 +7,7 @@ public class EngineerPatient : PatientBaseClass
 {
 	public bool isAngry = false;
 	public bool has_sleep = false;
-	public float SleepTimer = 10;
+	public float SleepTimer = 20;
 
 	private GameObject target;
 

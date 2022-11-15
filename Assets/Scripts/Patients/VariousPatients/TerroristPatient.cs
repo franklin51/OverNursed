@@ -35,7 +35,7 @@ public class TerroristPatient : PatientBaseClass
 	{
 		deleteAnger();
 		agent.enabled = true;
-		agent.speed = 50f;
+		agent.speed = 40f;
 		agent.acceleration = 1000f;
 		if (!is_attacking)
 			do
