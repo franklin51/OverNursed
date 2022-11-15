@@ -5,8 +5,7 @@ using UnityEngine;
 // 跟操作有關的
 public class PlayerBase : MonoBehaviour
 {
-    public float speed = 40f;
-    public float velocity = 50f;
+    public float velocity = 40f;
     public GameObject patient;
     public GeneratePoint GP;
     public Rigidbody rb;
