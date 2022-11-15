@@ -257,11 +257,10 @@ public class MissionManager : MonoBehaviour
         string lineupPoint = "排隊點" + lineup.NewPatientEnter(patient);
         patient.GetComponent<PatientBaseClass>().LineupPosition = lineupPoint;
         patient.GetComponent<PatientBaseClass>().agent = patient.GetComponent<UnityEngine.AI.NavMeshAgent>();
-        if (patient.name.Replace("(Clone)", "") != "Kids")
-        {
-            patient.GetComponent<PatientBaseClass>().agent.enabled = true;
-            patient.GetComponent<PatientBaseClass>().NavigateTo(GameObject.Find(lineupPoint));
-        }
+        
+        patient.GetComponent<PatientBaseClass>().agent.enabled = true;
+        patient.GetComponent<PatientBaseClass>().NavigateTo(GameObject.Find(lineupPoint));
+        
 
         return patient;
     }
