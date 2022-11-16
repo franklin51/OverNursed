@@ -46,7 +46,8 @@ public class PlayerBase : MonoBehaviour
                 rb.velocity = new Vector3(0, 0, 0);
             if (Input.GetKeyDown("t"))
             {
-                to_pick = !to_pick;
+                to_pick = !already_pick;
+
                 if (already_pick && patient && !patient.GetComponent<PatientBaseClass>().allow_picked)
                     PutDownPatient();
             }
@@ -66,7 +67,8 @@ public class PlayerBase : MonoBehaviour
 				rb.velocity = new Vector3(0, 0, 0);
             if (Input.GetKeyDown("m"))
             {
-                to_pick = !to_pick;
+                to_pick = !already_pick;
+
                 if (already_pick && patient && !patient.GetComponent<PatientBaseClass>().allow_picked)
                     PutDownPatient();
             }
@@ -78,15 +80,14 @@ public class PlayerBase : MonoBehaviour
 
     }
 
-    void OnCollisionStay(Collision collision)
+    void OnTriggerStay(Collider collision)
     {
-        if (collision.transform.tag == "patient")
+        if (collision.transform.root.transform.tag == "patient")
         {
-            bool isDoing=collision.transform.GetComponent<PatientBaseClass>().doingMission;
+            bool isDoing=collision.transform.root.transform.GetComponent<PatientBaseClass>().doingMission;
             if (to_pick && !already_pick && !isDoing)
             {
-                patient = collision.gameObject;
-                to_pick = true;
+                patient = collision.transform.root.gameObject;
 
                 // 與病人合體
                 if (patient.GetComponent<PatientBaseClass>().allow_picked)

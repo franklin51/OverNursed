@@ -151,17 +151,17 @@ abstract public class PatientBaseClass : MonoBehaviour
 
     private bool hasEntered1,hasEntered2,hasEntered3,hasEntered4,hasEntered5;
 
-    void OnCollisionExit(Collision collision)
+    void OnTriggerExit(Collider collision)
     {
-        if (collision.transform.tag == "Player")
+        if (collision.transform.root.transform.tag == "Player")
         {
            Dialog.SetActive(false);
         }
     }
 
-    void OnCollisionStay(Collision collision)
+    void OnTriggerStay(Collider collision)
     {
-         if (collision.transform.tag == "Player" && allow_picked)
+         if (collision.transform.root.transform.tag == "Player" && allow_picked)
         {
            Dialog.SetActive(true);
         }
