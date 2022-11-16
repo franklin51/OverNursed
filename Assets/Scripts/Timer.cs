@@ -10,6 +10,7 @@ public class Timer : MonoBehaviour
     [SerializeField] public Transform lookAt;
     [SerializeField] public Vector3 offset;
     private Camera cam;
+    int WaitingTime = 400;
 
     int i =0;
     // Start is called before the first frame update
@@ -33,11 +34,11 @@ public class Timer : MonoBehaviour
     }
 
     IEnumerator timer(){
-        while(i<400){
+        while(i<WaitingTime){
             i+=1;
-            int j=i/4;
+            int j=i/12;
             persentTxt.text = j.ToString();
-            persentShow.fillAmount = i/400f;
+            persentShow.fillAmount = i/(float)WaitingTime;
             yield return new WaitForFixedUpdate();
         }
         
