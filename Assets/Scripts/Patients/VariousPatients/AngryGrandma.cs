@@ -41,7 +41,7 @@ public class AngryGrandma : PatientBaseClass
 		agent.acceleration = 1000f;
 		if(!isLeaving){
             deleteAnger();
-		    target = GameObject.FindGameObjectsWithTag("exit")[0];
+		    target = GameObject.Find("離開點");
         }
 
 		NavigateTo(target);

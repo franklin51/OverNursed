@@ -29,11 +29,14 @@ public class Lineup : MonoBehaviour
 
     public void RemoveAPatient(int ID)
     {
-        count--;
         int idx = 0;
         for (idx = 0; idx < line.Count; idx++)
             if (line[idx].GetComponent<PatientBaseClass>().ID == ID)
                 break;
+        if (idx == line.Count)
+            return;
+
+        count--;
         line.RemoveAt(idx);
 
         for (int i = idx; i < line.Count; i++)

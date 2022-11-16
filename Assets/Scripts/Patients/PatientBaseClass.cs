@@ -187,6 +187,7 @@ abstract public class PatientBaseClass : MonoBehaviour
             {
                 MM.deleteMission(collision.gameObject.GetComponent<PatientBaseClass>().ID);
                 //MM.deleteMission(ID);
+                lineup.RemoveAPatient(collision.gameObject.GetComponent<PatientBaseClass>().ID);
                 Destroy(collision.gameObject);
                 Destroy(gameObject);
             }
