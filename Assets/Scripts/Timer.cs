@@ -10,7 +10,7 @@ public class Timer : MonoBehaviour
     [SerializeField] public Transform lookAt;
     [SerializeField] public Vector3 offset;
     private Camera cam;
-    int WaitingTime = 400;
+    int WaitingTime = 1200;
 
     int i =0;
     // Start is called before the first frame update
