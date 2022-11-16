@@ -7,6 +7,9 @@ public class AngryGrandma : PatientBaseClass
 {
     [SerializeField] GameObject Anger;
     public bool isAngry=false;
+    
+	private GameObject target;
+
 
     override protected bool Waiting4FirstMission() // ?�兵後�?待第一?�任?��?return true表示等�??��?，進入Inpatience?��?
     {
@@ -23,7 +26,7 @@ public class AngryGrandma : PatientBaseClass
 	override protected bool Waiting() // 任�?完�?後�?待�?一?�任?��?return true表示等�??��?，進入Inpatience?��?
     {
         Invoke("createAnger", 4.0f); 
-        if (isAngry == true && !allow_picked)
+        if (isAngry == true && !allow_picked )
         {
             isAngry = false;
             deleteAnger();
@@ -33,7 +36,18 @@ public class AngryGrandma : PatientBaseClass
 
 	override protected void Inpatience() // 等�??��?始�?�?
     {
-        Destroy(gameObject);
+        agent.enabled = true;
+		agent.speed = 40f;
+		agent.acceleration = 1000f;
+		if(!isLeaving){
+            deleteAnger();
+		    target = GameObject.FindGameObjectsWithTag("exit")[0];
+        }
+
+		NavigateTo(target);
+		isLeaving = true;
+
+        // Destroy(gameObject);
     }
 
    

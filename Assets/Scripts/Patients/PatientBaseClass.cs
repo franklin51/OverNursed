@@ -12,6 +12,7 @@ abstract public class PatientBaseClass : MonoBehaviour
     public bool is_waiting4FirstMission = true, is_waiting = false, is_inpatience = false;
     public bool is_lineup = true; // 剛進場
     public bool is_attacking = false; // 8+9
+    public bool isLeaving = false;//angry grandma
     public GeneratePoint GP;
     public int point = 50;
 
@@ -131,6 +132,11 @@ abstract public class PatientBaseClass : MonoBehaviour
                 MM.score(ID,lastPlayer,point);
                 MM.deleteMission(ID);
                 Exiting();
+            }
+            else if(isLeaving)
+            {
+                //MM.deleteMission(ID);
+                Destroy(gameObject);
             }
             else{
                 Debug.Log("任務未完成");
