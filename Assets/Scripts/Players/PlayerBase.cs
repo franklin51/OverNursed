@@ -14,7 +14,7 @@ public class PlayerBase : MonoBehaviour
     
 
     private bool already_pick=false; // 已經撿起病人了嗎
-    private bool to_pick = false;
+    private bool to_pick = false, in_trigger = false;
 
     // Start is called before the first frame update
     void Start()
@@ -46,7 +46,10 @@ public class PlayerBase : MonoBehaviour
                 rb.velocity = new Vector3(0, 0, 0);
             if (Input.GetKeyDown("t"))
             {
-                to_pick = !already_pick;
+                if (!already_pick && in_trigger)
+                    to_pick = true;
+                else
+                    to_pick = false;
 
                 if (already_pick && patient && !patient.GetComponent<PatientBaseClass>().allow_picked)
                     PutDownPatient();
@@ -67,7 +70,10 @@ public class PlayerBase : MonoBehaviour
 				rb.velocity = new Vector3(0, 0, 0);
             if (Input.GetKeyDown("m"))
             {
-                to_pick = !already_pick;
+                if (!already_pick && in_trigger)
+                    to_pick = true;
+                else
+                    to_pick = false;
 
                 if (already_pick && patient && !patient.GetComponent<PatientBaseClass>().allow_picked)
                     PutDownPatient();
@@ -75,7 +81,7 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionStay(Collision collision)
     {
 
     }
@@ -84,7 +90,11 @@ public class PlayerBase : MonoBehaviour
     {
         if (collision.transform.root.transform.tag == "patient")
         {
+            in_trigger = true;
             bool isDoing=collision.transform.root.transform.GetComponent<PatientBaseClass>().doingMission;
+            /*if (name == "1P" && Input.GetKeyDown("t") || name == "2P" && Input.GetKeyDown("m"))
+                to_pick = !already_pick;*/
+            
             if (to_pick && !already_pick && !isDoing)
             {
                 patient = collision.transform.root.gameObject;
@@ -116,9 +126,10 @@ public class PlayerBase : MonoBehaviour
             
         }
     }
-    void OnCollisionExit(Collision collision)
+    void OnTriggerExit(Collider collision)
     {
-
+        if (collision.transform.root.transform.tag == "patient")
+            in_trigger = false;
     }
 
 
