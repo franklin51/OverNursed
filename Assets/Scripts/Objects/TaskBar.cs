@@ -18,23 +18,23 @@ public class TaskBar : MonoBehaviour
     }
 
     public void completeAnimation(){
-            animator = GetComponent<Animator>();
-            animator.Play ("missionComplete");
+            // animator = GetComponent<Animator>();
+            // animator.Play ("missionComplete");
 
     }
 
     public void failedAnimation(){
-        animator = GetComponent<Animator>();
-            animator.Play ("missionFailed");
+        // animator = GetComponent<Animator>();
+        //     animator.Play ("missionFailed");
     }
 
     public void pickAnimation(){
-        animator = GetComponent<Animator>();
-            animator.Play ("pick");
+        // animator = GetComponent<Animator>();
+        //     animator.Play ("pick");
     }
     public void emptyAnimation(){
-        animator = GetComponent<Animator>();
-            animator.Play ("empty");
+        // animator = GetComponent<Animator>();
+        //     animator.Play ("empty");
     }
 
     public void changeSprite(string name){
