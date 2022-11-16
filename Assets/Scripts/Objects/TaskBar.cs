@@ -18,19 +18,42 @@ public class TaskBar : MonoBehaviour
     }
 
     public void completeAnimation(){
+        try
+        {
             animator = GetComponent<Animator>();
             animator.Play ("missionComplete");
+        }
+        catch (System.Exception)
+        {
+
+        }  
 
     }
 
     public void failedAnimation(){
-        animator = GetComponent<Animator>();
+        try
+        {
+            animator = GetComponent<Animator>();
             animator.Play ("missionFailed");
+        }
+        catch (System.Exception)
+        {
+
+        } 
+        
     }
 
     public void pickAnimation(){
-        animator = GetComponent<Animator>();
+        try
+        {
+            animator = GetComponent<Animator>();
             animator.Play ("pick");
+        }
+        catch (System.Exception)
+        {
+
+        }
+        
     }
     public void emptyAnimation(){
         // animator = GetComponent<Animator>();
