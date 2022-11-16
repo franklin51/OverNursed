@@ -56,8 +56,8 @@ public class TaskBar : MonoBehaviour
         
     }
     public void emptyAnimation(){
-        // animator = GetComponent<Animator>();
-        //     animator.Play ("empty");
+        animator = GetComponent<Animator>();
+            animator.Play ("empty");
     }
 
     public void changeSprite(string name){

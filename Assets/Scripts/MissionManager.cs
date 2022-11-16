@@ -107,6 +107,7 @@ public class MissionManager : MonoBehaviour
                 missionList[index].whoComplete[i] = whoComplete;
             }
         }
+        if(index<7)
         taskbar.transform.GetChild(index).gameObject.transform.GetComponent<TaskBar>().completeAnimation();
         updateTaskBar();
 
@@ -210,6 +211,7 @@ public class MissionManager : MonoBehaviour
     {
         int index = findMissionIndex(ID);
 
+        if(index<7)
         taskbar.transform.GetChild(index).gameObject.transform.GetComponent<TaskBar>().failedAnimation();
     }
 

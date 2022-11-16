@@ -159,7 +159,7 @@ abstract public class PatientBaseClass : MonoBehaviour
 
     void OnTriggerExit(Collider collision)
     {
-        if (collision.transform.root.transform.tag == "Player")
+        if (collision.transform.root.transform.tag == "Player" || !allow_picked)
         {
            Dialog.SetActive(false);
         }
