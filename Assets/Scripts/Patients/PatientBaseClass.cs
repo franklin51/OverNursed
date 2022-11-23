@@ -17,6 +17,7 @@ abstract public class PatientBaseClass : MonoBehaviour
     public bool isLeaving = false;//angry grandma
     public GeneratePoint GP;
     public int point = 50;
+    public bool hasOwner=false;
 
     public string LineupPosition;
     public string[] mission;
@@ -154,7 +155,8 @@ abstract public class PatientBaseClass : MonoBehaviour
         if (collision.transform.tag == "exit")
         {
             if(MM.checkAllMissionComplete(ID)){
-                MM.score(ID,lastPlayer,point);
+                //MM.score(ID,lastPlayer,point);
+                MM.score(ID,point);
                 MM.deleteMission(ID);
                 Exiting();
             }
@@ -180,7 +182,6 @@ abstract public class PatientBaseClass : MonoBehaviour
         }
     }
 
-    private bool hasEntered1,hasEntered2,hasEntered3,hasEntered4,hasEntered5;
 
     void OnTriggerExit(Collider collision)
     {

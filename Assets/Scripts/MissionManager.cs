@@ -9,6 +9,8 @@ public class MissionManager : MonoBehaviour
 {
     [SerializeField] GameObject[] patientPrefabs;
     [SerializeField] GameObject taskbar;
+    [SerializeField] GameObject taskbar1P;
+    [SerializeField] GameObject taskbar2P;
     [SerializeField] GameObject ScoreBoard;
     int[] scoreArray = new int[] { 0, 0 };
     int missionCount = 0; //存在的任務數
@@ -23,12 +25,14 @@ public class MissionManager : MonoBehaviour
         public string[] type;
         public bool[] isComplete;
         public int[] whoComplete;
+        public int owner;
         public GameObject patient;
         public Mission(int ID, string[] type, GameObject patient)
         {
             this.ID = ID;
             this.type = type;
             this.patient = patient;
+            this.owner = 0;
             this.isComplete = new bool[this.type.Length];
             for (int i = 0; i < this.isComplete.Length; i++)
             {
@@ -42,6 +46,7 @@ public class MissionManager : MonoBehaviour
         }
     }
     List<Mission> missionList = new List<Mission>();
+    
 
 
 
@@ -87,18 +92,15 @@ public class MissionManager : MonoBehaviour
 
     }
 
+    public void setOwner(int ID,int player){
+        int index=findMissionIndex(ID);
+        missionList[index].owner=player;
+    }
+
     public void completeMission(int ID, string whatMission, int whoComplete)
     {
-        int index = 0;
-        for (int i = 0; i < missionList.Count; i++)
-        {
-            if (missionList[i].ID == ID)
-            {
-                index = i;
-                break;
-            }
-        }
-
+        int index = findMissionIndex(ID);
+       
         for (int i = 0; i < missionList[index].type.Length; i++)
         {
             if (missionList[index].type[i] == whatMission)
@@ -115,15 +117,7 @@ public class MissionManager : MonoBehaviour
     // 任務刪除
     public void deleteMission(int ID)
     {
-        int index = 0;
-        for (int i = 0; i < missionList.Count; i++)
-        {
-            if (missionList[i].ID == ID)
-            {
-                index = i;
-                break;
-            }
-        }
+        int index = findMissionIndex(ID);
         missionList.RemoveAt(index);
         missionCount -= 1;
         updateTaskBar();
@@ -132,15 +126,7 @@ public class MissionManager : MonoBehaviour
     public bool checkAllMissionComplete(int ID)
     {
         bool check = true;
-        int index = 0;
-        for (int i = 0; i < missionList.Count; i++)
-        {
-            if (missionList[i].ID == ID)
-            {
-                index = i;
-                break;
-            }
-        }
+        int index = findMissionIndex(ID);
         for (int i = 0; i < missionList[index].isComplete.Length; i++)
         {
             if (missionList[index].isComplete[i] == false)
@@ -153,40 +139,32 @@ public class MissionManager : MonoBehaviour
         return check;
 
     }
-    public void score(int ID, int player, int point)
+    // public void score(int ID, int player, int point)
+    // {
+    //     //scoreArray[0]紀錄1p,scoreArray[1]紀錄2p
+    //     scoreArray[player - 1] += 100; //送出院+100分
+
+    //     int index = findMissionIndex(ID);
+
+
+    //     for (int i = 0; i < missionList[index].whoComplete.Length; i++)
+    //     {
+    //         scoreArray[missionList[index].whoComplete[i] - 1] += point;
+    //     }
+
+    // }
+    public void score(int ID, int point)
     {
-        //scoreArray[0]紀錄1p,scoreArray[1]紀錄2p
-        scoreArray[player - 1] += 100; //送出院+100分
-
-        int index = 0;
-        for (int i = 0; i < missionList.Count; i++)
-        {
-            if (missionList[i].ID == ID)
-            {
-                index = i;
-                break;
-            }
-        }
-
-
-        for (int i = 0; i < missionList[index].whoComplete.Length; i++)
-        {
-            scoreArray[missionList[index].whoComplete[i] - 1] += point;
-        }
+      
+        int index = findMissionIndex(ID);
+        scoreArray[missionList[index].owner - 1] +=point;
 
         updateScoreBoard();
     }
+
     public string getDialogString(int ID)
     {
-        int index = 0;
-        for (int i = 0; i < missionList.Count; i++)
-        {
-            if (missionList[i].ID == ID)
-            {
-                index = i;
-                break;
-            }
-        }
+        int index = findMissionIndex(ID);
 
 
         string s = "";
@@ -218,15 +196,7 @@ public class MissionManager : MonoBehaviour
     //病人有沒有該任務，有回傳True，沒有或已完成回傳false
     public bool hasThisMission(int ID, string whatMission)
     {
-        int index = 0;
-        for (int i = 0; i < missionList.Count; i++)
-        {
-            if (missionList[i].ID == ID)
-            {
-                index = i;
-                break;
-            }
-        }
+        int index = findMissionIndex(ID);
 
         for (int i = 0; i < missionList[index].type.Length; i++)
         {
@@ -294,85 +264,215 @@ public class MissionManager : MonoBehaviour
         }
     }
 
-    public void updateTaskBar()
-    {
+    // public void updateTaskBar()
+    // {
 
+    //     for (int i = 0; i < taskbar.transform.childCount; i++)
+    //     {
+    //         if (missionCount > i)
+    //         {
+    //             taskbar.transform.GetChild(i).gameObject.SetActive(true);
+    //             string taskBarString = "";
+    //             for (int j = 0; j < missionList[i].type.Length; j++)
+    //             {
+    //                 if (missionList[i].isComplete[j] == true)
+    //                 {
+    //                     taskBarString += missionList[i].type[j] + " (p" + missionList[i].whoComplete[j].ToString() + ")\n";
+    //                 }
+    //                 else
+    //                 {
+    //                     taskBarString += missionList[i].type[j] + "\n";
+    //                 }
+    //             }
+    //             taskbar.transform.GetChild(i).gameObject.transform.GetComponentInChildren<Text>().text = taskBarString;
+    //             string spriteName = missionList[i].patient.name.Replace("(Clone)", "");
+    //             taskbar.transform.GetChild(i).gameObject.transform.GetComponent<TaskBar>().changeSprite(spriteName);
+
+
+
+    //             string positionString="";
+    //             if(missionList[i].patient.GetComponent<PatientBaseClass>().is_lineup){
+    //                 positionString=missionList[i].patient.GetComponent<PatientBaseClass>().LineupPosition.Replace("排隊點","");
+    //                 int n = int.Parse(positionString)+1;
+    //                 positionString=n.ToString();
+    //             }
+    //             else{
+    //                 if(!missionList[i].patient.GetComponent<PatientBaseClass>().allow_picked){
+    //                     //pick的人
+    //                     int lastPlayer=missionList[i].patient.GetComponent<PatientBaseClass>().lastPlayer;
+    //                     if(lastPlayer==1){
+    //                         positionString="1P";
+    //                     }
+    //                     else if(lastPlayer==2){
+    //                         positionString="2P";
+    //                     }
+    //                     else{
+
+    //                     }
+    //                 }else{
+    //                     //任務點或空地
+    //                     positionString=missionList[i].patient.GetComponent<PatientBaseClass>().missionPoint;
+    //                 }
+
+    //             }
+    //             taskbar.transform.GetChild(i).gameObject.transform.Find("positionText").GetComponent<Text>().text=positionString;
+
+    //         }
+    //         else
+    //         {
+    //             taskbar.transform.GetChild(i).gameObject.SetActive(false);
+
+    //         }
+
+
+    //     }
+
+    // }
+
+
+    public void updateTaskBar(){
+        update1TaskBar(taskbar1P, 1);
+        update1TaskBar(taskbar2P, 2);
+    }
+    public void update1TaskBar(GameObject taskbar,int player)
+    {
+        int PlayerMissionCount=0;
+        for(int i = 0 ; i < missionList.Count; i++){
+            if(missionList[i].owner==player) PlayerMissionCount++;
+        }
+        int index=0;
         for (int i = 0; i < taskbar.transform.childCount; i++)
-        {
-            if (missionCount > i)
-            {
-                taskbar.transform.GetChild(i).gameObject.SetActive(true);
-                string taskBarString = "";
-                for (int j = 0; j < missionList[i].type.Length; j++)
-                {
-                    if (missionList[i].isComplete[j] == true)
+        {   
+            while(index<missionCount){
+                if(missionList[index].owner==player){
+                    
+                    if (PlayerMissionCount > i)
                     {
-                        taskBarString += missionList[i].type[j] + " (p" + missionList[i].whoComplete[j].ToString() + ")\n";
+                        taskbar.transform.GetChild(i).gameObject.SetActive(true);
+                        string taskBarString = "";
+                        for (int j = 0; j < missionList[index].type.Length; j++)
+                        {
+                            if (missionList[index].isComplete[j] == true)
+                            {
+                                taskBarString += missionList[index].type[j] + " (OK)\n";
+                            }
+                            else
+                            {
+                                taskBarString += missionList[index].type[j] + "\n";
+                            }
+                        }
+                        taskbar.transform.GetChild(i).gameObject.transform.GetComponentInChildren<Text>().text = taskBarString;
+                        string spriteName = missionList[index].patient.name.Replace("(Clone)", "");
+                        taskbar.transform.GetChild(i).gameObject.transform.GetComponent<TaskBar>().changeSprite(spriteName);
+
+
+
+                        string positionString="";
+                        if(missionList[index].patient.GetComponent<PatientBaseClass>().is_lineup){
+                           
+                        }
+                        else{
+                            if(!missionList[index].patient.GetComponent<PatientBaseClass>().allow_picked){
+                                //pick的人
+                                int lastPlayer=missionList[index].patient.GetComponent<PatientBaseClass>().lastPlayer;
+                                if(lastPlayer==1){
+                                    positionString="1P";
+                                }
+                                else if(lastPlayer==2){
+                                    positionString="2P";
+                                }
+                                else{
+
+                                }
+                            }else{
+                                //任務點或空地
+                                positionString=missionList[index].patient.GetComponent<PatientBaseClass>().missionPoint;
+                            }
+
+                        }
+                        taskbar.transform.GetChild(i).gameObject.transform.Find("positionText").GetComponent<Text>().text=positionString;
+
                     }
                     else
                     {
-                        taskBarString += missionList[i].type[j] + "\n";
-                    }
-                }
-                taskbar.transform.GetChild(i).gameObject.transform.GetComponentInChildren<Text>().text = taskBarString;
-                string spriteName = missionList[i].patient.name.Replace("(Clone)", "");
-                taskbar.transform.GetChild(i).gameObject.transform.GetComponent<TaskBar>().changeSprite(spriteName);
+                        taskbar.transform.GetChild(i).gameObject.SetActive(false);
 
-
-
-                string positionString="";
-                if(missionList[i].patient.GetComponent<PatientBaseClass>().is_lineup){
-                    positionString=missionList[i].patient.GetComponent<PatientBaseClass>().LineupPosition.Replace("排隊點","");
-                    int n = int.Parse(positionString)+1;
-                    positionString=n.ToString();
-                }
-                else{
-                    if(!missionList[i].patient.GetComponent<PatientBaseClass>().allow_picked){
-                        //pick的人
-                        int lastPlayer=missionList[i].patient.GetComponent<PatientBaseClass>().lastPlayer;
-                        if(lastPlayer==1){
-                            positionString="1P";
-                        }
-                        else if(lastPlayer==2){
-                            positionString="2P";
-                        }
-                        else{
-
-                        }
-                    }else{
-                        //任務點或空地
-                        positionString=missionList[i].patient.GetComponent<PatientBaseClass>().missionPoint;
                     }
 
+                    
+                    index++;
+                    break;
                 }
-                taskbar.transform.GetChild(i).gameObject.transform.Find("positionText").GetComponent<Text>().text=positionString;
-
+   
+                index++;
             }
-            else
-            {
-                taskbar.transform.GetChild(i).gameObject.SetActive(false);
-
-            }
+            
 
 
         }
 
     }
 
-    public void pickPatient(int ID){
-        int index = findMissionIndex(ID);
-        if (index < 7)
-        {
-            updateTaskBar();
-            taskbar.transform.GetChild(index).gameObject.transform.GetComponent<TaskBar>().pickAnimation();
+    int findMissionOwnerIndex(int ID,int player){
+        int index=0;
+        for(int i = 0 ; i < missionList.Count ; i++){
+            if(missionList[i].owner==player && missionList[i].ID==ID){
+                break;
+            }
+            else if (missionList[i].owner==player && missionList[i].ID!=ID)
+            {
+                index++;
+            }
         }
+        return index;
+    }
+
+    int findMissionOwner(int ID){
+        int index=findMissionIndex(ID);
+        return missionList[index].owner;
+           
+    }
+
+    public bool isFull(int player){
+        int count=0;
+        for(int i = 0 ; i < missionList.Count ; i++){
+            if(missionList[i].owner==player) count++;
+        }
+
+        if(count<5){
+            Debug.Log("ok");
+            return false;
+        }
+        else{
+            Debug.Log("full");
+            return true;
+        }
+    }
+    
+    public void pickPatient(int ID){
+        int owner = findMissionOwner(ID);
+        int index = findMissionOwnerIndex(ID,owner);
+        
+        updateTaskBar();
+        if(owner==1){
+            taskbar1P.transform.GetChild(index).gameObject.transform.GetComponent<TaskBar>().pickAnimation();
+        }
+        else if(owner==2){
+            taskbar2P.transform.GetChild(index).gameObject.transform.GetComponent<TaskBar>().pickAnimation();
+        }
+        
+        
+
     }
     public void putDownPatient(int ID){
-        int index = findMissionIndex(ID);
-        if (index < 7)
-        {
-            updateTaskBar();
-            taskbar.transform.GetChild(index).gameObject.transform.GetComponent<TaskBar>().emptyAnimation();
+        int owner = findMissionOwner(ID);
+        int index = findMissionOwnerIndex(ID,owner);
+        updateTaskBar();
+        if(owner==1){
+            taskbar1P.transform.GetChild(index).gameObject.transform.GetComponent<TaskBar>().emptyAnimation();
+        }
+        else if(owner==2){
+            taskbar2P.transform.GetChild(index).gameObject.transform.GetComponent<TaskBar>().emptyAnimation();
         }
     }
     
