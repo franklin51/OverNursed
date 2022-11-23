@@ -156,6 +156,8 @@ abstract public class PatientBaseClass : MonoBehaviour
         {
             if(MM.checkAllMissionComplete(ID)){
                 //MM.score(ID,lastPlayer,point);
+                Debug.Log(ID);
+
                 MM.score(ID,point);
                 MM.deleteMission(ID);
                 Exiting();

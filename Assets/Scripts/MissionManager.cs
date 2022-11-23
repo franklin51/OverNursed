@@ -157,7 +157,9 @@ public class MissionManager : MonoBehaviour
     {
       
         int index = findMissionIndex(ID);
-        scoreArray[missionList[index].owner - 1] +=point;
+        int player=missionList[index].owner - 1;
+        scoreArray[player] +=point;
+        Debug.Log("player"+player.ToString()+"+"+point.ToString());
 
         updateScoreBoard();
     }
@@ -343,11 +345,13 @@ public class MissionManager : MonoBehaviour
         int index=0;
         for (int i = 0; i < taskbar.transform.childCount; i++)
         {   
-            while(index<missionCount){
-                if(missionList[index].owner==player){
+
+            if (PlayerMissionCount > i)
+            {
+                while(index<missionCount){
+                    if(missionList[index].owner==player){
                     
-                    if (PlayerMissionCount > i)
-                    {
+                    
                         taskbar.transform.GetChild(i).gameObject.SetActive(true);
                         string taskBarString = "";
                         for (int j = 0; j < missionList[index].type.Length; j++)
@@ -392,21 +396,22 @@ public class MissionManager : MonoBehaviour
                         }
                         taskbar.transform.GetChild(i).gameObject.transform.Find("positionText").GetComponent<Text>().text=positionString;
 
+                    
+                    
+
+                    
+                        index++;
+                        break;
                     }
-                    else
+    
+                    index++;
+                }
+            }
+            else
                     {
                         taskbar.transform.GetChild(i).gameObject.SetActive(false);
 
                     }
-
-                    
-                    index++;
-                    break;
-                }
-   
-                index++;
-            }
-            
 
 
         }
