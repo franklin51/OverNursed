@@ -1149,7 +1149,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.1
   m_Speed: 30
-  m_Acceleration: 100
+  m_Acceleration: 1000
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
@@ -1172,6 +1172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55eee7faf9f2db140be7b6740926aa6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  state: 0
   allow_picked: 1
   end_task: 0
   is_waiting4FirstMission: 1
@@ -1179,6 +1180,7 @@ MonoBehaviour:
   is_inpatience: 0
   is_lineup: 1
   is_attacking: 0
+  isLeaving: 0
   GP: {fileID: 0}
   point: 50
   LineupPosition: 
@@ -1190,6 +1192,7 @@ MonoBehaviour:
   timerOK: 0
   MM: {fileID: 5912582196425686281, guid: 1a5b8ecda5ad6f04e9122b3ab88e5424, type: 3}
   agent: {fileID: 0}
+  counter: {fileID: 0}
   Dialog: {fileID: 6510713652584533996}
   timerPrefabs: {fileID: 8006299836539748264, guid: d6c67fde5d5ea35419f8d518d46dfedd,
     type: 3}

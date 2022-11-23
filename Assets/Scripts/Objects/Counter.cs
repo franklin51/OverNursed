@@ -13,7 +13,7 @@ public class Counter : MonoBehaviour
     Vector3 cur_patient_chair_pos;
 
     int ID_turn = -1;
-    float timer = 3;
+    float timer = 5;
     bool is_occupied = false;
     bool is_leaving = false;
 
