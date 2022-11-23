@@ -7,6 +7,8 @@ using UnityEngine.AI;
 // 與操作、碰撞偵測有關的
 abstract public class PatientBaseClass : MonoBehaviour
 {
+    public int state = 0; // 0: 排隊等候玩家帶位子; 1: 剛進入，準備入櫃檯; 2: 櫃檯結束，進入任務環節; 3: 結束所有任務，準備入櫃檯; 4: 櫃檯等候; 5: 櫃檯結束，準備回家;
+
     public bool allow_picked = true;
     public bool end_task = false; // 還沒用到
     public bool is_waiting4FirstMission = true, is_waiting = false, is_inpatience = false;
@@ -25,6 +27,7 @@ abstract public class PatientBaseClass : MonoBehaviour
     public bool timerOK=false;
     public MissionManager MM;
     public NavMeshAgent agent;
+    public Counter counter;
     [SerializeField] GameObject Dialog;
     [SerializeField] GameObject timerPrefabs;
     public string missionPoint;
@@ -37,6 +40,7 @@ abstract public class PatientBaseClass : MonoBehaviour
     protected void Leaving() {  } // 最後一個任務完成
     void Exiting() { agent.enabled = true; NavigateTo(GameObject.Find("離開點")); allow_picked = false; }
     public void NavigateTo(GameObject des) { agent.enabled = true; agent.SetDestination(des.transform.position); }
+    public void NavigateTo(Vector3 pos) { agent.enabled = true; agent.SetDestination(pos); }
 
     //float timer=0;
 
@@ -47,6 +51,7 @@ abstract public class PatientBaseClass : MonoBehaviour
         lineup = GameObject.Find("生兵點").GetComponent<Lineup>();
         GP = GameObject.Find("生兵點").GetComponent<GeneratePoint>();
         MM = GameObject.Find("MissionManager").GetComponent<MissionManager>();
+        counter = GameObject.Find("櫃檯").GetComponent<Counter>();
 
         updateDialogString();
         Dialog.SetActive(false);
@@ -85,8 +90,9 @@ abstract public class PatientBaseClass : MonoBehaviour
         }
         else if (is_waiting)
             Waiting();
-        else if (MM.checkAllMissionComplete(ID) && allow_picked)
-            Leaving();
+
+        if (MM.checkAllMissionComplete(ID) && allow_picked && state == 2)
+            state = 3;
 
         //任務的計時完觸發
         if(timerOK==true){
@@ -107,12 +113,31 @@ abstract public class PatientBaseClass : MonoBehaviour
         if(allow_picked==false){
             missionPoint="";
         }
+
+        if (agent.enabled && agent.velocity != Vector3.zero)
+            transform.rotation = Quaternion.LookRotation(-agent.velocity, Vector3.up); // navigation 看前方
     }
 
     void OnTriggerEnter(Collider collision)
     {
+        if (collision.transform.tag == "chair")
+        {
+            int chair_idx = int.Parse(collision.transform.parent.transform.name.Replace("Chair_", ""));
+            if (state == 0 && counter.chair[chair_idx] == -1)
+            {
+                state = 1; // 等櫃檯
+                allow_picked = false;
+                counter.enqueue(this, collision.transform.parent.transform.name);
+            }
+            if (state == 3 && counter.chair[chair_idx] == -1)
+            {
+                state = 4;
+                allow_picked = false;
+                counter.enqueue(this, collision.transform.parent.transform.name);
+            }
+        }
 
-        if (collision.transform.tag == "task" && allow_picked){
+        if (state == 2 && collision.transform.tag == "task" && allow_picked){
             is_waiting4FirstMission = false;
             missionPoint = collision.GetComponent<Collider>().gameObject.name;
             MM.updateTaskBar();
@@ -149,7 +174,7 @@ abstract public class PatientBaseClass : MonoBehaviour
             transform.eulerAngles = new Vector3(0, 0, 0);
         }
 
-        if (collision.transform.name == "離開點" && !is_waiting4FirstMission)
+        if (state == 4 && collision.transform.name == "離開點" && !is_waiting4FirstMission)
         {
             Destroy(gameObject);
         }
@@ -170,6 +195,24 @@ abstract public class PatientBaseClass : MonoBehaviour
          if (collision.transform.root.transform.tag == "Player" && allow_picked)
         {
            Dialog.SetActive(true);
+        }
+
+        float dist2D = Vector3.Distance(new Vector3(collision.transform.position.x, 0, collision.transform.position.z), new Vector3(transform.position.x, 0, transform.position.z));
+        if (collision.transform.tag == "chair" && dist2D < 0.6)
+        {
+            int chair_idx = int.Parse(collision.transform.parent.transform.name.Replace("Chair_", ""));
+            if (state == 2 && counter.chair[chair_idx] == ID)
+            {
+                agent.enabled = false;
+                allow_picked = true;
+                counter.chair[chair_idx] = -1;
+            }
+            if (state == 5 && counter.chair[chair_idx] == ID)
+            {
+                agent.enabled = false;
+                allow_picked = true;
+                counter.chair[chair_idx] = -1;
+            }
         }
     }
 

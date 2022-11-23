@@ -18,6 +18,7 @@ TagManager:
   - task5
   - Canvas
   - PatientStopSign
+  - chair
   layers:
   - Default
   - TransparentFX

@@ -254,7 +254,7 @@ public class MissionManager : MonoBehaviour
         patient.GetComponent<PatientBaseClass>().ID = ID;
         patient.GetComponent<PatientBaseClass>().mission = mission;
         patient.GetComponent<PatientBaseClass>().isComplete = new bool[] { false, false };
-        Debug.Log(patient.name.Replace("(Clone)", ""));//8+9(clone)
+        //Debug.Log(patient.name.Replace("(Clone)", ""));//8+9(clone)
 
         string lineupPoint = "排隊點" + lineup.NewPatientEnter(patient);
         patient.GetComponent<PatientBaseClass>().LineupPosition = lineupPoint;
