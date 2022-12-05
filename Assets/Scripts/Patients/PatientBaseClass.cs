@@ -141,9 +141,9 @@ abstract public class PatientBaseClass : MonoBehaviour
         if (state == 2 && collision.transform.tag == "task" && allow_picked){
             is_waiting4FirstMission = false;
             missionPoint = collision.GetComponent<Collider>().gameObject.name;
-            MM.updateTaskBar();
+            //MM.updateTaskBar();
 
-            if(MM.hasThisMission(ID, missionPoint) && !doingMission)
+            if(MM.hasThisMission(ID, missionPoint) && !doingMission && MM.nextMissionName(ID)==missionPoint)
             {
                 is_waiting = false;
                 doingMission = true;

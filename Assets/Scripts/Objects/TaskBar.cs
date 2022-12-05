@@ -4,82 +4,89 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TaskBar : MonoBehaviour
-{
-    private Animator animator;
-    public Image oldImage;
-    public Sprite AngryGrandma;
-    public Sprite Kids;
-    public Sprite TerroristPatient;
-    public Sprite EngineerPatient;
-    public Sprite Patient;
+{   
+    [SerializeField] GameObject[] RecordPrefabs;
+    List<GameObject> RecordList = new List<GameObject>();
+    int recordCount = 0;
+    float firstPosition=294.0f;
+    float distance=147.0f;
 
-    void Start(){
-        oldImage=gameObject.GetComponent<Image>();
-    }
-
-    public void completeAnimation(){
-        try
-        {
-            animator = GetComponent<Animator>();
-            animator.Play ("missionComplete");
+    public void createRecord(int ID, string patientType, string[] tasksType){
+        Vector3 pos = transform.position;
+        Vector3 offset = new Vector3(recordCount*distance-firstPosition, 0, 0);
+        GameObject record = Instantiate(RecordPrefabs[0], pos+offset , Quaternion.identity, transform);
+        record.GetComponent<Record>().ID = ID;
+        record.GetComponent<Record>().changePatientSprite(patientType);
+        if(tasksType.Length==2){
+            for(int i=0; i<tasksType.Length; i++){
+                record.GetComponent<Record>().changeTaskSprite(i, tasksType[i]);
+            }
         }
-        catch (System.Exception)
-        {
-
-        }  
-
-    }
-
-    public void failedAnimation(){
-        try
-        {
-            animator = GetComponent<Animator>();
-            animator.Play ("missionFailed");
-        }
-        catch (System.Exception)
-        {
-
-        } 
+        else
+            Debug.Log("tasksType Length error");
         
+        recordCount++;
+        RecordList.Add(record);
     }
 
-    public void pickAnimation(){
-        try
-        {
-            animator = GetComponent<Animator>();
-            animator.Play ("pick");
-        }
-        catch (System.Exception)
-        {
-
-        }
+    public void deleteRecord(int ID){
+        int index = findIndex(ID);
+        Debug.Log("deleteRecord");
+        Destroy(RecordList[index]);
+        RecordList.RemoveAt(index);
+        recordCount--;
         
+        reArrange();
     }
-    public void emptyAnimation(){
-        animator = GetComponent<Animator>();
-            animator.Play ("empty");
+    
+
+    public void completeTask(int ID, int taskNum){
+        int index = findIndex(ID);
+        RecordList[index].GetComponent<Record>().completeAnimation(taskNum);
+
     }
 
-    public void changeSprite(string name){
+    public void failedTask(int ID, int taskNum){
+        int index = findIndex(ID);
+        RecordList[index].GetComponent<Record>().failedAnimation(taskNum);
+    }
+
+    public void pickTask(int ID){
+        int index = findIndex(ID);
+        RecordList[index].GetComponent<Record>().pickAnimation();
+    }
+
+    public void putDownTask(int ID){
+        int index = findIndex(ID);
+        RecordList[index].GetComponent<Record>().emptyAnimation();
+    }
+
+    public void reArrange(){
+        Vector3 pos = transform.position;
         
+        for(int i=0; i<RecordList.Count; i++){
+            Vector3 offset = new Vector3(i*distance-firstPosition, 0, 0);
+            RecordList[i].transform.position= pos+offset;
+        }
 
-        if(name=="AngryGrandma"){
-            oldImage.sprite = AngryGrandma;
-        }
-        else if(name=="Kids"){
-            oldImage.sprite = Kids;
-        }
-        else if(name=="TerroristPatient"){
-            oldImage.sprite = TerroristPatient;
-        }
-        else if(name=="EngineerPatient"){
-            oldImage.sprite = EngineerPatient;
-        }
-        else if(name=="Patient"){
-            oldImage.sprite = Patient;
-        }
-        else{
-            Debug.Log("changeSprite name error");
-        }
     }
+    // public void setPatientImage(int index, string patientType){
+
+    // }
+    // public void setTaskImage(int index, int taskNum, string taskType){
+
+    // }
+
+    int findIndex(int ID){
+        int index=0;
+        for(int i=0; i<RecordList.Count; i++){
+            if(RecordList[i].GetComponent<Record>().ID==ID){
+                index=i;
+                break;
+            }
+        }
+        return index;
+    }
+
+    
 }
