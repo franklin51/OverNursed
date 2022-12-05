@@ -14,7 +14,7 @@ public class Counter : MonoBehaviour
 
     int ID_turn = -1;
     int prev_ID_turn = -1;
-    float timer = 5;
+    float timer = 3;
     bool is_occupied = false;
     bool is_leaving = false;
 
@@ -67,7 +67,7 @@ public class Counter : MonoBehaviour
         if (queue.Count == 0)
             return;
 
-        timer = 5;
+        timer = 3;
         PatientBaseClass patient = queue.Dequeue();
         Vector3 chair_pos = chair_queue.Dequeue();
         prev_ID_turn = ID_turn;

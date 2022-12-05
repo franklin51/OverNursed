@@ -17,7 +17,10 @@ public class MissionManager : MonoBehaviour
     int ID = 0;    //任務編號
     //string[] missionType = new string[]{"抽血","量身高","心電圖","驗尿","量視力","X光"};
     string[] missionType = new string[] { "blood", "height", "ECG", "urine", "visual" };
+    Dictionary<string, AudioSource> audios = new Dictionary<string, AudioSource>();
     public float Timer = 2f;
+
+    private AudioSource blood, ECG, urine;
 
     public class Mission
     {
@@ -46,8 +49,6 @@ public class MissionManager : MonoBehaviour
         }
     }
     List<Mission> missionList = new List<Mission>();
-    
-
 
 
     // 隨機創任務
@@ -100,6 +101,11 @@ public class MissionManager : MonoBehaviour
     public void completeMission(int ID, string whatMission, int whoComplete)
     {
         int index = findMissionIndex(ID);
+
+        if (audios.ContainsKey(whatMission))
+            audios[whatMission].Play();
+        else
+            Debug.Log(whatMission);
        
         for (int i = 0; i < missionList[index].type.Length; i++)
         {
@@ -486,6 +492,14 @@ public class MissionManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        AudioSource[] tmp = GetComponents<AudioSource>();
+        if (tmp.Length != 0)
+        {
+            audios.Add("blood", tmp[0]);
+            audios.Add("ECG", tmp[1]);
+            audios.Add("urine", tmp[2]);
+        }
+
         lineup = GameObject.Find("生兵點").GetComponent<Lineup>();
     }
 
