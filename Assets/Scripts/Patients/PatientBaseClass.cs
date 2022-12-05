@@ -28,6 +28,7 @@ abstract public class PatientBaseClass : MonoBehaviour
     public bool timerOK=false;
     public MissionManager MM;
     public NavMeshAgent agent;
+    public PatientController patientcontroller;
     public Counter counter;
     [SerializeField] GameObject Dialog;
     [SerializeField] GameObject timerPrefabs;
@@ -45,13 +46,13 @@ abstract public class PatientBaseClass : MonoBehaviour
 
     //float timer=0;
 
-
     // Start is called before the first frame update
     public virtual void Start()
     {
         lineup = GameObject.Find("生兵點").GetComponent<Lineup>();
         GP = GameObject.Find("生兵點").GetComponent<GeneratePoint>();
         MM = GameObject.Find("MissionManager").GetComponent<MissionManager>();
+        patientcontroller = GameObject.Find("Doors").GetComponent<PatientController>();
         counter = GameObject.Find("櫃檯").GetComponent<Counter>();
 
         updateDialogString();
@@ -109,6 +110,7 @@ abstract public class PatientBaseClass : MonoBehaviour
                 doingMission=false;
                 is_waiting = true;
             }
+            patientcontroller.finish_task(missionPoint);
         }
 
         if(allow_picked==false){
@@ -143,7 +145,7 @@ abstract public class PatientBaseClass : MonoBehaviour
             missionPoint = collision.GetComponent<Collider>().gameObject.name;
             //MM.updateTaskBar();
 
-            if(MM.hasThisMission(ID, missionPoint) && !doingMission && MM.nextMissionName(ID)==missionPoint)
+            if(MM.hasThisMission(ID, missionPoint) && !doingMission && patientcontroller.attempt_do_task(missionPoint) && MM.nextMissionName(ID)==missionPoint)
             {
                 is_waiting = false;
                 doingMission = true;

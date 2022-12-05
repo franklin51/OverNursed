@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,8 @@ using UnityEngine;
 public class PlayerBase : MonoBehaviour
 {
     public float velocity = 40f;
+    public float accelerate_times = 10f;
+    int prev_action = 0; // no up down right left
     public GameObject patient;
     public GeneratePoint GP;
     public Rigidbody rb;
@@ -43,7 +46,10 @@ public class PlayerBase : MonoBehaviour
             else if (Input.GetKey("d"))
                 MoveRight();
             else
+            {
+                prev_action = 0;
                 rb.velocity = new Vector3(0, 0, 0);
+            }
             if (Input.GetKeyDown("t"))
             {
                 if (!already_pick && in_trigger)
@@ -67,7 +73,10 @@ public class PlayerBase : MonoBehaviour
             else if (Input.GetKey(KeyCode.RightArrow))
                 MoveRight();
             else
-				rb.velocity = new Vector3(0, 0, 0);
+            {
+                prev_action = 0;
+                rb.velocity = new Vector3(0, 0, 0);
+            }
             if (Input.GetKeyDown("m"))
             {
                 if (!already_pick && in_trigger)
@@ -150,22 +159,54 @@ public class PlayerBase : MonoBehaviour
     private void MoveUp()
     {
         transform.eulerAngles = new Vector3(0, 0, 0);
+        /*if (prev_action == 1)
+        {
+            rb.velocity += new Vector3(0, 0, velocity / accelerate_times);
+            rb.velocity = new Vector3(0, 0, Math.Min(velocity, rb.velocity[2]));
+        }
+        else
+            rb.velocity = new Vector3(0, 0, velocity / accelerate_times);*/
         rb.velocity = new Vector3(0, 0, velocity);
+        prev_action = 1;
     }
     private void MoveDown()
     {
         transform.eulerAngles = new Vector3(0, 180, 0);
+        /*if (prev_action == 2)
+        {
+            rb.velocity += new Vector3(0, 0, -velocity / accelerate_times);
+            rb.velocity = new Vector3(0, 0, Math.Max(-velocity, rb.velocity[2]));
+        }
+        else
+            rb.velocity = new Vector3(0, 0, -velocity / accelerate_times);*/
         rb.velocity = new Vector3(0, 0, -velocity);
+        prev_action = 2;
     }
     private void MoveLeft()
     {
         transform.eulerAngles = new Vector3(0, 270, 0);
+        /*if (prev_action == 3)
+        {
+            rb.velocity += new Vector3(- velocity / accelerate_times, 0, 0);
+            rb.velocity = new Vector3(Math.Max(-velocity, rb.velocity[0]), 0, 0);
+        }
+        else
+            rb.velocity = new Vector3(-velocity / accelerate_times, 0, 0);*/
         rb.velocity = new Vector3(-velocity, 0, 0);
+        prev_action = 3;
     }
     private void MoveRight()
     {
         transform.eulerAngles = new Vector3(0, 90, 0);
+        /*if (prev_action == 4)
+        {
+            rb.velocity += new Vector3(velocity / accelerate_times, 0, 0);
+            rb.velocity = new Vector3(Math.Min(velocity, rb.velocity[0]), 0, 0);
+        }
+        else
+            rb.velocity = new Vector3(velocity / accelerate_times, 0, 0);*/
         rb.velocity = new Vector3(velocity, 0, 0);
+        prev_action = 4;
     }
     private void PutDownPatient()
     {
