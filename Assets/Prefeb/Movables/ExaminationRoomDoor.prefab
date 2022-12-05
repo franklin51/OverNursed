@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6688180091408502031}
   - component: {fileID: 3433676455729718059}
   - component: {fileID: 2045427753419321602}
-  - component: {fileID: 6905777821579389207}
+  - component: {fileID: 8288222340458209458}
   m_Layer: 0
   m_Name: Open1
   m_TagString: Untagged
@@ -99,7 +99,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &6905777821579389207
+--- !u!114 &8288222340458209458
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,11 +108,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 815267953970082581}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df64c56f09941964f84d417b3ccee233, type: 3}
+  m_Script: {fileID: 11500000, guid: 98acb90b824308f4dbfe301f2830643b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patientcontroller: {fileID: 0}
-  examinationroomdoorclosesensor: {fileID: 0}
+  patient_in: 0
 --- !u!1 &1578016456721840203
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,7 +122,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1578016456722326635}
   - component: {fileID: 1578016456714570635}
-  - component: {fileID: 5763247335111372216}
   m_Layer: 0
   m_Name: ExaminationRoomDoor
   m_TagString: Untagged
@@ -171,20 +169,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5763247335111372216
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1578016456721840203}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df64c56f09941964f84d417b3ccee233, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  patientcontroller: {fileID: 0}
-  examinationroomdoorclosesensor: {fileID: 0}
 --- !u!1 &2718555489504651828
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,7 +181,6 @@ GameObject:
   - component: {fileID: 1088181405380110756}
   - component: {fileID: 2380049549650842980}
   - component: {fileID: 5937028754195731219}
-  - component: {fileID: 844762307951336705}
   m_Layer: 0
   m_Name: Open0
   m_TagString: Untagged
@@ -284,20 +267,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &844762307951336705
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2718555489504651828}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df64c56f09941964f84d417b3ccee233, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  patientcontroller: {fileID: 0}
-  examinationroomdoorclosesensor: {fileID: 0}
 --- !u!1 &4592366776683083329
 GameObject:
   m_ObjectHideFlags: 0
@@ -421,14 +390,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4659619908354712613}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
   m_LocalPosition: {x: -0.030393, y: -5.684342e-17, z: -0.394064}
   m_LocalScale: {x: 1.5757219, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1578016456722326635}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: -90, z: 0}
 --- !u!33 &4280739957553858036
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -504,7 +473,6 @@ GameObject:
   - component: {fileID: 8003362287628554570}
   - component: {fileID: 6663134107692954136}
   - component: {fileID: 7610161556051141669}
-  - component: {fileID: 2031539993532025411}
   m_Layer: 0
   m_Name: Open2
   m_TagString: Untagged
@@ -591,17 +559,3 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &2031539993532025411
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8566302022873169132}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13fd7c5a0756a7e438d00e5b845048be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  patientcontroller: {fileID: 0}
-  people_count: 0
