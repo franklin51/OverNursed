@@ -120,19 +120,19 @@ public class PlayerBase : MonoBehaviour
                     patient.transform.localPosition = new Vector3(0, 1f, 0);
 
                     MM.pickPatient(patient.GetComponent<PatientBaseClass>().ID);//拿起病人時更新病人位子
-                    if(!patient.GetComponent<PatientBaseClass>().hasOwner){
-                        string name = gameObject.name;
-                        if(name=="1P" && !MM.isFull(1)){
-                            MM.setOwner(patient.GetComponent<PatientBaseClass>().ID,1);
-                            patient.GetComponent<PatientBaseClass>().hasOwner=true;
-                        }
+                    // if(!patient.GetComponent<PatientBaseClass>().hasOwner){
+                    //     string name = gameObject.name;
+                    //     if(name=="1P" && !MM.isFull(1)){
+                    //         MM.setOwner(patient.GetComponent<PatientBaseClass>().ID,1);
+                    //         patient.GetComponent<PatientBaseClass>().hasOwner=true;
+                    //     }
                             
-                        else if(name=="2P" && !MM.isFull(2)){
-                            MM.setOwner(patient.GetComponent<PatientBaseClass>().ID,2);
-                            patient.GetComponent<PatientBaseClass>().hasOwner=true;
-                        }
+                    //     else if(name=="2P" && !MM.isFull(2)){
+                    //         MM.setOwner(patient.GetComponent<PatientBaseClass>().ID,2);
+                    //         patient.GetComponent<PatientBaseClass>().hasOwner=true;
+                    //     }
                         
-                    }
+                    // }
                     
 
                     // 從隊伍中移除玩家

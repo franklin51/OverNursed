@@ -126,8 +126,12 @@ abstract public class PatientBaseClass : MonoBehaviour
         if (collision.transform.tag == "chair")
         {
             int chair_idx = int.Parse(collision.transform.parent.transform.name.Replace("Chair_", ""));
-            if (state == 0 && counter.chair[chair_idx] == -1)
+            //把歸屬病人從PlayerBase改成這
+            if (state == 0 && counter.chair[chair_idx] == -1 && !MM.isFull(lastPlayer))
             {
+                MM.setOwner(ID,lastPlayer);
+                hasOwner=true;
+
                 state = 1; // 等櫃檯
                 allow_picked = false;
                 counter.enqueue(this, collision.transform.parent.transform.name);
