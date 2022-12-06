@@ -7,6 +7,7 @@ public class IndoorSensor : MonoBehaviour
     Vector3 idle_rotation, close_rotation;
     public bool patient_in = false;
     PatientController patientcontroller;
+    ExaminationRoomDoorAnimation anime;
 
     // Start is called before the first frame update
     void Start()
@@ -14,6 +15,7 @@ public class IndoorSensor : MonoBehaviour
         idle_rotation = transform.parent.Find("01_low").transform.localEulerAngles;
         close_rotation = idle_rotation + new Vector3(0, 90, 0);
         patientcontroller = GameObject.Find("Doors").GetComponent<PatientController>();
+        anime = transform.parent.GetComponent<ExaminationRoomDoorAnimation>();
     }
 
     // Update is called once per frame
@@ -40,11 +42,13 @@ public class IndoorSensor : MonoBehaviour
 
     public void open()
     {
+        //anime.open();
         transform.parent.Find("01_low").transform.localEulerAngles = idle_rotation;
     }
 
     public void close()
     {
+        //anime.close();
         transform.parent.Find("01_low").transform.localEulerAngles = close_rotation;
     }
 
