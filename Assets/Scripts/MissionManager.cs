@@ -15,6 +15,11 @@ public class MissionManager : MonoBehaviour
     int missionCount = 0; //存在的任務數
     int ID = 0;    //任務編號
     string[] missionType = new string[] { "blood", "height", "ECG", "urine", "visual" };
+    string[] AngryGrandmaMission = new string[] { "ECG", "urine", "visual" };
+    string[] EngineerMission = new string[] { "blood","ECG", "urine", "visual" };
+    string[] KidsMission = new string[] {"height", "visual" };
+    string[] NormalMission = new string[] { "blood", "height","visual" };
+    string[] TerroristMission = new string[] {"ECG", "urine", "blood" };
     Dictionary<string, AudioSource> audios = new Dictionary<string, AudioSource>();
     public float Timer = 2f;
 
@@ -55,7 +60,8 @@ public class MissionManager : MonoBehaviour
 
         //隨機取兩個任務
         List<int> indices = new List<int>();
-        while (indices.Count < 2)
+        int TasksCount=4;
+        while (indices.Count < TasksCount)
         {
             int index = random.Next(0, missionType.Length);
             if (indices.Count == 0 || !indices.Contains(index))
@@ -64,7 +70,7 @@ public class MissionManager : MonoBehaviour
             }
         }
 
-        string[] missionsRandom = new string[2];
+        string[] missionsRandom = new string[TasksCount];
         for (int i = 0; i < indices.Count; i++)
         {
             int randomIndex = indices[i];
@@ -75,13 +81,36 @@ public class MissionManager : MonoBehaviour
 
         //創patient,隨機取一種人
         int patientRandom = random.Next(0, patientPrefabs.Length);
-        GameObject patient = createPatient(patientRandom, ID, missionsRandom);
+        // GameObject patient = createPatient(patientRandom, ID, missionsRandom);
+        // Mission newMission = new Mission(ID, missionsRandom, patient);
+        //暫時先改這樣
+        GameObject patient;
+        Mission newMission;
+        if(patientRandom==0){
+            patient = createPatient(patientRandom, ID, AngryGrandmaMission);
+            newMission = new Mission(ID, AngryGrandmaMission, patient);
+        }
+        else if(patientRandom==1){
+            patient = createPatient(patientRandom, ID, EngineerMission);
+            newMission = new Mission(ID, EngineerMission, patient);
+            
+        }
+        else if(patientRandom==2){
+            patient = createPatient(patientRandom, ID, KidsMission);
+            newMission = new Mission(ID, KidsMission, patient);
+            
+        }
+        else if(patientRandom==3){
+            patient = createPatient(patientRandom, ID, NormalMission);
+            newMission = new Mission(ID, NormalMission, patient);
+        }
+        else {
+            patient = createPatient(patientRandom, ID, TerroristMission);
+            newMission = new Mission(ID, TerroristMission, patient);
+            
+        }
 
-
-        Mission newMission = new Mission(ID, missionsRandom, patient);
         missionList.Add(newMission);
-
-
         missionCount += 1;
         ID += 1;
         //updateTaskBar();

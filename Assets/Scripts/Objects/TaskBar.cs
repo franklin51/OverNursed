@@ -15,15 +15,16 @@ public class TaskBar : MonoBehaviour
         Vector3 pos = transform.position;
         Vector3 offset = new Vector3(recordCount*distance-firstPosition, 0, 0);
         GameObject record = Instantiate(RecordPrefabs[0], pos+offset , Quaternion.identity, transform);
-        record.GetComponent<Record>().ID = ID;
-        record.GetComponent<Record>().changePatientSprite(patientType);
-        if(tasksType.Length==2){
-            for(int i=0; i<tasksType.Length; i++){
-                record.GetComponent<Record>().changeTaskSprite(i, tasksType[i]);
-            }
-        }
-        else
-            Debug.Log("tasksType Length error");
+        record.GetComponent<Record>().setInitialValue(ID, patientType, tasksType);
+        // record.GetComponent<Record>().ID = ID;
+        // record.GetComponent<Record>().changePatientSprite(patientType);
+        // if(tasksType.Length<=4){
+        //     for(int i=0; i<tasksType.Length; i++){
+        //         record.GetComponent<Record>().changeTaskSprite(i, tasksType[i]);
+        //     }
+        // }
+        // else
+        //     Debug.Log("tasksType Length error");
         
         recordCount++;
         RecordList.Add(record);
