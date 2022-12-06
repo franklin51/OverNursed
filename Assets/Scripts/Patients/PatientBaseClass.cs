@@ -197,10 +197,10 @@ abstract public class PatientBaseClass : MonoBehaviour
 
     void OnTriggerStay(Collider collision)
     {
-         if (collision.transform.root.transform.tag == "Player" && allow_picked)
-        {
-           Dialog.SetActive(true);
-        }
+        //  if (collision.transform.root.transform.tag == "Player" && allow_picked)
+        // {
+        //    Dialog.SetActive(true);
+        // }
 
         float dist2D = Vector3.Distance(new Vector3(collision.transform.position.x, 0, collision.transform.position.z), new Vector3(transform.position.x, 0, transform.position.z));
         if (collision.transform.tag == "chair" && dist2D < 0.6)

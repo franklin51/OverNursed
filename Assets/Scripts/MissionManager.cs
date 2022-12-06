@@ -180,6 +180,7 @@ public class MissionManager : MonoBehaviour
 
     /*string
        1. getDialogString(int ID)
+       2. nextMissionName(int ID)
     */
 
     public string getDialogString(int ID){
@@ -204,6 +205,19 @@ public class MissionManager : MonoBehaviour
         return s;
     }
 
+    public string nextMissionName(int ID){
+        int index = findMissionIndex(ID);
+        string name="";
+        for(int i=0; i<missionList[index].isComplete.Length; i++ ){
+            if(!missionList[index].isComplete[i]){
+                name=missionList[index].type[i];
+                break;
+            }
+        }
+
+        return name;
+    }
+
     /*bool
         1. hasThisMission(int ID, string whatMission)
         2. checkAllMissionComplete(int ID)
@@ -224,18 +238,7 @@ public class MissionManager : MonoBehaviour
         return false;
     }
 
-    public string nextMissionName(int ID){
-        int index = findMissionIndex(ID);
-        string name="";
-        for(int i=0; i<missionList[index].isComplete.Length; i++ ){
-            if(!missionList[index].isComplete[i]){
-                name=missionList[index].type[i];
-                break;
-            }
-        }
-
-        return name;
-    }
+    
 
     public bool checkAllMissionComplete(int ID){
         bool check = true;
@@ -332,7 +335,7 @@ public class MissionManager : MonoBehaviour
     /*animation
         1. pickPatient(int ID)
         2. putDownPatient(int ID)
-        3. missionFailed(int ID)
+        3. missionFailed(int ID, string whatMission)
     */
     public void pickPatient(int ID){
         int owner = findMissionOwner(ID);
