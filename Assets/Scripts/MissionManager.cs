@@ -18,8 +18,6 @@ public class MissionManager : MonoBehaviour
     Dictionary<string, AudioSource> audios = new Dictionary<string, AudioSource>();
     public float Timer = 2f;
 
-    private AudioSource blood, ECG, urine;
-
     public class Mission
     {
         public int ID;
@@ -147,7 +145,9 @@ public class MissionManager : MonoBehaviour
 
         if(whoComplete==1) taskbar1P.GetComponent<TaskBar>().completeTask(ID,i);
         else if(whoComplete==2) taskbar2P.GetComponent<TaskBar>().completeTask(ID,i);
-        
+
+        if (audios.ContainsKey(whatMission))
+            audios[whatMission].Play();
     }
 
     public void deleteMission(int ID){

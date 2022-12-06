@@ -145,7 +145,7 @@ abstract public class PatientBaseClass : MonoBehaviour
             missionPoint = collision.GetComponent<Collider>().gameObject.name;
             //MM.updateTaskBar();
 
-            if(MM.hasThisMission(ID, missionPoint) && !doingMission && patientcontroller.attempt_do_task(missionPoint) && MM.nextMissionName(ID)==missionPoint)
+            if(MM.hasThisMission(ID, missionPoint) && !doingMission && MM.nextMissionName(ID)== missionPoint && patientcontroller.attempt_do_task(missionPoint))
             {
                 is_waiting = false;
                 doingMission = true;

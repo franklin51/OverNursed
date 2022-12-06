@@ -29,6 +29,7 @@ public class PatientController : MonoBehaviour
             return false;
 
         occupied_num[doors_dict[door_name]]++;
+        transform.Find(door_name).Find("Open1").GetComponent<IndoorSensor>().close();
         return true;
     }
 
@@ -36,6 +37,7 @@ public class PatientController : MonoBehaviour
     {
         string door_name = "Door " + task_name;
         occupied_num[doors_dict[door_name]]--;
+        transform.Find(door_name).Find("Open1").GetComponent<IndoorSensor>().open();
     }
 
     public bool can_door_open (string door_name)
