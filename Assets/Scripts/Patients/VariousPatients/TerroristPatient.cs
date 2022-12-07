@@ -33,16 +33,18 @@ public class TerroristPatient : PatientBaseClass
 
 	override protected void Inpatience() // 等不及開始搞事
 	{
+		state = 10;
 		agent.enabled = true;
 		agent.speed = 40f;
 		agent.acceleration = 1000f;
 		if (!is_attacking)
 		{
 			deleteAnger();
-			do
+			target = GameObject.FindGameObjectsWithTag("Player")[Random.Range(0, GameObject.FindGameObjectsWithTag("Player").Length)];
+			/*do
 			{
 				target = GameObject.FindGameObjectsWithTag("patient")[Random.Range(0, GameObject.FindGameObjectsWithTag("patient").Length)];
-			} while (target.transform.name == "8+9(Clone)");
+			} while (target.transform.name == "8+9(Clone)");*/
 		}
 
 		NavigateTo(target);
@@ -51,7 +53,8 @@ public class TerroristPatient : PatientBaseClass
 
 	void deleteAnger()
 	{
-		Destroy(gameObject.transform.Find("Canvas").transform.Find("Anger(Clone)").gameObject);
+		if (gameObject.transform.Find("Canvas").transform.Find("Anger(Clone)"))
+			Destroy(gameObject.transform.Find("Canvas").transform.Find("Anger(Clone)").gameObject);
 	}
 
 	void createAnger()
@@ -63,5 +66,32 @@ public class TerroristPatient : PatientBaseClass
 			anger.transform.SetParent(transform.GetChild(1), false);
 			anger.GetComponent<Anger>().lookAt = transform;
 		}
+	}
+
+	private void OnCollisionEnter(Collision collision)
+	{
+		if (collision.transform.tag == "Player")
+		{
+			if (collision.transform.name == "1P") lastPlayer = 1;
+			else if (collision.transform.name == "2P") lastPlayer = 2;
+
+			if (is_attacking && target.transform.name == collision.transform.name)
+            {
+				MM.rob(target.transform.name, 300);
+				Destroy(gameObject);
+            }
+		}
+
+		/*if (collision.transform.tag == "patient")
+        {
+            if (is_attacking)
+            {
+                MM.deleteMission(collision.gameObject.GetComponent<PatientBaseClass>().ID);
+                //MM.deleteMission(ID);
+                lineup.RemoveAPatient(collision.gameObject.GetComponent<PatientBaseClass>().ID);
+                Destroy(collision.gameObject);
+                Destroy(gameObject);
+            }
+        }*/
 	}
 }

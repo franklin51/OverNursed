@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -381,7 +382,7 @@ public class MissionManager : MonoBehaviour
         return index;
     }
 
-    int findMissionOwner(int ID){
+    public int findMissionOwner(int ID){
         int index=findMissionIndex(ID);
         return missionList[index].owner;
            
@@ -493,5 +494,14 @@ public class MissionManager : MonoBehaviour
             createMission();
             Timer = 2;
         }
+    }
+
+    public void rob(string player_name, int num)
+    {
+        if (player_name == "1P")
+            scoreArray[0] = Math.Max(0, scoreArray[0] - num);
+        else if (player_name == "2P")
+            scoreArray[1] = Math.Max(0, scoreArray[1] - num);
+        updateScoreBoard();
     }
 }
