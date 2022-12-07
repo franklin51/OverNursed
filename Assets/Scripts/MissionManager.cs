@@ -20,6 +20,7 @@ public class MissionManager : MonoBehaviour
     string[] KidsMission = new string[] {"height", "visual" };
     string[] NormalMission = new string[] { "blood", "height","visual" };
     string[] TerroristMission = new string[] {"ECG", "urine", "blood" };
+    string[] OldmanMission = new string[] {"visual", "urine", "ECG", "blood" };
     Dictionary<string, AudioSource> audios = new Dictionary<string, AudioSource>();
     public float Timer = 2f;
 
@@ -104,9 +105,14 @@ public class MissionManager : MonoBehaviour
             patient = createPatient(patientRandom, ID, NormalMission);
             newMission = new Mission(ID, NormalMission, patient);
         }
-        else {
+        else if(patientRandom==4){
             patient = createPatient(patientRandom, ID, TerroristMission);
             newMission = new Mission(ID, TerroristMission, patient);
+            
+        }
+        else {
+            patient = createPatient(patientRandom, ID, OldmanMission);
+            newMission = new Mission(ID, OldmanMission, patient);
             
         }
 
@@ -146,9 +152,10 @@ public class MissionManager : MonoBehaviour
 
     /*Mission
        1. setOwner(int ID,int player)
-       2. completeMission(int ID, string whatMission, int whoComplete)
-       3. deleteMission(int ID)
-       4. score(int ID, int point)
+       2.changeOwner(int ID,int player)
+       3. completeMission(int ID, string whatMission, int whoComplete)
+       4. deleteMission(int ID)
+       5. score(int ID, int point)
     */
 
     public void setOwner(int ID,int player){
@@ -158,53 +165,74 @@ public class MissionManager : MonoBehaviour
         if(player==2) taskbar2P.GetComponent<TaskBar>().createRecord(missionList[index].ID, missionList[index].patient.name.Replace("(Clone)", ""), missionList[index].type);
     }
 
-    public void completeMission(int ID, string whatMission, int whoComplete){
-        int index = findMissionIndex(ID);
-        int i;
-        for (i=0 ; i < missionList[index].type.Length; i++)
-        {
-            if (missionList[index].type[i] == whatMission)
-            {
-                missionList[index].isComplete[i] = true;
-                missionList[index].whoComplete[i] = whoComplete;
-                break;
-            }
+    public void changeOwner(int ID,int player){
+        int index=findMissionIndex(ID);
+        int owner=findMissionOwner(ID);
+        
+        if(player==1 && player!=owner  &&owner!=0){
+            taskbar2P.GetComponent<TaskBar>().deleteRecord(missionList[index].ID);
+            taskbar1P.GetComponent<TaskBar>().createRecord(missionList[index].ID, missionList[index].patient.name.Replace("(Clone)", ""), missionList[index].type);
+        } 
+        if(player==2 && player!=owner &&owner!=0){ 
+            taskbar1P.GetComponent<TaskBar>().deleteRecord(missionList[index].ID);
+            taskbar2P.GetComponent<TaskBar>().createRecord(missionList[index].ID, missionList[index].patient.name.Replace("(Clone)", ""), missionList[index].type);
         }
-        Debug.Log("whoComplete:"+whoComplete.ToString());
 
-        if(whoComplete==1) taskbar1P.GetComponent<TaskBar>().completeTask(ID,i);
-        else if(whoComplete==2) taskbar2P.GetComponent<TaskBar>().completeTask(ID,i);
+        missionList[index].owner=player;
+    }
 
-        if (audios.ContainsKey(whatMission))
-            audios[whatMission].Play();
+    public void completeMission(int ID, string whatMission, int whoComplete){
+        if(existID(ID)){
+            int index = findMissionIndex(ID);
+            int i;
+            for (i=0 ; i < missionList[index].type.Length; i++)
+            {
+                if (missionList[index].type[i] == whatMission)
+                {
+                    missionList[index].isComplete[i] = true;
+                    missionList[index].whoComplete[i] = whoComplete;
+                    break;
+                }
+            }
+            Debug.Log("whoComplete:"+whoComplete.ToString());
+
+            if(whoComplete==1) taskbar1P.GetComponent<TaskBar>().completeTask(ID,i);
+            else if(whoComplete==2) taskbar2P.GetComponent<TaskBar>().completeTask(ID,i);
+
+            if (audios.ContainsKey(whatMission))
+                audios[whatMission].Play();
+        }
     }
 
     public void deleteMission(int ID){
-        int index = findMissionIndex(ID);
-        int player = findMissionOwner(ID);
-        missionList.RemoveAt(index);
-        missionCount -= 1;
+        if(existID(ID)){
+            int index = findMissionIndex(ID);
+            int player = findMissionOwner(ID);
+            missionList.RemoveAt(index);
+            missionCount -= 1;
 
-        
+            
 
-        if(player==1){ 
-            Debug.Log("deleteMission1");
-            taskbar1P.GetComponent<TaskBar>().deleteRecord(ID);
-        }
-        if(player==2) {
-            Debug.Log("deleteMission2");
-            taskbar2P.GetComponent<TaskBar>().deleteRecord(ID);
+            if(player==1){ 
+                Debug.Log("deleteMission1");
+                taskbar1P.GetComponent<TaskBar>().deleteRecord(ID);
+            }
+            if(player==2) {
+                Debug.Log("deleteMission2");
+                taskbar2P.GetComponent<TaskBar>().deleteRecord(ID);
+            }
         }
     }
 
     public void score(int ID, int point){
-      
-        int index = findMissionIndex(ID);
-        int player=missionList[index].owner - 1;
-        scoreArray[player] +=point;
-        Debug.Log("player"+player.ToString()+"+"+point.ToString());
+       if(existID(ID)){
+            int index = findMissionIndex(ID);
+            int player=missionList[index].owner - 1;
+            scoreArray[player] +=point;
+            Debug.Log("player"+player.ToString()+"+"+point.ToString());
 
-        updateScoreBoard();
+            updateScoreBoard();
+       }
     }
 
     /*string
@@ -357,6 +385,18 @@ public class MissionManager : MonoBehaviour
         int index=findMissionIndex(ID);
         return missionList[index].owner;
            
+    }
+
+    bool existID(int ID){
+        bool b=false;
+        for(int i = 0 ; i < missionList.Count ; i++){
+            if(missionList[i].ID==ID){
+                b=true;
+                break;
+            }
+            
+        }
+        return b;
     }
 
     

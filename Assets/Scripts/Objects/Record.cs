@@ -12,16 +12,20 @@ public class Record : MonoBehaviour
     public Image task1Image;
     public Image task2Image;
     public Image task3Image;
+
     public Sprite AngryGrandma;
     public Sprite Kids;
     public Sprite TerroristPatient;
     public Sprite EngineerPatient;
     public Sprite Patient;
+    public Sprite OldMan;
+
     public Sprite blood;
     public Sprite urine;
     public Sprite ECG;
     public Sprite height;
     public Sprite visual;
+
     public Sprite twoTask;
     public Sprite threeTask;
     public Sprite fourTask;
@@ -99,6 +103,9 @@ public class Record : MonoBehaviour
         }
         else if(name=="Patient"){
             oldImage.sprite = Patient;
+        }
+        else if(name=="OldMan"){
+            oldImage.sprite = OldMan;
         }
         else{
             Debug.Log("changeSprite name error");

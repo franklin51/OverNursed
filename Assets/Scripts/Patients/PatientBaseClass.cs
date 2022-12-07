@@ -59,6 +59,12 @@ abstract public class PatientBaseClass : MonoBehaviour
         Dialog.SetActive(false);
         //startCall();
     }
+
+    public virtual void picked()
+    {
+        
+    }
+
     public void timerEnd(){
         timerOK=true;
     }
