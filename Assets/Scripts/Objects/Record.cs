@@ -141,6 +141,13 @@ public class Record : MonoBehaviour
 
     }
 
+    public void setComplete(int num){
+        if(num==0) task0Image.transform.GetChild(0).gameObject.SetActive(true);
+            else if(num==1) task1Image.transform.GetChild(0).gameObject.SetActive(true);
+            else if(num==2) task2Image.transform.GetChild(0).gameObject.SetActive(true);
+            else if(num==3) task3Image.transform.GetChild(0).gameObject.SetActive(true);
+    }
+
     public void completeAnimation(int num){
         try
         {

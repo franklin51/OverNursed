@@ -330,6 +330,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9187043092772272267, guid: a28f30bef017f4a4da3583e5062cc363,
         type: 3}
+      propertyPath: OldMan
+      value: 
+      objectReference: {fileID: 21300000, guid: 5c081d6fe80d62a47ac7e96a811fce90,
+        type: 3}
+    - target: {fileID: 9187043092772272267, guid: a28f30bef017f4a4da3583e5062cc363,
+        type: 3}
       propertyPath: twoTask
       value: 
       objectReference: {fileID: 21300000, guid: 7f55e567a18978143b03970a1be22ff8,

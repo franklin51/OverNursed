@@ -172,13 +172,29 @@ public class MissionManager : MonoBehaviour
         if(player==1 && player!=owner  &&owner!=0){
             taskbar2P.GetComponent<TaskBar>().deleteRecord(missionList[index].ID);
             taskbar1P.GetComponent<TaskBar>().createRecord(missionList[index].ID, missionList[index].patient.name.Replace("(Clone)", ""), missionList[index].type);
+            int completeNum=0;
+            for(int i=0; i<missionList[index].isComplete.Length; i++){
+                if(missionList[index].isComplete[i]){
+                    completeNum++;
+                }
+            }
+            taskbar1P.GetComponent<TaskBar>().alreadyCompleted(ID,completeNum);
+            missionList[index].owner=player;
         } 
         if(player==2 && player!=owner &&owner!=0){ 
             taskbar1P.GetComponent<TaskBar>().deleteRecord(missionList[index].ID);
             taskbar2P.GetComponent<TaskBar>().createRecord(missionList[index].ID, missionList[index].patient.name.Replace("(Clone)", ""), missionList[index].type);
+            int completeNum=0;
+            for(int i=0; i<missionList[index].isComplete.Length; i++){
+                if(missionList[index].isComplete[i]){
+                    completeNum++;
+                }
+            }
+            taskbar2P.GetComponent<TaskBar>().alreadyCompleted(ID,completeNum);
+            missionList[index].owner=player;
         }
 
-        missionList[index].owner=player;
+        
     }
 
     public void completeMission(int ID, string whatMission, int whoComplete){

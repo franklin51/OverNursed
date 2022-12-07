@@ -30,6 +30,13 @@ public class TaskBar : MonoBehaviour
         RecordList.Add(record);
     }
 
+    public void alreadyCompleted(int ID, int num){
+        int index = findIndex(ID);
+        for(int i =0; i<num; i++){
+            RecordList[index].GetComponent<Record>().setComplete(i);
+        }
+    }
+
     public void deleteRecord(int ID){
         int index = findIndex(ID);
         Debug.Log("deleteRecord");
