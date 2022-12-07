@@ -7,7 +7,7 @@ using UnityEngine.AI;
 // 與操作、碰撞偵測有關的
 abstract public class PatientBaseClass : MonoBehaviour
 {
-    public int state = 0; // 0: 排隊等候玩家帶位子; 1: 剛進入，準備入櫃檯; 2: 櫃檯結束，進入任務環節; 3: 結束所有任務，準備入櫃檯; 4: 櫃檯等候; 5: 櫃檯結束，準備回家;
+    public int state = 0; // 0: 排隊等候玩家帶位子; 1: 剛進入，準備入櫃檯; 2: 櫃檯結束，進入任務環節; 3: 結束所有任務，準備入櫃檯; 4: 櫃檯等候; 5: 櫃檯結束，準備回家; 10: 生氣;
 
     public bool allow_picked = true;
     public bool end_task = false; // 還沒用到
@@ -239,7 +239,7 @@ abstract public class PatientBaseClass : MonoBehaviour
             else if (collision.transform.name == "2P") lastPlayer = 2;
         }
 
-        if (collision.transform.tag == "patient")
+        /*if (collision.transform.tag == "patient")
         {
             if (is_attacking)
             {
@@ -249,6 +249,6 @@ abstract public class PatientBaseClass : MonoBehaviour
                 Destroy(collision.gameObject);
                 Destroy(gameObject);
             }
-        }
+        }*/
     }
 }

@@ -8,7 +8,6 @@ public class PlayerBase : MonoBehaviour
 {
     public float velocity = 40f;
     public float accelerate_times = 10f;
-    int prev_action = 0; // no up down right left
     public GameObject patient;
     public GeneratePoint GP;
     public Rigidbody rb;
@@ -46,10 +45,7 @@ public class PlayerBase : MonoBehaviour
             else if (Input.GetKey("d"))
                 MoveRight();
             else
-            {
-                prev_action = 0;
                 rb.velocity = new Vector3(0, 0, 0);
-            }
             if (Input.GetKeyDown("t"))
             {
                 if (!already_pick && in_trigger)
@@ -73,10 +69,7 @@ public class PlayerBase : MonoBehaviour
             else if (Input.GetKey(KeyCode.RightArrow))
                 MoveRight();
             else
-            {
-                prev_action = 0;
                 rb.velocity = new Vector3(0, 0, 0);
-            }
             if (Input.GetKeyDown("m"))
             {
                 if (!already_pick && in_trigger)
@@ -168,7 +161,6 @@ public class PlayerBase : MonoBehaviour
         else
             rb.velocity = new Vector3(0, 0, velocity / accelerate_times);*/
         rb.velocity = new Vector3(0, 0, velocity);
-        prev_action = 1;
     }
     private void MoveDown()
     {
@@ -181,7 +173,6 @@ public class PlayerBase : MonoBehaviour
         else
             rb.velocity = new Vector3(0, 0, -velocity / accelerate_times);*/
         rb.velocity = new Vector3(0, 0, -velocity);
-        prev_action = 2;
     }
     private void MoveLeft()
     {
@@ -194,7 +185,6 @@ public class PlayerBase : MonoBehaviour
         else
             rb.velocity = new Vector3(-velocity / accelerate_times, 0, 0);*/
         rb.velocity = new Vector3(-velocity, 0, 0);
-        prev_action = 3;
     }
     private void MoveRight()
     {
@@ -207,7 +197,6 @@ public class PlayerBase : MonoBehaviour
         else
             rb.velocity = new Vector3(velocity / accelerate_times, 0, 0);*/
         rb.velocity = new Vector3(velocity, 0, 0);
-        prev_action = 4;
     }
     private void PutDownPatient()
     {
