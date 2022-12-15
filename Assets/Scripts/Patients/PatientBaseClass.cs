@@ -35,6 +35,8 @@ abstract public class PatientBaseClass : MonoBehaviour
     public string missionPoint;
     public Lineup lineup;
 
+    private ChairController chair_temp;
+
     abstract protected bool Waiting4FirstMission(); // 生兵後等待第一個任務，return true表示等不及了，進入Inpatience函式
     abstract protected bool ExecuteMission(); // 執行任務，return true表示成功執行
     abstract protected bool Waiting(); // 任務完成後等待下一個任務，return true表示等不及了，進入Inpatience函式
@@ -138,6 +140,9 @@ abstract public class PatientBaseClass : MonoBehaviour
                 MM.setOwner(ID,lastPlayer);
                 hasOwner=true;
 
+                chair_temp = collision.transform.GetComponent<ChairController>();
+                chair_temp.disable();
+
                 state = 1; // 等櫃檯
                 allow_picked = false;
                 counter.enqueue(this, collision.transform.parent.transform.name);
@@ -147,6 +152,9 @@ abstract public class PatientBaseClass : MonoBehaviour
                 state = 4;
                 allow_picked = false;
                 counter.enqueue(this, collision.transform.parent.transform.name);
+
+                chair_temp = collision.transform.GetComponent<ChairController>();
+                chair_temp.disable();
             }
         }
 
@@ -203,6 +211,14 @@ abstract public class PatientBaseClass : MonoBehaviour
         {
            Dialog.SetActive(false);
         }
+
+
+        if (collision.transform.tag == "chair" && (state == 2 || state == 5) && chair_temp != null)
+        {
+            int chair_idx = int.Parse(collision.transform.parent.transform.name.Replace("Chair_", ""));
+            chair_temp.enable(chair_idx);
+            chair_temp = null;
+        }
     }
 
     void OnTriggerStay(Collider collision)
@@ -220,13 +236,13 @@ abstract public class PatientBaseClass : MonoBehaviour
             {
                 agent.enabled = false;
                 allow_picked = true;
-                counter.chair[chair_idx] = -1;
+                //counter.chair[chair_idx] = -1;
             }
             if (state == 5 && counter.chair[chair_idx] == ID)
             {
                 agent.enabled = false;
                 allow_picked = true;
-                counter.chair[chair_idx] = -1;
+                //counter.chair[chair_idx] = -1;
             }
         }
     }

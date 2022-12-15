@@ -6,7 +6,6 @@ public class ExaminationRoomDoorAnimation : MonoBehaviour
 {
     Vector3 idle_rotation, close_rotation;
     private Animator mydoor;
-    bool is_open = true;
 
     // Start is called before the first frame update
     void Start()
