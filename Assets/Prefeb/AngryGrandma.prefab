@@ -1163,6 +1163,7 @@ GameObject:
   - component: {fileID: 3104738755883952257}
   - component: {fileID: 3368892264026332068}
   - component: {fileID: 2427050982875920214}
+  - component: {fileID: 8868435126877216941}
   m_Layer: 0
   m_Name: AngryGrandma
   m_TagString: patient
@@ -1226,6 +1227,7 @@ MonoBehaviour:
   isLeaving: 0
   GP: {fileID: 0}
   point: 75
+  hasOwner: 0
   LineupPosition: 
   mission: []
   isComplete: 
@@ -1235,6 +1237,7 @@ MonoBehaviour:
   timerOK: 0
   MM: {fileID: 0}
   agent: {fileID: 0}
+  patientcontroller: {fileID: 0}
   counter: {fileID: 0}
   Dialog: {fileID: 229094068436122497}
   timerPrefabs: {fileID: 8006299836539748264, guid: d6c67fde5d5ea35419f8d518d46dfedd,
@@ -1265,6 +1268,26 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!95 &8868435126877216941
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7456506982787098191}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ee2dac56947d86b48ab88c26210992eb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7477324360338746358
 GameObject:
   m_ObjectHideFlags: 0

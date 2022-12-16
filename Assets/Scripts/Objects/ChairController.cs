@@ -20,15 +20,14 @@ public class ChairController : MonoBehaviour
 
     public void enable(int chair_idx)
     {
-        Debug.Log("enabled");
         transform.GetComponent<Renderer>().enabled = true;
-        transform.parent.GetComponent<Renderer>().enabled = true;
+        transform.GetChild(0).GetComponent<Renderer>().enabled = true;
         counter.chair[chair_idx] = -1;
     }
 
     public void disable()
     {
         transform.GetComponent<Renderer>().enabled = false;
-        transform.parent.GetComponent<Renderer>().enabled = false;
+        transform.GetChild(0).GetComponent<Renderer>().enabled = false;
     }
 }

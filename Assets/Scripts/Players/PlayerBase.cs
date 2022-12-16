@@ -105,6 +105,7 @@ public class PlayerBase : MonoBehaviour
                 if (patient.GetComponent<PatientBaseClass>().allow_picked)
                 {
                     already_pick = true;
+                    patient.GetComponent<PatientBaseClass>().is_picked = true;
                     patient.GetComponent<PatientBaseClass>().allow_picked = false;
                     patient.transform.SetParent(transform, false);
                     patient.transform.localRotation = Quaternion.Euler(0, 180, 0);
@@ -206,6 +207,7 @@ public class PlayerBase : MonoBehaviour
         patient.transform.parent = null;
 
         MM.putDownPatient(patient.GetComponent<PatientBaseClass>().ID);//放下病人時更新病人位子
+        patient.GetComponent<PatientBaseClass>().is_picked = false;
 
         Vector3 temp = new Vector3(patient.transform.position.x, 0.03f, patient.transform.position.z) + transform.forward * 2f;
         for (float f = 2f; f>=0; f-=0.1f)

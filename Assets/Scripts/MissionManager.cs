@@ -22,7 +22,8 @@ public class MissionManager : MonoBehaviour
     string[] NormalMission = new string[] { "blood", "height","visual" };
     string[] TerroristMission = new string[] {"ECG", "urine", "blood" };
     string[] OldmanMission = new string[] {"visual", "urine", "ECG", "blood" };
-    Dictionary<string, AudioSource> audios = new Dictionary<string, AudioSource>();
+
+    SoundEffects SE;
     public float Timer = 2f;
 
     public class Mission
@@ -216,8 +217,7 @@ public class MissionManager : MonoBehaviour
             if(whoComplete==1) taskbar1P.GetComponent<TaskBar>().completeTask(ID,i);
             else if(whoComplete==2) taskbar2P.GetComponent<TaskBar>().completeTask(ID,i);
 
-            if (audios.ContainsKey(whatMission))
-                audios[whatMission].Play();
+            SE.PlaySoundEffect(whatMission);
         }
     }
 
@@ -474,14 +474,7 @@ public class MissionManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        AudioSource[] tmp = GetComponents<AudioSource>();
-        if (tmp.Length != 0)
-        {
-            audios.Add("blood", tmp[0]);
-            audios.Add("ECG", tmp[1]);
-            audios.Add("urine", tmp[2]);
-        }
-
+        SE = GameObject.Find("Main Camera").GetComponent<SoundEffects>();
         lineup = GameObject.Find("生兵點").GetComponent<Lineup>();
         taskbar1P = GameObject.Find("taskbar(1P)");
         taskbar2P = GameObject.Find("taskbar(2P)");
