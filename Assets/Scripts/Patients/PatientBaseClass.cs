@@ -136,11 +136,10 @@ abstract public class PatientBaseClass : MonoBehaviour
     {
         if (collision.transform.tag == "chair")
         {
-            int chair_idx = int.Parse(collision.transform.transform.name.Replace("Chair_", ""));
+            int chair_idx = int.Parse(collision.transform.name.Replace("Chair_", ""));
             //把歸屬病人從PlayerBase改成這
             if (state == 0 && counter.chair[chair_idx] == -1 && !MM.isFull(lastPlayer))
             {
-                MM.setOwner(ID,lastPlayer);
                 hasOwner=true;
 
                 chair_temp = collision.transform.GetComponent<ChairController>();
@@ -148,13 +147,13 @@ abstract public class PatientBaseClass : MonoBehaviour
 
                 state = 1; // 等櫃檯
                 allow_picked = false;
-                counter.enqueue(this, collision.transform.name);
+                counter.enqueue(this, collision.transform.name, lastPlayer);
             }
             if (state == 3 && counter.chair[chair_idx] == -1)
             {
                 state = 4;
                 allow_picked = false;
-                counter.enqueue(this, collision.transform.name);
+                counter.enqueue(this, collision.transform.name, -1);
 
                 chair_temp = collision.transform.GetComponent<ChairController>();
                 chair_temp.disable();

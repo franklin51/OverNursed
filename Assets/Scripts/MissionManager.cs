@@ -228,8 +228,6 @@ public class MissionManager : MonoBehaviour
             missionList.RemoveAt(index);
             missionCount -= 1;
 
-            
-
             if(player==1){ 
                 Debug.Log("deleteMission1");
                 taskbar1P.GetComponent<TaskBar>().deleteRecord(ID);
@@ -238,6 +236,39 @@ public class MissionManager : MonoBehaviour
                 Debug.Log("deleteMission2");
                 taskbar2P.GetComponent<TaskBar>().deleteRecord(ID);
             }
+        }
+    }
+
+    public void deleteMission_counter(int ID)
+    {
+        if (existID(ID))
+        {
+            int index = findMissionIndex(ID);
+            int player = findMissionOwner(ID);
+            //missionList.RemoveAt(index);
+            //missionCount -= 1;
+
+            if (player == 1)
+            {
+                Debug.Log("deleteMission1");
+                taskbar1P.GetComponent<TaskBar>().deleteRecord(ID);
+            }
+            if (player == 2)
+            {
+                Debug.Log("deleteMission2");
+                taskbar2P.GetComponent<TaskBar>().deleteRecord(ID);
+            }
+        }
+    }
+
+    public void deleteMission_exit(int ID)
+    {
+        if (existID(ID))
+        {
+            int index = findMissionIndex(ID);
+            int player = findMissionOwner(ID);
+            missionList.RemoveAt(index);
+            missionCount -= 1;
         }
     }
 
