@@ -528,6 +528,8 @@ public class MissionManager : MonoBehaviour
         taskbar1P = GameObject.Find("taskbar(1P)");
         taskbar2P = GameObject.Find("taskbar(2P)");
         ScoreBoard = GameObject.Find("ScoreBoard");
+
+        DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame
@@ -535,13 +537,18 @@ public class MissionManager : MonoBehaviour
     {
         GeneratePatients();
 
-        for (int i = 0; i < scoreArray.Length; i++)
+        /*for (int i = 0; i < scoreArray.Length; i++)
         {
             if (scoreArray[i] >= 1000)
             {
                 SceneManager.LoadScene("ED", LoadSceneMode.Single);
             }
-        }
+        }*/
+
+        if (scoreArray[0] >= 1000)
+            SceneManager.LoadScene("ED0", LoadSceneMode.Single);
+        else if (scoreArray[1] >= 1000)
+            SceneManager.LoadScene("ED1", LoadSceneMode.Single);
     }
 
     void GeneratePatients()

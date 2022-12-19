@@ -42,14 +42,16 @@ public class IndoorSensor : MonoBehaviour
 
     public void open()
     {
-        //anime.open();
         transform.parent.Find("01_low").transform.localEulerAngles = idle_rotation;
+        transform.parent.Find("01_low").GetComponent<Collider>().enabled = false;
+        transform.parent.Find("03_low").GetComponent<Collider>().enabled = false;
     }
 
     public void close()
     {
-        //anime.close();
         transform.parent.Find("01_low").transform.localEulerAngles = close_rotation;
+        transform.parent.Find("01_low").GetComponent<Collider>().enabled = true;
+        transform.parent.Find("03_low").GetComponent<Collider>().enabled = true;
     }
 
     void close_lock()
