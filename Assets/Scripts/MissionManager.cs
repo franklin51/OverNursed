@@ -528,8 +528,6 @@ public class MissionManager : MonoBehaviour
         taskbar1P = GameObject.Find("taskbar(1P)");
         taskbar2P = GameObject.Find("taskbar(2P)");
         ScoreBoard = GameObject.Find("ScoreBoard");
-
-        DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame
