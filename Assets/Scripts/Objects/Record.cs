@@ -183,10 +183,14 @@ public class Record : MonoBehaviour
     }
 
     public void pickAnimation(){
+        // Vector3 objectScale = transform.localScale;
+        // transform.localScale = new Vector3(2,  2, objectScale.z);
         try
         {
+
             animator = GetComponent<Animator>();
             animator.Play ("pick");
+            
         }
         catch (System.Exception)
         {

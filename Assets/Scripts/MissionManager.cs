@@ -15,6 +15,7 @@ public class MissionManager : MonoBehaviour
     int[] scoreArray = new int[] { 0, 0 };
     int missionCount = 0; //存在的任務數
     int ID = 0;    //任務編號
+    int lastPatientType=0;
     string[] missionType = new string[] { "blood", "height", "ECG", "urine", "visual" };
     string[] AngryGrandmaMission = new string[] { "ECG", "urine", "visual" };
     string[] EngineerMission = new string[] { "blood","ECG", "urine", "visual" };
@@ -83,6 +84,10 @@ public class MissionManager : MonoBehaviour
 
         //創patient,隨機取一種人
         int patientRandom = random.Next(0, patientPrefabs.Length);
+        while(lastPatientType==patientRandom){
+            patientRandom = random.Next(0, patientPrefabs.Length);
+        }
+        lastPatientType=patientRandom;
         // GameObject patient = createPatient(patientRandom, ID, missionsRandom);
         // Mission newMission = new Mission(ID, missionsRandom, patient);
         //暫時先改這樣
@@ -248,6 +253,7 @@ public class MissionManager : MonoBehaviour
             scoreArray[player] +=point;
             Debug.Log("player"+player.ToString()+"+"+point.ToString());
 
+            audios["cash"].Play();
             updateScoreBoard();
        }
     }
@@ -480,6 +486,7 @@ public class MissionManager : MonoBehaviour
             audios.Add("blood", tmp[0]);
             audios.Add("ECG", tmp[1]);
             audios.Add("urine", tmp[2]);
+            audios.Add("cash", tmp[3]);
         }
 
         lineup = GameObject.Find("生兵點").GetComponent<Lineup>();

@@ -31,7 +31,7 @@ abstract public class PatientBaseClass : MonoBehaviour
     public PatientController patientcontroller;
     public Counter counter;
     [SerializeField] GameObject Dialog;
-    [SerializeField] GameObject timerPrefabs;
+    [SerializeField] public GameObject timerPrefabs;
     public string missionPoint;
     public Lineup lineup;
 
@@ -75,7 +75,7 @@ abstract public class PatientBaseClass : MonoBehaviour
         Dialog.transform.GetComponentInChildren<Text>().text=MM.getDialogString(ID);
     }
    
-    void createTimer(){
+    public virtual void createTimer(){
         GameObject timer = Instantiate(timerPrefabs, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
         timer.transform.SetParent (transform.GetChild(1), false);
         timer.GetComponent<Timer>().lookAt=transform;

@@ -3081,7 +3081,8 @@ MonoBehaviour:
   is_attacking: 0
   isLeaving: 0
   GP: {fileID: 0}
-  point: 100
+  point: 150
+  hasOwner: 0
   LineupPosition: 
   mission: []
   isComplete: 
@@ -3091,6 +3092,7 @@ MonoBehaviour:
   timerOK: 0
   MM: {fileID: 0}
   agent: {fileID: 0}
+  patientcontroller: {fileID: 0}
   counter: {fileID: 0}
   Dialog: {fileID: 4986379711808871529}
   timerPrefabs: {fileID: 8006299836539748264, guid: d6c67fde5d5ea35419f8d518d46dfedd,
@@ -3443,7 +3445,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8821542692378005364}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3455,7 +3457,7 @@ Transform:
   - {fileID: 7716730407220379487}
   m_Father: {fileID: 6934643734534021987}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9054494278322282167
 GameObject:
   m_ObjectHideFlags: 0

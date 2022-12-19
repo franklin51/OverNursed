@@ -1695,7 +1695,7 @@ MonoBehaviour:
   is_attacking: 0
   isLeaving: 0
   GP: {fileID: 0}
-  point: 50
+  point: 100
   hasOwner: 0
   LineupPosition: 
   mission: []
@@ -1905,7 +1905,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5589933866903982490}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1919,7 +1919,7 @@ Transform:
   - {fileID: 1603947809711395631}
   m_Father: {fileID: 4660309838833792243}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5715660190671469020
 GameObject:
   m_ObjectHideFlags: 0

@@ -391,11 +391,15 @@ MonoBehaviour:
   TerroristPatient: {fileID: 21300000, guid: 28ea702e8a4b8a046bab5d0aad162d31, type: 3}
   EngineerPatient: {fileID: 21300000, guid: f4e6c9f357a44a14ba05e73db1479fae, type: 3}
   Patient: {fileID: 21300000, guid: 69f2f22b2b7314c4b88df55496dd3b8f, type: 3}
+  OldMan: {fileID: 0}
   blood: {fileID: 21300000, guid: b0a4e1e4114abdd4994983e057e4737d, type: 3}
   urine: {fileID: 21300000, guid: 1049a2bc3720c7941b4a62f4e28d3d25, type: 3}
   ECG: {fileID: 21300000, guid: a89abe6ed7d493340b6766d2a7992fd5, type: 3}
   height: {fileID: 21300000, guid: 8ba537833032a774f90facc86e47d14d, type: 3}
   visual: {fileID: 21300000, guid: 47a1788a0efa3e243996c8a4cf407213, type: 3}
+  twoTask: {fileID: 0}
+  threeTask: {fileID: 0}
+  fourTask: {fileID: 0}
   ID: 0
 --- !u!1 &6056109301014731900
 GameObject:

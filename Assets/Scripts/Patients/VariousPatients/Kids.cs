@@ -41,6 +41,12 @@ public class Kids : PatientBaseClass
     {
 
     }
+    override public void createTimer(){
+        GameObject timer = Instantiate(timerPrefabs, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+        timer.transform.SetParent (transform.GetChild(1), false);
+        timer.GetComponent<Timer>().lookAt=transform;
+        timer.GetComponent<Timer>().setWaitingTime(120);
+    }
 
     public override void Start()
     {

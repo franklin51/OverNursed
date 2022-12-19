@@ -1225,7 +1225,8 @@ MonoBehaviour:
   is_attacking: 0
   isLeaving: 0
   GP: {fileID: 0}
-  point: 75
+  point: 100
+  hasOwner: 0
   LineupPosition: 
   mission: []
   isComplete: 
@@ -1235,6 +1236,7 @@ MonoBehaviour:
   timerOK: 0
   MM: {fileID: 0}
   agent: {fileID: 0}
+  patientcontroller: {fileID: 0}
   counter: {fileID: 0}
   Dialog: {fileID: 229094068436122497}
   timerPrefabs: {fileID: 8006299836539748264, guid: d6c67fde5d5ea35419f8d518d46dfedd,

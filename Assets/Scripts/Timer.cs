@@ -10,7 +10,7 @@ public class Timer : MonoBehaviour
     [SerializeField] public Transform lookAt;
     [SerializeField] public Vector3 offset;
     private Camera cam;
-    int WaitingTime = 120;
+    int WaitingTime = 840;
 
     int i =0;
     // Start is called before the first frame update
@@ -18,6 +18,10 @@ public class Timer : MonoBehaviour
     {
         StartCoroutine(timer());
         cam = Camera.main;
+    }
+
+    public void setWaitingTime(int time){
+        WaitingTime=time;
     }
 
     public void reset(){
