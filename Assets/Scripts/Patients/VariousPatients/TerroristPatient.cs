@@ -9,6 +9,7 @@ public class TerroristPatient : PatientBaseClass
 
 	public bool isAngry = false;
 	private GameObject target;
+	float Timer=4.0f;
 
 	override protected bool Waiting4FirstMission() // 生兵後等待第一個任務，return true表示等不及了，進入Inpatience函式
 	{
@@ -22,9 +23,16 @@ public class TerroristPatient : PatientBaseClass
 
 	override protected bool Waiting() // 任務完成後等待下一個任務，return true表示等不及了，進入Inpatience函式
 	{
-		Invoke("createAnger", 4.0f); //?箔?閫ψace condition?見撖恬??末銋蝚血???!?
+		//Invoke("createAnger", 4.0f); //?箔?閫ψace condition?見撖恬??末銋蝚血???!?
+		if(allow_picked){
+            Timer-=Time.deltaTime;
+        }
+        if(Timer<0){
+            createAnger();
+        }
 		if (isAngry == true && !allow_picked)
 		{
+			Timer=4.0f;
 			isAngry = false;
 			deleteAnger();
 		}

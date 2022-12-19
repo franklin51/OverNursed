@@ -9,6 +9,7 @@ public class AngryGrandma : PatientBaseClass
     public bool isAngry=false;
     
 	private GameObject target;
+    float Timer=4.0f;
 
 
     override protected bool Waiting4FirstMission() // ?�兵後�?待第一?�任?��?return true表示等�??��?，進入Inpatience?��?
@@ -25,9 +26,16 @@ public class AngryGrandma : PatientBaseClass
 
 	override protected bool Waiting() // 任�?完�?後�?待�?一?�任?��?return true表示等�??��?，進入Inpatience?��?
     {
-        Invoke("createAnger", 4.0f); 
+        //Invoke("createAnger", 4.0f); 
+        if(allow_picked){
+            Timer-=Time.deltaTime;
+        }
+        if(Timer<0){
+            createAnger();
+        }
         if (isAngry == true && !allow_picked )
         {
+            Timer=4.0f;
             isAngry = false;
             deleteAnger();
         }
@@ -51,7 +59,6 @@ public class AngryGrandma : PatientBaseClass
     }
 
    
-
 
     void deleteAnger(){
        
