@@ -37,7 +37,7 @@ abstract public class PatientBaseClass : MonoBehaviour
     public Lineup lineup;
 
     private ChairController chair_temp;
-    SoundEffects SE;
+    protected SoundEffects SE;
 
     abstract protected bool Waiting4FirstMission(); // 生兵後等待第一個任務，return true表示等不及了，進入Inpatience函式
     abstract protected bool ExecuteMission(); // 執行任務，return true表示成功執行

@@ -9,10 +9,14 @@ using Random = System.Random;
 public class MissionManager : MonoBehaviour
 {
     [SerializeField] GameObject[] patientPrefabs;
+    [SerializeField] GameObject MoneyFadeIn;
+    [SerializeField] GameObject MoneyFadeOut;
+
     GameObject taskbar1P;
     GameObject taskbar2P;
     GameObject ScoreBoard;
     int[] scoreArray = new int[] { 0, 0 };
+    const float money_anime_lasting_time = 1f;
     int missionCount = 0; //存在的任務數
     int ID = 0;    //任務編號
     string[] missionType = new string[] { "blood", "height", "ECG", "urine", "visual" };
@@ -279,6 +283,14 @@ public class MissionManager : MonoBehaviour
             scoreArray[player] +=point;
             Debug.Log("player"+player.ToString()+"+"+point.ToString());
 
+            GameObject money = Instantiate(MoneyFadeIn, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+            if (player == 0)
+                money.transform.SetParent(ScoreBoard.transform.Find("player1bg"));
+            else if (player == 1)
+                money.transform.SetParent(ScoreBoard.transform.Find("player2bg"));
+            money.GetComponent<RectTransform>().anchoredPosition = new Vector2(20, 20);
+            Destroy(money, money_anime_lasting_time);
+
             updateScoreBoard();
        }
     }
@@ -501,7 +513,7 @@ public class MissionManager : MonoBehaviour
         
     }
 
-
+    [SerializeField] GameObject Anger;
     // Start is called before the first frame update
     void Start()
     {
@@ -538,10 +550,19 @@ public class MissionManager : MonoBehaviour
 
     public void rob(string player_name, int num)
     {
+        GameObject money = Instantiate(MoneyFadeOut, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
         if (player_name == "1P")
+        {
             scoreArray[0] = Math.Max(0, scoreArray[0] - num);
+            money.transform.SetParent(ScoreBoard.transform.Find("player1bg"));
+        }
         else if (player_name == "2P")
+        {
             scoreArray[1] = Math.Max(0, scoreArray[1] - num);
+            money.transform.SetParent(ScoreBoard.transform.Find("player2bg"));
+        }
+        Destroy(money, money_anime_lasting_time);
+        //money.GetComponent<RectTransform>().anchoredPosition = new Vector2(20, 20);
         updateScoreBoard();
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class SoundEffects : MonoBehaviour
 {
     Dictionary<string, AudioSource> audios = new Dictionary<string, AudioSource>();
-    string[] sound_effects = new string[] { "counter", "blood", "ECG", "urine", "Exit", "height", "visual"};
+    string[] sound_effects = new string[] { "counter", "blood", "ECG", "urine", "Exit", "height", "visual", "terrorist attack"};
 
     // Start is called before the first frame update
     void Start()
