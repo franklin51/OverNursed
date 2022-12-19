@@ -93,7 +93,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1844307867139028485}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -191,7 +191,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1928446691869055598}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -289,7 +289,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 3970499482504154499}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -387,7 +387,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 4723770903807685320}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -485,7 +485,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 4793287098530836386}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -583,7 +583,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 5227627403446974150}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -598,8 +598,9 @@ GameObject:
   m_Component:
   - component: {fileID: 725698401916674057}
   - component: {fileID: 469240528754751312}
+  - component: {fileID: 5332111326722157476}
   m_Layer: 0
-  m_Name: Anger
+  m_Name: AngerEmote
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -638,7 +639,7 @@ Animator:
   m_GameObject: {fileID: 6717134639306644079}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b1c68a9abb2b8b24a9c300e9acc4a5f8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -648,6 +649,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &5332111326722157476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6717134639306644079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 951d8448f2e16014eaf344df16e8cb47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7924475674359034751
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,7 +754,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 7924475674359034751}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -839,7 +852,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 8354017965253583077}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1

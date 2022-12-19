@@ -44,10 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dff4f28773aa8014f8824d1f78de471a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missionPrefabs:
-  - {fileID: 7394205378967488592, guid: ff2f7ff5758356142a121e9c9ef5ef56, type: 3}
-  - {fileID: 6923097081993172767, guid: bb76931d08c040b4b867f0ced66def07, type: 3}
-  peoplePrefabs:
-  - {fileID: 8567646558632086664, guid: af4c2759636b7ee4681a1ffb1027da5d, type: 3}
-  - {fileID: 757331428747868651, guid: f5f65df3d36703b4ab25ca082667dbd9, type: 3}
-  taskbar: {fileID: 0}
+  patientPrefabs: []
+  Money: {fileID: 4724996874979918215, guid: 5914cad9039364c419ef5ecb70c55ce2, type: 3}
+  Timer: 2
+  lineup: {fileID: 0}
+  Anger: {fileID: 0}

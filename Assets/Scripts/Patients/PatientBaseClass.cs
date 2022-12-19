@@ -15,6 +15,7 @@ abstract public class PatientBaseClass : MonoBehaviour
     public bool is_lineup = true; // 剛進場
     public bool is_attacking = false; // 8+9
     public bool isLeaving = false;//angry grandma
+    public bool is_picked = false;
     public GeneratePoint GP;
     public int point = 50;
     public bool hasOwner=false;
@@ -36,6 +37,7 @@ abstract public class PatientBaseClass : MonoBehaviour
     public Lineup lineup;
 
     private ChairController chair_temp;
+    protected SoundEffects SE;
 
     abstract protected bool Waiting4FirstMission(); // 生兵後等待第一個任務，return true表示等不及了，進入Inpatience函式
     abstract protected bool ExecuteMission(); // 執行任務，return true表示成功執行
@@ -51,6 +53,7 @@ abstract public class PatientBaseClass : MonoBehaviour
     // Start is called before the first frame update
     public virtual void Start()
     {
+        SE = GameObject.Find("Main Camera").GetComponent<SoundEffects>();
         lineup = GameObject.Find("生兵點").GetComponent<Lineup>();
         GP = GameObject.Find("生兵點").GetComponent<GeneratePoint>();
         MM = GameObject.Find("MissionManager").GetComponent<MissionManager>();
@@ -133,11 +136,10 @@ abstract public class PatientBaseClass : MonoBehaviour
     {
         if (collision.transform.tag == "chair")
         {
-            int chair_idx = int.Parse(collision.transform.parent.transform.name.Replace("Chair_", ""));
+            int chair_idx = int.Parse(collision.transform.name.Replace("Chair_", ""));
             //把歸屬病人從PlayerBase改成這
             if (state == 0 && counter.chair[chair_idx] == -1 && !MM.isFull(lastPlayer))
             {
-                MM.setOwner(ID,lastPlayer);
                 hasOwner=true;
 
                 chair_temp = collision.transform.GetComponent<ChairController>();
@@ -145,13 +147,13 @@ abstract public class PatientBaseClass : MonoBehaviour
 
                 state = 1; // 等櫃檯
                 allow_picked = false;
-                counter.enqueue(this, collision.transform.parent.transform.name);
+                counter.enqueue(this, collision.transform.name, lastPlayer);
             }
             if (state == 3 && counter.chair[chair_idx] == -1)
             {
                 state = 4;
                 allow_picked = false;
-                counter.enqueue(this, collision.transform.parent.transform.name);
+                counter.enqueue(this, collision.transform.name, -1);
 
                 chair_temp = collision.transform.GetComponent<ChairController>();
                 chair_temp.disable();
@@ -176,7 +178,7 @@ abstract public class PatientBaseClass : MonoBehaviour
         {
             if(MM.checkAllMissionComplete(ID)){
                 //MM.score(ID,lastPlayer,point);
-                Debug.Log(ID);
+                SE.PlaySoundEffect("Exit");
 
                 MM.score(ID,point);
                 MM.deleteMission(ID);
@@ -212,10 +214,9 @@ abstract public class PatientBaseClass : MonoBehaviour
            Dialog.SetActive(false);
         }
 
-
-        if (collision.transform.tag == "chair" && (state == 2 || state == 5) && chair_temp != null)
+        if (collision.transform.tag == "chair" && (state == 2 || state == 5) && chair_temp != null && is_picked)
         {
-            int chair_idx = int.Parse(collision.transform.parent.transform.name.Replace("Chair_", ""));
+            int chair_idx = int.Parse(collision.transform.name.Replace("Chair_", ""));
             chair_temp.enable(chair_idx);
             chair_temp = null;
         }
@@ -231,7 +232,7 @@ abstract public class PatientBaseClass : MonoBehaviour
         float dist2D = Vector3.Distance(new Vector3(collision.transform.position.x, 0, collision.transform.position.z), new Vector3(transform.position.x, 0, transform.position.z));
         if (collision.transform.tag == "chair" && dist2D < 0.6)
         {
-            int chair_idx = int.Parse(collision.transform.parent.transform.name.Replace("Chair_", ""));
+            int chair_idx = int.Parse(collision.transform.name.Replace("Chair_", ""));
             if (state == 2 && counter.chair[chair_idx] == ID)
             {
                 agent.enabled = false;

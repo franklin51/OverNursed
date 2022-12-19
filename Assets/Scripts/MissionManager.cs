@@ -9,10 +9,14 @@ using Random = System.Random;
 public class MissionManager : MonoBehaviour
 {
     [SerializeField] GameObject[] patientPrefabs;
+    [SerializeField] GameObject MoneyFadeIn;
+    [SerializeField] GameObject MoneyFadeOut;
+
     GameObject taskbar1P;
     GameObject taskbar2P;
     GameObject ScoreBoard;
     int[] scoreArray = new int[] { 0, 0 };
+    const float money_anime_lasting_time = 1f;
     int missionCount = 0; //存在的任務數
     int ID = 0;    //任務編號
     int lastPatientType=0;
@@ -23,7 +27,8 @@ public class MissionManager : MonoBehaviour
     string[] NormalMission = new string[] { "blood", "height","visual" };
     string[] TerroristMission = new string[] {"ECG", "urine", "blood" };
     string[] OldmanMission = new string[] {"visual", "urine", "ECG", "blood" };
-    Dictionary<string, AudioSource> audios = new Dictionary<string, AudioSource>();
+
+    SoundEffects SE;
     public float Timer = 2f;
 
     public class Mission
@@ -221,8 +226,7 @@ public class MissionManager : MonoBehaviour
             if(whoComplete==1) taskbar1P.GetComponent<TaskBar>().completeTask(ID,i);
             else if(whoComplete==2) taskbar2P.GetComponent<TaskBar>().completeTask(ID,i);
 
-            if (audios.ContainsKey(whatMission))
-                audios[whatMission].Play();
+            SE.PlaySoundEffect(whatMission);
         }
     }
 
@@ -232,8 +236,6 @@ public class MissionManager : MonoBehaviour
             int player = findMissionOwner(ID);
             missionList.RemoveAt(index);
             missionCount -= 1;
-
-            
 
             if(player==1){ 
                 Debug.Log("deleteMission1");
@@ -246,6 +248,39 @@ public class MissionManager : MonoBehaviour
         }
     }
 
+    public void deleteMission_counter(int ID)
+    {
+        if (existID(ID))
+        {
+            int index = findMissionIndex(ID);
+            int player = findMissionOwner(ID);
+            //missionList.RemoveAt(index);
+            //missionCount -= 1;
+
+            if (player == 1)
+            {
+                Debug.Log("deleteMission1");
+                taskbar1P.GetComponent<TaskBar>().deleteRecord(ID);
+            }
+            if (player == 2)
+            {
+                Debug.Log("deleteMission2");
+                taskbar2P.GetComponent<TaskBar>().deleteRecord(ID);
+            }
+        }
+    }
+
+    public void deleteMission_exit(int ID)
+    {
+        if (existID(ID))
+        {
+            int index = findMissionIndex(ID);
+            int player = findMissionOwner(ID);
+            missionList.RemoveAt(index);
+            missionCount -= 1;
+        }
+    }
+
     public void score(int ID, int point){
        if(existID(ID)){
             int index = findMissionIndex(ID);
@@ -253,7 +288,15 @@ public class MissionManager : MonoBehaviour
             scoreArray[player] +=point;
             Debug.Log("player"+player.ToString()+"+"+point.ToString());
 
-            audios["cash"].Play();
+            //audios["cash"].Play();
+            GameObject money = Instantiate(MoneyFadeIn, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+            if (player == 0)
+                money.transform.SetParent(ScoreBoard.transform.Find("player1bg"));
+            else if (player == 1)
+                money.transform.SetParent(ScoreBoard.transform.Find("player2bg"));
+            money.GetComponent<RectTransform>().anchoredPosition = new Vector2(20, 20);
+            Destroy(money, money_anime_lasting_time);
+
             updateScoreBoard();
        }
     }
@@ -476,19 +519,11 @@ public class MissionManager : MonoBehaviour
         
     }
 
-
+    [SerializeField] GameObject Anger;
     // Start is called before the first frame update
     void Start()
     {
-        AudioSource[] tmp = GetComponents<AudioSource>();
-        if (tmp.Length != 0)
-        {
-            audios.Add("blood", tmp[0]);
-            audios.Add("ECG", tmp[1]);
-            audios.Add("urine", tmp[2]);
-            audios.Add("cash", tmp[3]);
-        }
-
+        SE = GameObject.Find("Main Camera").GetComponent<SoundEffects>();
         lineup = GameObject.Find("生兵點").GetComponent<Lineup>();
         taskbar1P = GameObject.Find("taskbar(1P)");
         taskbar2P = GameObject.Find("taskbar(2P)");
@@ -521,10 +556,19 @@ public class MissionManager : MonoBehaviour
 
     public void rob(string player_name, int num)
     {
+        GameObject money = Instantiate(MoneyFadeOut, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
         if (player_name == "1P")
+        {
             scoreArray[0] = Math.Max(0, scoreArray[0] - num);
+            money.transform.SetParent(ScoreBoard.transform.Find("player1bg"));
+        }
         else if (player_name == "2P")
+        {
             scoreArray[1] = Math.Max(0, scoreArray[1] - num);
+            money.transform.SetParent(ScoreBoard.transform.Find("player2bg"));
+        }
+        Destroy(money, money_anime_lasting_time);
+        //money.GetComponent<RectTransform>().anchoredPosition = new Vector2(20, 20);
         updateScoreBoard();
     }
 }
