@@ -59,9 +59,9 @@ public class TaskBar : MonoBehaviour
         RecordList[index].GetComponent<Record>().failedAnimation(taskNum);
     }
 
-    public void pickTask(int ID){
+    public void pickTask(int ID, int player){
         int index = findIndex(ID);
-        RecordList[index].GetComponent<Record>().pickAnimation();
+        RecordList[index].GetComponent<Record>().pickAnimation(player);
     }
 
     public void putDownTask(int ID){

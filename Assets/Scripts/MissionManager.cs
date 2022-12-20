@@ -479,15 +479,15 @@ public class MissionManager : MonoBehaviour
         2. putDownPatient(int ID)
         3. missionFailed(int ID, string whatMission)
     */
-    public void pickPatient(int ID){
+    public void pickPatient(int ID,int player){
         int owner = findMissionOwner(ID);
         int index = findMissionIndexInOwner(ID,owner);
         
         if(owner==1){
-            taskbar1P.GetComponent<TaskBar>().pickTask(ID);
+            taskbar1P.GetComponent<TaskBar>().pickTask(ID,player);
         }
         else if(owner==2){
-            taskbar2P.GetComponent<TaskBar>().pickTask(ID);
+            taskbar2P.GetComponent<TaskBar>().pickTask(ID,player);
         }
 
     }
@@ -548,7 +548,7 @@ public class MissionManager : MonoBehaviour
 
         for (int i = 0; i < scoreArray.Length; i++)
         {
-            if (scoreArray[i] >= 100)
+            if (scoreArray[i] >= 1000)
             {
                 //SceneManager.LoadScene("ED", LoadSceneMode.Single);
                 Ending();

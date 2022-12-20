@@ -182,14 +182,18 @@ public class Record : MonoBehaviour
         
     }
 
-    public void pickAnimation(){
+    public void pickAnimation(int player){
         // Vector3 objectScale = transform.localScale;
         // transform.localScale = new Vector3(2,  2, objectScale.z);
         try
         {
-
             animator = GetComponent<Animator>();
-            animator.Play ("pick");
+            if(player==1){
+                animator.Play ("pick");
+            }
+            else if(player==2){
+                animator.Play("pick2");
+            }
             
         }
         catch (System.Exception)
