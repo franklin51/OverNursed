@@ -120,7 +120,6 @@ abstract public class PatientBaseClass : MonoBehaviour
                 timerOK=false;
                 doingMission=false;
                 is_waiting = true;
-                SE.PlaySoundEffect("nope");
             }
             patientcontroller.finish_task(missionPoint);
         }

@@ -2,18 +2,22 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 // 跟操作有關的
 public class PlayerBase : MonoBehaviour
 {
+    public bool is_movable = true;
     public float velocity = 40f;
     public float accelerate_times = 10f;
     public GameObject patient;
     public GeneratePoint GP;
     public Rigidbody rb;
     public MissionManager MM;
+    GameObject player;
     Vector3 m_Input = new Vector3(0, 0, 0);
-    
+
+    public NavMeshAgent agent;
 
     private bool already_pick=false; // 已經撿起病人了嗎
     private bool to_pick = false, in_trigger = false;
@@ -24,6 +28,9 @@ public class PlayerBase : MonoBehaviour
         GP = GameObject.Find("生兵點").GetComponent<GeneratePoint>();
         rb = GetComponent<Rigidbody>();
         MM = GameObject.Find("MissionManager").GetComponent<MissionManager>();
+
+        agent = GetComponent<NavMeshAgent>();
+        agent.enabled = false;
     }
 
     // Update is called once per frame
@@ -33,7 +40,7 @@ public class PlayerBase : MonoBehaviour
 
         // 分不同角色的操作
         string name = gameObject.name;
-        if (name == "1P")
+        if (is_movable && name == "1P")
         {
             m_Input = new Vector3(0, 0, 0);
             if (Input.GetKey("w"))
@@ -57,7 +64,7 @@ public class PlayerBase : MonoBehaviour
                     PutDownPatient();
             }
         }
-        else if (name == "2P")
+        else if (is_movable && name == "2P")
         {
             m_Input = new Vector3(0, 0, 0);
             if (Input.GetKey(KeyCode.UpArrow))
@@ -81,11 +88,8 @@ public class PlayerBase : MonoBehaviour
                     PutDownPatient();
             }
         }
-    }
-
-    void OnCollisionStay(Collision collision)
-    {
-
+        if (!is_movable)
+            rb.velocity = new Vector3(0, 0, 0);
     }
 
     void OnTriggerStay(Collider collision)
@@ -142,11 +146,26 @@ public class PlayerBase : MonoBehaviour
                 }
             }
         }
-        if (collision.transform.tag == "Wall")
+
+        if (collision.transform.name == "離開點" && !is_movable)
         {
-            
+            MM.ED_scene();
+        }
+        if (collision.transform.root.transform.tag == "Player" && collision.transform.root.transform.GetComponent<PlayerBase>().is_movable == false)
+        {
+            in_trigger = true;
+
+            if (to_pick && !already_pick)
+            {
+                player = collision.transform.root.gameObject;
+                player.transform.Find("BaseCharacter").transform.Find("Body").GetComponent<CapsuleCollider>().enabled = false;
+                player.GetComponent<PlayerBase>().agent.enabled = true;
+                player.GetComponent<PlayerBase>().agent.speed = 20f;
+                player.GetComponent<PlayerBase>().agent.SetDestination(GameObject.Find("離開點").transform.position);
+            }
         }
     }
+
     void OnTriggerExit(Collider collision)
     {
         if (collision.transform.root.transform.tag == "patient")

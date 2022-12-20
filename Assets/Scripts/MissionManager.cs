@@ -22,6 +22,7 @@ public class MissionManager : MonoBehaviour
     int missionCount = 0; //存在的任務數
     int ID = 0;    //任務編號
     int lastPatientType=0;
+    bool is_ended = false;
     string[] missionType = new string[] { "blood", "height", "ECG", "urine", "visual" };
     string[] AngryGrandmaMission = new string[] { "ECG", "urine", "visual" };
     string[] EngineerMission = new string[] { "blood","ECG", "urine", "visual" };
@@ -545,22 +546,19 @@ public class MissionManager : MonoBehaviour
     {
         GeneratePatients();
 
-        /*for (int i = 0; i < scoreArray.Length; i++)
+        for (int i = 0; i < scoreArray.Length; i++)
         {
-            if (scoreArray[i] >= 1000)
+            if (scoreArray[i] >= 100)
             {
-                SceneManager.LoadScene("ED", LoadSceneMode.Single);
+                //SceneManager.LoadScene("ED", LoadSceneMode.Single);
+                Ending();
             }
-        }*/
-
-        if (scoreArray[0] >= 1000)
-            SceneManager.LoadScene("ED0", LoadSceneMode.Single);
-        else if (scoreArray[1] >= 1000)
-            SceneManager.LoadScene("ED1", LoadSceneMode.Single);
+        }
     }
 
     void GeneratePatients()
     {
+
         Timer -= Time.deltaTime;
         if (lineup.count < lineup.length && Timer <= 0)
         {
@@ -585,5 +583,33 @@ public class MissionManager : MonoBehaviour
         Destroy(money, money_anime_lasting_time);
         //money.GetComponent<RectTransform>().anchoredPosition = new Vector2(20, 20);
         updateScoreBoard();
+    }
+
+    public void Ending()
+    {
+        if (is_ended)
+            return;
+        is_ended = true;
+        SE.playWooo();
+        GameObject player1 = GameObject.Find("1P");
+        GameObject player2 = GameObject.Find("2P");
+
+        if (scoreArray[0] > scoreArray[1])
+            new_anime(player1, player2);
+        else
+            new_anime(player2, player1);
+    }
+
+    void new_anime(GameObject winner, GameObject loser)
+    {
+        loser.GetComponent<PlayerBase>().is_movable = false;
+    }
+
+    public void ED_scene()
+    {
+        if (scoreArray[0] > scoreArray[1])
+            SceneManager.LoadScene("ED0", LoadSceneMode.Single);
+        else
+            SceneManager.LoadScene("ED1", LoadSceneMode.Single);
     }
 }

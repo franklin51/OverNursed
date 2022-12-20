@@ -9,6 +9,7 @@ public class Player1P : MonoBehaviour
     Dictionary<string, AudioSource> audios = new Dictionary<string, AudioSource>();
     string[] sound_effects_win = new string[] { "08", "11", "13", "20", "29" };
     string[] sound_effects_lose = new string[] { "07", "12", "22", "24", "26" };
+    int[] rotation = new int[] { 0, 180, 270, 90 };
     string[] sound_effects;
     string[] keys = new string[] { "w", "s", "a", "d", "t" };
 
@@ -49,5 +50,9 @@ public class Player1P : MonoBehaviour
                 audios[sound_effects[i]].Play();
             }    
         }
+
+        for (int i = 0; i < 4; i++)
+            if (Input.GetKey(keys[i]))
+                transform.eulerAngles = new Vector3(transform.eulerAngles.x, rotation[i], transform.eulerAngles.z);
     }
 }

@@ -9,6 +9,7 @@ public class Player2P : MonoBehaviour
     Dictionary<string, AudioSource> audios = new Dictionary<string, AudioSource>();
     string[] sound_effects_win = new string[] { "08", "11", "13", "20", "29" };
     string[] sound_effects_lose = new string[] { "07", "12", "22", "24", "26" };
+    int[] rotation = new int[] { 0, 180, 270, 90 };
     string[] sound_effects;
     UnityEngine.KeyCode[] keys = new UnityEngine.KeyCode[] { KeyCode.UpArrow, KeyCode.DownArrow, KeyCode.LeftArrow, KeyCode.RightArrow};
 
@@ -58,5 +59,9 @@ public class Player2P : MonoBehaviour
             else
                 audios["26"].Play();
         }
+
+        for (int i = 0; i < 4; i++)
+            if (Input.GetKey(keys[i]))
+                transform.eulerAngles = new Vector3(transform.eulerAngles.x, rotation[i], transform.eulerAngles.z);
     }
 }
