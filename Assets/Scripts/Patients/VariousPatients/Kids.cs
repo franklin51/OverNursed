@@ -28,7 +28,7 @@ public class Kids : PatientBaseClass
     {
         bool pass=Pass_Mission();
         if (!pass)
-            MM.missionFailed(ID,missionPoint);
+            MM.missionFailed(ID,missionPoint, gameObject);
         return pass;
     }
 

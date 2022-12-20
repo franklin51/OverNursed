@@ -86,7 +86,7 @@ public class TerroristPatient : PatientBaseClass
 			if (is_attacking && target.transform.name == collision.transform.name)
             {
 				SE.PlaySoundEffect("terrorist attack");
-				MM.rob(target.transform.name, 300);
+				MM.rob(target.transform.name, 150);
 				Destroy(gameObject);
             }
 		}

@@ -113,7 +113,7 @@ abstract public class PatientBaseClass : MonoBehaviour
             if(ExecuteMission()){
                 timerOK=false;
                 doingMission=false;
-                MM.completeMission(ID,missionPoint,lastPlayer);
+                MM.completeMission(ID,missionPoint,lastPlayer, gameObject);
                 updateDialogString();
                 is_waiting = true;
             }
@@ -121,6 +121,7 @@ abstract public class PatientBaseClass : MonoBehaviour
                 timerOK=false;
                 doingMission=false;
                 is_waiting = true;
+                SE.PlaySoundEffect("nope");
             }
             patientcontroller.finish_task(missionPoint);
         }
