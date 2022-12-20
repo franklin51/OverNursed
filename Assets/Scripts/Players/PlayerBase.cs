@@ -121,14 +121,17 @@ public class PlayerBase : MonoBehaviour
                     //         MM.setOwner(patient.GetComponent<PatientBaseClass>().ID,1);
                     //         patient.GetComponent<PatientBaseClass>().hasOwner=true;
                     //     }
-                            
+
                     //     else if(name=="2P" && !MM.isFull(2)){
                     //         MM.setOwner(patient.GetComponent<PatientBaseClass>().ID,2);
                     //         patient.GetComponent<PatientBaseClass>().hasOwner=true;
                     //     }
-                        
+
                     // }
-                    
+
+                    Transform check_mark = patient.transform.Find("MissionCompleteCheckMark(Clone)");
+                    if (check_mark)
+                        Destroy(check_mark);                    
 
                     // 從隊伍中移除玩家
                     if (patient.GetComponent<PatientBaseClass>().is_waiting4FirstMission && patient.GetComponent<PatientBaseClass>().is_lineup)

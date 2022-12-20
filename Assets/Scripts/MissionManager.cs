@@ -11,6 +11,8 @@ public class MissionManager : MonoBehaviour
     [SerializeField] GameObject[] patientPrefabs;
     [SerializeField] GameObject MoneyFadeIn;
     [SerializeField] GameObject MoneyFadeOut;
+    [SerializeField] GameObject MissionCompleteCheckMark;
+    [SerializeField] GameObject MissionFailedCrossMark;
 
     GameObject taskbar1P;
     GameObject taskbar2P;
@@ -208,7 +210,7 @@ public class MissionManager : MonoBehaviour
         
     }
 
-    public void completeMission(int ID, string whatMission, int whoComplete){
+    public void completeMission(int ID, string whatMission, int whoComplete, GameObject go){
         if(existID(ID)){
             int index = findMissionIndex(ID);
             int i;
@@ -223,7 +225,11 @@ public class MissionManager : MonoBehaviour
             }
             Debug.Log("whoComplete:"+whoComplete.ToString());
 
-            if(whoComplete==1) taskbar1P.GetComponent<TaskBar>().completeTask(ID,i);
+            GameObject check_mark = Instantiate(MissionCompleteCheckMark, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+            check_mark.transform.SetParent(go.transform.GetChild(1), false);
+            check_mark.transform.position = Camera.main.WorldToScreenPoint(go.transform.position) + new Vector3(0f, 20f, 0f);
+
+            if (whoComplete==1) taskbar1P.GetComponent<TaskBar>().completeTask(ID,i);
             else if(whoComplete==2) taskbar2P.GetComponent<TaskBar>().completeTask(ID,i);
 
             SE.PlaySoundEffect(whatMission);
@@ -497,7 +503,7 @@ public class MissionManager : MonoBehaviour
     
     
 
-    public void missionFailed(int ID, string whatMission){
+    public void missionFailed(int ID, string whatMission, GameObject go){
         int index = findMissionIndex(ID);
         int i;
         int owner=missionList[index].owner;
@@ -516,7 +522,11 @@ public class MissionManager : MonoBehaviour
         else if(owner==2){
             taskbar2P.GetComponent<TaskBar>().failedTask(ID,i);
         }
-        
+
+        GameObject cross_mark = Instantiate(MissionFailedCrossMark, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+        cross_mark.transform.SetParent(go.transform.GetChild(1), false);
+        cross_mark.transform.position = Camera.main.WorldToScreenPoint(go.transform.position) + new Vector3(0f, 20f, 0f);
+        SE.PlaySoundEffect("nope");
     }
 
     [SerializeField] GameObject Anger;
