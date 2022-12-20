@@ -472,15 +472,15 @@ public class MissionManager : MonoBehaviour
         2. putDownPatient(int ID)
         3. missionFailed(int ID, string whatMission)
     */
-    public void pickPatient(int ID){
+    public void pickPatient(int ID,int player){
         int owner = findMissionOwner(ID);
         int index = findMissionIndexInOwner(ID,owner);
         
         if(owner==1){
-            taskbar1P.GetComponent<TaskBar>().pickTask(ID);
+            taskbar1P.GetComponent<TaskBar>().pickTask(ID,player);
         }
         else if(owner==2){
-            taskbar2P.GetComponent<TaskBar>().pickTask(ID);
+            taskbar2P.GetComponent<TaskBar>().pickTask(ID,player);
         }
 
     }

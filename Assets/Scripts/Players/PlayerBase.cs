@@ -113,8 +113,8 @@ public class PlayerBase : MonoBehaviour
                     
                     patient.transform.localPosition = new Vector3(0, 1f, 0);
 
-                    MM.pickPatient(patient.GetComponent<PatientBaseClass>().ID);//拿起病人時更新病人位子
-                    patient.GetComponent<PatientBaseClass>().picked();
+                    //MM.pickPatient(patient.GetComponent<PatientBaseClass>().ID);
+                    patient.GetComponent<PatientBaseClass>().picked();//拿起病人時更新病人位子
                     // if(!patient.GetComponent<PatientBaseClass>().hasOwner){
                     //     string name = gameObject.name;
                     //     if(name=="1P" && !MM.isFull(1)){

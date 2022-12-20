@@ -67,7 +67,8 @@ abstract public class PatientBaseClass : MonoBehaviour
 
     public virtual void picked()
     {
-        
+        MM.pickPatient(ID,lastPlayer);
+
     }
 
     public void timerEnd(){
