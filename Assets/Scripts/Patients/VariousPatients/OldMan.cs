@@ -27,9 +27,10 @@ public class OldMan : PatientBaseClass
 
     public override void picked()
     {
+		MM.changeOwner(ID,lastPlayer);
         base.picked();
 
-        MM.changeOwner(ID,lastPlayer);
+        
 
     }
 
