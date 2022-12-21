@@ -1694,8 +1694,9 @@ MonoBehaviour:
   is_lineup: 1
   is_attacking: 0
   isLeaving: 0
+  is_picked: 0
   GP: {fileID: 0}
-  point: 100
+  point: 150
   hasOwner: 0
   LineupPosition: 
   mission: []

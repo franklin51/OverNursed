@@ -8538,7 +8538,7 @@ PrefabInstance:
     - target: {fileID: 5912582196425686281, guid: 1a5b8ecda5ad6f04e9122b3ab88e5424,
         type: 3}
       propertyPath: patientPrefabs.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5912582196425686281, guid: 1a5b8ecda5ad6f04e9122b3ab88e5424,
         type: 3}
@@ -8569,6 +8569,12 @@ PrefabInstance:
       propertyPath: patientPrefabs.Array.data[4]
       value: 
       objectReference: {fileID: 7409230310486997890, guid: 421df32035edb9d4ab4062e67b0240f8,
+        type: 3}
+    - target: {fileID: 5912582196425686281, guid: 1a5b8ecda5ad6f04e9122b3ab88e5424,
+        type: 3}
+      propertyPath: patientPrefabs.Array.data[5]
+      value: 
+      objectReference: {fileID: 4653247046118013287, guid: ee17e94927a781442b340b74dbca77cf,
         type: 3}
     - target: {fileID: 5912582196425686282, guid: 1a5b8ecda5ad6f04e9122b3ab88e5424,
         type: 3}

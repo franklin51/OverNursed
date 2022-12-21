@@ -24,7 +24,7 @@ public class MissionManager : MonoBehaviour
     int lastPatientType=0;
     bool is_ended = false;
     string[] missionType = new string[] { "blood", "height", "ECG", "urine", "visual" };
-    string[] AngryGrandmaMission = new string[] { "ECG", "urine", "visual" };
+    string[] AngryGrandmaMission = new string[] { "visual", "urine", "ECG" };
     string[] EngineerMission = new string[] { "blood","ECG", "urine", "visual" };
     string[] KidsMission = new string[] {"height", "visual" };
     string[] NormalMission = new string[] { "blood", "height","visual" };

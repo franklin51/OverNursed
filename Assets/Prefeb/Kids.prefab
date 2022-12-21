@@ -3080,8 +3080,9 @@ MonoBehaviour:
   is_lineup: 1
   is_attacking: 0
   isLeaving: 0
+  is_picked: 0
   GP: {fileID: 0}
-  point: 150
+  point: 100
   hasOwner: 0
   LineupPosition: 
   mission: []
