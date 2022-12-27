@@ -884,18 +884,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '- Interact button for lifting and dropping patients.
-
-
-    - Place patient
-    on specific plane to complete task
-
-
-    - After completing all tasks, send patient
-    to exit.
-
-
-    - Who got $1000 will be winner.'
+  m_text: "- Interact button for lifting and dropping patients.\n\n- Place patient
+    on specific plane to complete task\n\n- After completing all tasks, send patient
+    to exit.\n\n- Who got $450 will be winner.\n\n- After that, the winner should
+    press T/M while touching\n  the loser."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

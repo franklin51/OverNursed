@@ -1172,6 +1172,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55eee7faf9f2db140be7b6740926aa6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EndingFailedCrossMark: {fileID: 4724996874979918215, guid: 84ab73867beb9844a82e69e2c1ceb912,
+    type: 3}
   state: 0
   allow_picked: 1
   end_task: 0

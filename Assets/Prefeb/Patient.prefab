@@ -496,6 +496,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7e8019ad2c6a8d4c96b5e17261297f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EndingFailedCrossMark: {fileID: 4724996874979918215, guid: 84ab73867beb9844a82e69e2c1ceb912,
+    type: 3}
   state: 0
   allow_picked: 1
   end_task: 0
@@ -505,6 +507,7 @@ MonoBehaviour:
   is_lineup: 1
   is_attacking: 0
   isLeaving: 0
+  is_picked: 0
   GP: {fileID: 0}
   point: 100
   hasOwner: 0

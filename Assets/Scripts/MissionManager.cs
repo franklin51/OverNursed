@@ -548,7 +548,7 @@ public class MissionManager : MonoBehaviour
 
         for (int i = 0; i < scoreArray.Length; i++)
         {
-            if (scoreArray[i] >= 1000)
+            if (scoreArray[i] >= 450)
             {
                 //SceneManager.LoadScene("ED", LoadSceneMode.Single);
                 Ending();

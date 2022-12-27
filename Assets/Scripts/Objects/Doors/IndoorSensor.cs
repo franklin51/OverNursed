@@ -26,7 +26,12 @@ public class IndoorSensor : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
-        if (collision.transform.root.transform.tag == "patient" || collision.transform.root.transform.tag == "Player")
+        if (collision.transform.root.transform.tag == "Player")
+        {
+            open();
+        }
+
+        if (collision.transform.root.transform.tag == "patient" && collision.transform.root.GetComponent<PatientBaseClass>().agent.enabled==true)
         {
             open();
         }

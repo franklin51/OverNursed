@@ -7,7 +7,8 @@ using UnityEngine.AI;
 // 與操作、碰撞偵測有關的
 abstract public class PatientBaseClass : MonoBehaviour
 {
-    public int state = 0; // 0: 排隊等候玩家帶位子; 1: 剛進入，準備入櫃檯; 2: 櫃檯結束，進入任務環節; 3: 結束所有任務，準備入櫃檯; 4: 櫃檯等候; 5: 櫃檯結束，準備回家; 10: 生氣;
+    [SerializeField] GameObject EndingFailedCrossMark;
+    public int state = 0; // 0: 排隊等候玩家帶位子; 1: 剛進入，準備入櫃檯; 2: 櫃檯結束，進入任務環節; 3: 結束所有任務，準備入櫃檯; 4: 櫃檯等候; 5: 櫃檯結束，準備回家; 6: 加分後回家; 10: 生氣;
 
     public bool allow_picked = true;
     public bool end_task = false; // 還沒用到
@@ -177,8 +178,9 @@ abstract public class PatientBaseClass : MonoBehaviour
 
         if (collision.transform.tag == "exit")
         {
-            if(MM.checkAllMissionComplete(ID)){
+            if(MM.checkAllMissionComplete(ID) && state==5){
                 //MM.score(ID,lastPlayer,point);
+                state = 6;
                 SE.PlaySoundEffect("Exit");
 
                 MM.score(ID,point);
@@ -190,7 +192,12 @@ abstract public class PatientBaseClass : MonoBehaviour
                 //MM.deleteMission(ID);
                 Destroy(gameObject);
             }
-            else{
+            else if (state != 6)
+            {
+                GameObject cross_mark = Instantiate(EndingFailedCrossMark, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+                cross_mark.transform.SetParent(gameObject.transform.GetChild(1), false);
+                cross_mark.transform.position = Camera.main.WorldToScreenPoint(gameObject.transform.position) + new Vector3(0f, 20f, 0f);
+                SE.PlaySoundEffect("unfinish");
                 Debug.Log("任務未完成");
             }
         }
@@ -201,9 +208,10 @@ abstract public class PatientBaseClass : MonoBehaviour
             transform.eulerAngles = new Vector3(0, 0, 0);
         }
 
-        if (state == 4 && collision.transform.name == "離開點" && !is_waiting4FirstMission)
+        if (collision.transform.name == "離開點")
         {
-            Destroy(gameObject);
+            if (state==6)
+                Destroy(gameObject);
         }
     }
 
